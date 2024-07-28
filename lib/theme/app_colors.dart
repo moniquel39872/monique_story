@@ -9,7 +9,11 @@ class AppColors{
   static const Color fontMenu1 = Color(0xFFF79841);
   static const Color fontMenu2 = Color(0xFF6F72E2);
   static const Color fontMenu3 = Color(0xFF84CB69);
+  static const Color fontMenu4 = Color(0xFF83817c);
   static const Color fontAvatar = Color(0xffFE881C);
   static const Color gradient0 = Color(0x80212429);
   static const Color gradient1 = Color(0x80F9D838);
+  static const Color avatarBackground = Color(0xFFc3b9b5);
+  static const Color iconColor = Color(0xFFffca28);
+  static const Color borderColor = Color(0xFF6b5e42);
 }
