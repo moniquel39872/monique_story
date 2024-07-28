@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kombat_flutter/pages/airdrop/airdrop_view.dart';
+import 'package:kombat_flutter/pages/earn/earn_view.dart';
 import 'package:kombat_flutter/pages/exchange/exchange_view.dart';
 import 'package:kombat_flutter/app/app_routes.dart';
+import 'package:kombat_flutter/pages/friends/friends_view.dart';
 
 class MyNavModel {
   static final Map<String, MyNavModel> urls = {};
@@ -23,13 +26,15 @@ class MainController extends GetxController {
       case settingsPath:
         return const SizedBox();
       case friendsPath:
-        return const SizedBox();      
+        return const FriendsView();      
       case earnPath:
-        return const SizedBox();
+        return const EarnView();
       case airDropPath:
-        return const SizedBox();
+        return const AirdropView();
       default:
         return const SizedBox();
     }
   }
+  
+
 }
