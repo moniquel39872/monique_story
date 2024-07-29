@@ -4,6 +4,7 @@ import 'package:kombat_flutter/pages/airdrop/model/earn_list_model.dart';
 import 'package:kombat_flutter/pages/airdrop/widgets/earn_list_item_widget.dart';
 import 'package:kombat_flutter/pages/earn/widgets/earn_list_item_widget.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:kombat_flutter/widget/wave_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class AirdropView extends StatefulWidget {
@@ -19,7 +20,7 @@ class _AirdropViewState extends State<AirdropView> {
         id: '1',
         title: 'Connect your TON wallet',
         bonus: "5,000",
-        image: "avatar3.png",
+        image: "ton_wallet.png",
         path: ""),
   ];
 
@@ -36,28 +37,32 @@ class _AirdropViewState extends State<AirdropView> {
               curve: Curves.elasticInOut,
               duration: Duration(milliseconds: 600),
             ),
-            child: Container(
-              padding: EdgeInsets.all(20.w),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xffFDD756).withOpacity(0.6),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xffFDD756).withOpacity(0.6),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.outer,
-                  ),
-                  const BoxShadow(
-                    offset: Offset(1, 1),
-                    color: Color(0xffFDD756),
-                    blurRadius: 1,
-                    blurStyle: BlurStyle.outer,
-                  ),
-                ],
-              ),
-              child: AppImage.asset('airdrop.png',
-                  width: 200.w, height: 200.w, fit: BoxFit.fill),
-            ),
+            child: WaveWidget(image: 'airdrop1.png'),
+            // Container(
+            //   padding: EdgeInsets.all(20.w),
+            //   decoration: BoxDecoration(
+            //     shape: BoxShape.circle,
+            //     color: Color(0xffFDD756).withOpacity(0.6),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Color(0xffFDD756).withOpacity(0.6),
+            //         blurRadius: 2,
+            //         blurStyle: BlurStyle.outer,
+            //       ),
+            //       const BoxShadow(
+            //         offset: Offset(1, 1),
+            //         color: Color(0xffFDD756),
+            //         blurRadius: 1,
+            //         blurStyle: BlurStyle.outer,
+            //       ),
+            //     ],
+            //   ),
+            //   child: AppImage.asset('airdrop1.png',
+            //       width: 200.w, height: 200.w, fit: BoxFit.fill),
+            // ),
+          ),
+          SizedBox(
+            height: 20.h,
           ),
           WidgetAnimator(
             incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
