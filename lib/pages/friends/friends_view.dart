@@ -77,12 +77,12 @@ class _FriendsViewState extends State<FriendsView> {
         const InviteBonusWidget(
           bonus: "5,000",
           title: 'Invite a friend',
-          image: 'avatar3.png',
+          image: 'gift1.png',
         ),
         const InviteBonusWidget(
           bonus: "25,000",
           title: 'Invite a friend with Telegram Premium',
-          image: 'avatar3.png',
+          image: 'gift2.png',
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h),

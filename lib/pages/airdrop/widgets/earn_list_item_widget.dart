@@ -23,7 +23,7 @@ class AirdropListItemWidget extends StatelessWidget {
           horizontal: 15.w,
         ),
         decoration: BoxDecoration(
-          color: AppColors.secondary,
+          color: Color(0xff34a4e9),
           borderRadius: BorderRadius.circular(20.w),
         ),
         child: Row(
@@ -94,7 +94,7 @@ class AirdropListItemWidget extends StatelessWidget {
             ),
             Icon(
               Icons.arrow_forward_ios_rounded,
-              color: AppColors.fontSecondary,
+              color: AppColors.fontPrimary,
             ),
           ],
         ),
