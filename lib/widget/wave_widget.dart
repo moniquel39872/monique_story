@@ -54,7 +54,7 @@ class WaveWidget extends StatelessWidget {
           ],
           ),
           child: AppImage.asset(
-            '${image}',
+            '$image',
             width: 120.w,
             height: 120.w,
             fit: BoxFit.fill,

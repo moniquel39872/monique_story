@@ -44,7 +44,7 @@ class MainHome extends GetView<MainController> {
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(vertical: 5.h),
-                width: Get.width / 4 - 20.w,
+                width: Get.width /AppConstant.mainTabs.length  - 20.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.w),
                   color: controller.selectedPath.value == item.navPath
@@ -56,7 +56,7 @@ class MainHome extends GetView<MainController> {
                   children: [
                     Expanded(
                       child: Center(
-                        child: AppImage.asset(item.icon ?? ""),
+                        child: AppImage.asset(item.icon ?? "", width: 30.w),
                       ),
                     ),
                     Text(

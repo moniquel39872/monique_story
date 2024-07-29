@@ -80,9 +80,9 @@ class _EarnViewState extends State<EarnView> {
           WidgetAnimator(
             incomingEffect: WidgetTransitionEffects.incomingSlideInFromTop(
               curve: Curves.elasticInOut,
-              duration: Duration(milliseconds: 600),
+              duration: const Duration(milliseconds: 600),
             ),
-            child: WaveWidget(image: 'coin1.png'),
+            child: const WaveWidget(image: 'coin1.png'),
           ),
           SizedBox(
             height: 20.h,
@@ -90,7 +90,7 @@ class _EarnViewState extends State<EarnView> {
           WidgetAnimator(
             incomingEffect: WidgetTransitionEffects.incomingSlideInFromRight(
               curve: Curves.elasticInOut,
-              duration: Duration(milliseconds: 900),
+              duration: const Duration(milliseconds: 900),
             ),
             child: Text(
               'Earn more coins',
