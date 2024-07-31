@@ -15,8 +15,8 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   MainController mainController = Get.find();
-  RxBool _isHapicFeedback = true.obs;
-  RxBool _isCoinsAnim = true.obs;
+  final RxBool _isHapicFeedback = true.obs;
+  final RxBool _isCoinsAnim = true.obs;
 
     @override
   Widget build(BuildContext context) {
@@ -38,16 +38,16 @@ class _SettingsViewState extends State<SettingsView> {
               fontSize: 32.sp, fontWeight: FontWeight.bold)
         ),
         SizedBox(height: 20.h,),
-        Container(
-          constraints: BoxConstraints(minHeight: 70.h),
-          padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
-          margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.w,),
-          decoration: BoxDecoration(
-            color: AppColors.secondary,
-            borderRadius: BorderRadius.circular(20.w),
-          ),
-          child: GestureDetector(
-            onTap: ()=>mainController.selectedPath.value=selectLangPath,
+        GestureDetector(
+          onTap: ()=>mainController.selectedPath.value=selectLangPath,
+          child: Container(
+            constraints: BoxConstraints(minHeight: 70.h),
+            padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
+            margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.w,),
+            decoration: BoxDecoration(
+              color: AppColors.secondary,
+              borderRadius: BorderRadius.circular(20.w),
+            ),
             child: Row(
               children: [                            
                 Expanded(

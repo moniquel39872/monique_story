@@ -8,6 +8,7 @@ import 'package:kombat_flutter/app/app_routes.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 import 'package:kombat_flutter/pages/exchange/widget/code_popup_widget.dart';
 import 'package:kombat_flutter/pages/exchange/widget/daily_item_button_widget.dart';
+import 'package:kombat_flutter/pages/exchange/widget/multi_touch_gesture_recognizer.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_icons.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
@@ -45,6 +46,13 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
     _startPos = Offset(details.globalPosition.dx, details.globalPosition.dy);
     _coinList.add(_singleColin(_startPos)); 
     setState(() {});    
+  }
+
+  void _startMultiSingleAnim(List<TapDownDetails> tapDetails) {
+    for(int i=0;i<tapDetails.length;i++){
+      TapDownDetails details=tapDetails[i];
+      _startSingleAnim(details);
+    }
   }
 
   void _startIncreaseCoins() {
@@ -203,21 +211,7 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
                               borderRadius: BorderRadius.circular(15.h),
                               color: const Color(0xFF49412d),
                               border: Border.all(color: AppColors.borderColor, width: 1.w),                              
-                            ),
-                            // child: Container(
-                            //   height: 8.h, width: 10.w,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(15.h),
-                            //     gradient: const LinearGradient(
-                            //       colors: [Color(0xFF6060ff), Color(0xFFb25aff),],
-                            //       begin: FractionalOffset(0.0, 0.0),
-                            //       end: FractionalOffset(1.0, 0.0),
-                            //       stops: [0.0, 1.0],
-                            //       tileMode: TileMode.clamp
-                            //     ), 
-                            //     border: Border.all(color: AppColors.borderColor, width: 1.w),                              
-                            //   ),
-                            // )
+                            ),                            
                           )
                         ],
                       )
@@ -244,11 +238,11 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
                                 Text("Profit per hour", style: TextStyle(color: AppColors.fontMenu4, fontSize: 13.sp)),
                                 Row(mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    AppImage.asset('coin.png', width: 25.w),
+                                    AppImage.asset('coin.png', width: 20.w),
                                     SizedBox(width: 5.w),
                                     Text("0", style: TextStyle(color: AppColors.fontPrimary, fontWeight: FontWeight.bold, fontSize: 16.sp)),
                                     SizedBox(width: 5.w),
-                                    Icon(AppIcons.exclamation_circle, color: AppColors.borderColor, size: 18.w)
+                                    Icon(AppIcons.exclamation_circle, color: AppColors.borderColor, size: 16.w)
                                   ]
                                 )
                               ],
@@ -388,8 +382,9 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
                             children:[
                               CoreButton(
                                 onTapDown: (_) {},
-                                child: AppImage.asset('avatar_large.png'),
-                              ),
+                                onMultiTapDown: (_){},
+                                child: AppImage.asset("skin/${mainController.skin.icon}"),
+                              ),                              
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -456,11 +451,13 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
                                   ),
                                 ]
                               ),
-                            ),
-                            CoreButton(
+                            ),                               
+                            CoreButton(                              
                               onTapDown: (TapDownDetails details) => _startSingleAnim(details),
-                              child: AppImage.asset('avatar_large.png'),
+                              onMultiTapDown: (List<TapDownDetails> tapDetails) => _startMultiSingleAnim(tapDetails),
+                              child: AppImage.asset("skin/${mainController.skin.icon}"),
                             ),
+                            
                             if(!mainController.isCipher.value) 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

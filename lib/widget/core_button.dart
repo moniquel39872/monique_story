@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
+import 'package:kombat_flutter/pages/exchange/widget/multi_touch_gesture_recognizer.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 
 class CoreButton extends StatefulWidget {
   final Widget child;
   final void Function(TapDownDetails)? onTapDown;
+  final void Function(List<TapDownDetails>) onMultiTapDown;
 
-  const CoreButton({super.key, required this.child, this.onTapDown});
+  const CoreButton({super.key, required this.child, this.onTapDown, required this.onMultiTapDown});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -60,26 +62,79 @@ class _CoreButtonState extends State<CoreButton>
     );
   }
 
+  void _realTap(int pointer) {
+    _shrinkButtonSize();
+    _restoreButtonSize();
+  }
+
+  void _realTapDown(int pointer, TapDownDetails details) {
+    widget.onTapDown?.call(details);
+    Offset pos = Offset(details.globalPosition.dx, details.globalPosition.dy);
+    RenderBox box = mainKey.currentContext?.findRenderObject() as RenderBox;
+    Offset position = box.localToGlobal(Offset.zero);
+    Offset center = Offset(box.size.width/2, box.size.height/2);
+    _sX = (center.dx-pos.dx)*0.6/(box.size.width/2);
+    _sY = (center.dy+position.dy-pos.dy)*0.6/(box.size.height/2);        
+    _shrinkButtonSize();
+  }
+
+  void _realTapCancel(int pointer) {
+    _restoreButtonSize();
+  }
+
   @override
   Widget build(BuildContext context) {    
-    return GestureDetector(
+    return RawGestureDetector(
+      gestures: {
+        MultiTouchGestureRecognizer: GestureRecognizerFactoryWithHandlers<
+            MultiTouchGestureRecognizer>(
+          () => MultiTouchGestureRecognizer(widget.onMultiTapDown, _realTap, _realTapDown, _realTapCancel),
+          (MultiTouchGestureRecognizer instance) {
+            instance.minNumberOfTouches = 3;
+            instance.onMultiTap = (List<TapDownDetails> tapDetails) => 
+              widget.onMultiTapDown(tapDetails);
+            instance.onRealTap = (int pointer) => _realTap(pointer);
+            instance.onRealTapDown = (int pointer, TapDownDetails details) => _realTapDown(pointer, details);
+            instance.onRealTapCancel = (int pointer) => _realTapCancel(pointer);
+            // instance.onTap = (_){
+            //   _shrinkButtonSize();
+            //   _restoreButtonSize();
+            // };
+            // instance.onTapDown = (p, TapDownDetails details){
+            //   widget.onTapDown?.call(details);
+            //   Offset pos = Offset(details.globalPosition.dx, details.globalPosition.dy);
+            //   RenderBox box = mainKey.currentContext?.findRenderObject() as RenderBox;
+            //   Offset position = box.localToGlobal(Offset.zero);
+            //   Offset center = Offset(box.size.width/2, box.size.height/2);
+            //   _sX = (center.dx-pos.dx)*0.6/(box.size.width/2);
+            //   _sY = (center.dy+position.dy-pos.dy)*0.6/(box.size.height/2);        
+            //   _shrinkButtonSize();
+            // };
+            // instance.onTapCancel = (_){
+            //   _restoreButtonSize();
+            // };
+          },
+        ),
+      },
       key: mainKey,
-      onTap: () {
-        // widget.onTap?.call();
-        _shrinkButtonSize();
-        _restoreButtonSize();
-      },
-      onTapDown: (TapDownDetails details) {
-        widget.onTapDown?.call(details);
-        Offset pos = Offset(details.globalPosition.dx, details.globalPosition.dy);
-        RenderBox box = mainKey.currentContext?.findRenderObject() as RenderBox;
-        Offset position = box.localToGlobal(Offset.zero);
-        Offset center = Offset(box.size.width/2, box.size.height/2);
-        _sX = (center.dx-pos.dx)*0.6/(box.size.width/2);
-        _sY = (center.dy+position.dy-pos.dy)*0.6/(box.size.height/2);        
-        _shrinkButtonSize();
-      },
-      onTapCancel: _restoreButtonSize,
+    // GestureDetector(
+      // key: mainKey,
+      // onTap: () {
+      //   // widget.onTap?.call();
+      //   _shrinkButtonSize();
+      //   _restoreButtonSize();
+      // },
+      // onTapDown: (TapDownDetails details) {
+      //   widget.onTapDown?.call(details);
+      //   Offset pos = Offset(details.globalPosition.dx, details.globalPosition.dy);
+      //   RenderBox box = mainKey.currentContext?.findRenderObject() as RenderBox;
+      //   Offset position = box.localToGlobal(Offset.zero);
+      //   Offset center = Offset(box.size.width/2, box.size.height/2);
+      //   _sX = (center.dx-pos.dx)*0.6/(box.size.width/2);
+      //   _sY = (center.dy+position.dy-pos.dy)*0.6/(box.size.height/2);        
+      //   _shrinkButtonSize();
+      // },
+      // onTapCancel: _restoreButtonSize,
       // child: Transform.scale(
       //   scale: _scaleTransformValue,
       //   child: Container(

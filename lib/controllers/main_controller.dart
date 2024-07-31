@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_constant.dart';
+import 'package:kombat_flutter/model/skin_model.dart';
 import 'package:kombat_flutter/pages/airdrop/airdrop_view.dart';
 import 'package:kombat_flutter/pages/earn/earn_view.dart';
 import 'package:kombat_flutter/pages/exchange/balance_view.dart';
@@ -27,6 +29,7 @@ class MainController extends GetxController {
   int scores = 0;
   RxBool isCipher = false.obs;
   RxString lang = "en".obs;
+  SkinModel skin = AppConstant.skins[0];
 
   final selectedPath = lotteryPath.obs;
   Widget getCurrentPage() {
