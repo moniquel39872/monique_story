@@ -1,0 +1,118 @@
+{
+  "languageType": "uz_UZ",
+  "title": {
+    "Home": "Bosh sahifa",
+    "Exchange": "Birja",
+    "Friends": "Do'stlar",
+    "Earn": "Daromad",
+    "Airdrop": "Airdrop",
+    "Airdrop Tasks": "Airdrop Vazifalari",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "Ro'yxat tez orada e'lon qilinadi. Vazifalar ko'rinadi. Airdropda qatnashish uchun ularni bajaring",
+    "Task list": "Vazifalar ro'yxati",
+    "Your league's default skin": "Ligangizning standart ko'rinishi",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta, boshqalarga yordam berishni yaxshi ko'radigan va har doim iliq tabassum qiladigan yaxshi qalbli hamsterdir",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie, do'stlari bilan vaqt o'tkazishni yoqtiradigan va har doim hamma odamni uyda his qilishi uchun nima qilishni biladigan sadoqatli do'stdir",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty, energiya va hayajonga to'la, har doim do'stlar bilan qiziqarli sarguzashtlarga yoki yangi o'yinlarga tayyor",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar musiqani sevadi va har doim bir melodiya chalishga yoki bir qo'shiq aytishga tayyor, hammaga kayfiyat ko'tarish uchun",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky partiyaning ko'ngil ocharidir, funky raqs harakatlari va ajoyib hazil tuyg'usi bilan quvonch va kulgu keltiradi",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky, ajoyib va o'ziga xos uslubga ega, qayerga bormasin, e'tiborni o'ziga tortadi",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy, silliq va zamonaviy, har doim so'nggi trendlarda va yaxshi energiyalarni tarqatishni yaxshi ko'radi",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny guruhning komediyentidir, doimo hazil va o'yin-kulgi bilan hammaga kuldiradi",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor, tadbirkorlik ruhi bilan har doim yangi g'oyalar va hamma uchun narsalarni yaxshilash usullarini topadi",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy har doim faol va ishlab chiqaruvchi bo'lishni yaxshi ko'radi, voqealarni tashkil etish yoki do'stlarga vazifalarida yordam berish bilan",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty o'rganishni va bilimni bo'lishishni yaxshi ko'radi, har doim qiziquvchan va yangi mavzular va g'oyalarni o'rganishga intiladi",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy, galaksiyaning uzoq burchaklarini o'rganishni yaxshi ko'radigan sarguzashtchi astronavtdir, har doim yangi sayyoralarni ziyorat qilish va yulduzlarni o'rganish orzusi bilan",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy jasur va ilhomlantiruvchi, doimo do'stlarini yangi narsalarni sinab ko'rishga va eng yaxshi bo'lishga undaydi",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius juda aqlli va ijodkor, har doim yangi loyihalar ustida ishlaydi va jumboqlarni yechadi",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy, dono va o'ylangan, ehtiyojdagi do'stlarga ajoyib maslahatlar va yo'l-yo'riq beradi",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity, kosmik kuchlar bilan bog'liq barcha narsalarning mutaxassisi, har kimni evrenden qanday ushlab turilishini chuqur tushunishi bilan yerda ushlab turadi",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo, kosmosni o'rganish va kashf qilishga qiziqadigan missiya komandiridir, har doim ekipajni hayajonli yulduzlararo sayohatlarga boshqarishga tayyor",
+    "Connect your TON wallet": "TON cüzdaningizni bog'lang",
+    "Earn more coins": "Ko'proq tanga oling",
+    "Your first steps in Crypto & Stock trading": "Kripto va aksiyalar savdosidagi birinchi qadamlaringiz",
+    "Trading basics for stocks and crypto : Step guide": "Aksiyalar va kripto savdosining asoslari: Qadam-baqadam qo'llanma",
+    "Watch video": "Videoni tomosha qiling",
+    "Check": "Tekshiring",
+    "Daily reward": "Kunlik mukofot",
+    "Tasks list": "Vazifalar ro'yxati",
+    "GameStop The Power of The Community": "GameStop Hamjamiyatning Kuch",
+    "5 richest people in the world": "Dunyoning 5 eng boy odami",
+    "Your balance": "Sizning balansingiz",
+    "How a boost works": "Qo'shimcha qanday ishlaydi",
+    "Free daily boosters": "Har kuni bepul qo'shimchalar",
+    "Full energy": "To'liq energiya",
+    "available": "mavjud",
+    "Turbo": "Turbo",
+    "coming soon": "yaqin orada",
+    "Boosters": "Qo'shimchalar",
+    "Multitap": "Ko'p bosish",
+    "Energy limit": "Energiya chegarasi",
+    "Buy\nskin": "Sotib ol\nskin",
+    "Bronze": "Bronza",
+    "Profit per hour": "Soatiga daromad",
+    "Boost": "Qo'shimcha",
+    "Daily cipher": "Kunlik shifrlash",
+    "Play games, get codes and earn keys": "O'yin o'ynang, kodlar oling va kalitlar oling",
+    "Enter the code": "Kodni kiriting",
+    "Redeem": "Qaytarib oling",
+    "Go to games": "O'yinlarga o'ting",
+    "Daily combo": "Kunlik kombinatsiya",
+    "Mini Game": "Mini O'yin",
+    "Invite friends!": "Do'stlarni taklif et!",
+    "You and your friend will receive bonuses": "Siz va do'stingiz bonuslar olasiz",
+    "More bonuess": "Ko'proq bonuslar",
+    "List of your friends": "Do'stlaringiz ro'yxati",
+    "You haven't invited anyone yet": "Hali hech kimni taklif etmagansiz",
+    "Invite a friend": "Do'stni taklif et",
+    "Text copied!": "Matn nusxalandi!",
+    "Invite a friend with Telegram Premium": "Telegram Premium bilan do'stni taklif et",
+    "Connect with wallet": "Cüzdan bilan bog'lan",
+    "Join in": "Qo'shiling",
+    "Ending in": "Yakunlanmoqda",
+    "Income": "Daromad",
+    "Revenue Statistics": "Daromad Statistikasi",
+    "Personal Orders": "Shaxsiy Buyurtmalar",
+    "Chosse your wallet": "Cüzdaningizni tanlang",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "Cüzdaningizni bog'lab, Bizning Xizmat Shartlarimiz va Maxfiylik Siyosatimizga rozilik bildirgan hisoblanasiz",
+    "This page will open another application.": "Bu sahifa boshqa dastur ochadi.",
+    "Open": "Ochil",
+    "Cancel": "Bekor qilish",
+    "Profile": "Profil",
+    "Skin": "Ko'rinish",
+    "Your leagues's default skin": "Ligangizning standart ko'rinishi",
+    "Purchased": "Sotib olingan",
+    "Choose": "Tanlang",
+    "Reach the %s league to unlock the skin": "%s ligasiga yeting va ko'rinishni oching",
+    "Select Language": "Tilni tanlang",
+    "Settings": "Sozlamalar",
+    "Choose exchange": "Birja tanlang",
+    "Delete account": "Hisobni o'chirish",
+    "Haptic Feedback": "Tegishli orqaga qaytarish",
+    "Coins animation": "Tanga animatsiyasi",
+    "Privacy policy": "Maxfiylik siyosati",
+    "Join our TG channel": "TG kanalimizga qo'shiling",
+    "Follow our X account": "X akkauntimizni kuzatib boring",
+    "Choose your exchange": "Birjangizni tanlang",
+    "Invite 3 friends": "3 do'stni taklif qiling"
+  },
+  "way": "2"
+}

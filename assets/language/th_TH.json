@@ -1,0 +1,118 @@
+{
+  "languageType": "th_TH",
+  "title": {
+    "Home": "หน้าแรก",
+    "Exchange": "แลกเปลี่ยน",
+    "Friends": "เพื่อน",
+    "Earn": "รับรายได้",
+    "Airdrop": "แอร์ดรอป",
+    "Airdrop Tasks": "ภารกิจแอร์ดรอป",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "การจดทะเบียนกำลังจะมาถึง ภารกิจจะปรากฏด้านล่างนี้ ทำภารกิจเพื่อเข้าร่วมแอร์ดรอป",
+    "Task list": "รายการภารกิจ",
+    "Your league's default skin": "สกินเริ่มต้นของลีกของคุณ",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta คือแฮมสเตอร์ใจดีที่ชอบช่วยเหลือผู้อื่นและมีรอยยิ้มอบอุ่นเสมอ",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie คือเพื่อนที่ซื่อสัตย์ที่ชอบใช้เวลาร่วมกับเพื่อนและรู้วิธีทำให้ทุกคนรู้สึกเหมือนอยู่บ้าน",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty เต็มไปด้วยพลังและความกระตือรือร้นเสมอ พร้อมสำหรับการผจญภัยที่สนุกสนานหรือเกมใหม่กับเพื่อน",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar ชอบดนตรีและพร้อมเสมอที่จะเล่นเพลงหรือร้องเพลงเพื่อยกระดับจิตใจของทุกคน",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky คือชีวิตของงานปาร์ตี้ นำความสุขและเสียงหัวเราะมาด้วยท่าเต้นที่แปลกใหม่และอารมณ์ขันที่ยอดเยี่ยม",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky เจ๋งและมีสไตล์โดดเด่น พร้อมทั้งมีเสน่ห์ในการดึงดูดความสนใจไม่ว่าจะไปที่ไหน",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy คือความเรียบหรูและมีสไตล์ มักจะตามทันเทรนด์ล่าสุดและชอบกระจายบรรยากาศดีๆ",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny คือโคมิดี้ของกลุ่ม ทำให้ทุกคนหัวเราะเสมอด้วยมุกตลกและพฤติกรรมที่สนุกสนาน",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor คือจิตวิญญาณของผู้ประกอบการ เสมอในการคิดค้นไอเดียใหม่ๆ และวิธีทำให้สิ่งต่างๆ ดีขึ้นสำหรับทุกคน",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy คือคนที่กระตือรือร้นและชอบทำงานให้เป็นประโยชน์ ไม่ว่าจะเป็นการจัดงานหรือช่วยเพื่อนกับงานของพวกเขา",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty ชอบการเรียนรู้และแบ่งปันความรู้ เสมอที่มีความอยากรู้และกระตือรือร้นที่จะสำรวจหัวข้อและแนวคิดใหม่ๆ",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy คือดาราศาสตร์ที่รักการผจญภัย ชอบสำรวจซอกมุมของกาแล็กซี่ และฝันถึงดาวเคราะห์ใหม่ๆ ที่จะไปเยี่ยมชมและดาวฤกษ์ที่จะศึกษา",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy คือคนที่กล้าหาญและเป็นแรงบันดาลใจ เสมอในการกระตุ้นเพื่อนให้ลองสิ่งใหม่ๆ และเป็นตัวของตัวเองให้ดีที่สุด",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius คือคนที่ฉลาดและมีความคิดสร้างสรรค์อย่างเหลือเชื่อ เสมอในการทดลองโปรเจ็กต์ใหม่ๆ และแก้ปัญหา",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy คือคนที่ฉลาดและมีความคิดลึกซึ้ง เสมอในการให้คำแนะนำและการชี้แนะแก่เพื่อนที่ต้องการ",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity คือผู้เชี่ยวชาญด้านทุกสิ่งที่เกี่ยวข้องกับแรงของอวกาศ ทำให้ทุกคนมีพื้นฐานด้วยความเข้าใจลึกซึ้งว่าเอกภพเชื่อมโยงกันอย่างไร",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo คือผู้บัญชาการภารกิจที่หลงใหลในความสำรวจอวกาศและการค้นพบ พร้อมเสมอที่จะนำทีมไปยังการเดินทางระหว่างดวงดาวที่น่าตื่นเต้น",
+    "Connect your TON wallet": "เชื่อมต่อกระเป๋าเงิน TON ของคุณ",
+    "Earn more coins": "รับเหรียญเพิ่มเติม",
+    "Your first steps in Crypto & Stock trading": "ก้าวแรกของคุณใน การซื้อขายคริปโตและหุ้น",
+    "Trading basics for stocks and crypto : Step guide": "พื้นฐานการซื้อขายหุ้นและคริปโต: คู่มือขั้นตอน",
+    "Watch video": "ดูวิดีโอ",
+    "Check": "ตรวจสอบ",
+    "Daily reward": "รางวัลรายวัน",
+    "Tasks list": "รายการภารกิจ",
+    "GameStop The Power of The Community": "GameStop พลังของชุมชน",
+    "5 richest people in the world": "5 คนที่รวยที่สุดในโลก",
+    "Your balance": "ยอดเงินของคุณ",
+    "How a boost works": "วิธีการบูสต์ทำงาน",
+    "Free daily boosters": "บูสเตอร์ฟรีรายวัน",
+    "Full energy": "พลังงานเต็ม",
+    "available": "ใช้งานได้",
+    "Turbo": "เทอร์โบ",
+    "coming soon": "เร็วๆ นี้",
+    "Boosters": "บูสเตอร์",
+    "Multitap": "มัลติแทป",
+    "Energy limit": "ขีดจำกัดพลังงาน",
+    "Buy\nskin": "ซื้อ\nสกิน",
+    "Bronze": "ทองแดง",
+    "Profit per hour": "กำไรต่อชั่วโมง",
+    "Boost": "บูสต์",
+    "Daily cipher": "รหัสลับรายวัน",
+    "Play games, get codes and earn keys": "เล่นเกม รับรหัส และรับกุญแจ",
+    "Enter the code": "ป้อนรหัส",
+    "Redeem": "แลกรับ",
+    "Go to games": "ไปที่เกม",
+    "Daily combo": "คอมโบรายวัน",
+    "Mini Game": "มินิเกม",
+    "Invite friends!": "เชิญเพื่อน!",
+    "You and your friend will receive bonuses": "คุณและเพื่อนของคุณจะได้รับโบนัส",
+    "More bonuess": "โบนัสเพิ่มเติม",
+    "List of your friends": "รายชื่อเพื่อนของคุณ",
+    "You haven't invited anyone yet": "คุณยังไม่ได้เชิญใคร",
+    "Invite a friend": "เชิญเพื่อน",
+    "Text copied!": "ข้อความถูกคัดลอกแล้ว!",
+    "Invite a friend with Telegram Premium": "เชิญเพื่อนด้วย Telegram Premium",
+    "Connect with wallet": "เชื่อมต่อกับกระเป๋าเงิน",
+    "Join in": "เข้าร่วม",
+    "Ending in": "สิ้นสุดใน",
+    "Income": "รายได้",
+    "Revenue Statistics": "สถิติรายได้",
+    "Personal Orders": "คำสั่งซื้อส่วนตัว",
+    "Chosse your wallet": "เลือกกระเป๋าเงินของคุณ",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "โดยการเชื่อมต่อกระเป๋าเงินของคุณ คุณยอมรับข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัวของเรา",
+    "This page will open another application.": "หน้านี้จะเปิดแอปพลิเคชันอื่น",
+    "Open": "เปิด",
+    "Cancel": "ยกเลิก",
+    "Profile": "โปรไฟล์",
+    "Skin": "สกิน",
+    "Your leagues's default skin": "สกินเริ่มต้นของลีกของคุณ",
+    "Purchased": "ซื้อแล้ว",
+    "Choose": "เลือก",
+    "Reach the %s league to unlock the skin": "ไปถึงลีก %s เพื่อปลดล็อกสกิน",
+    "Select Language": "เลือกภาษา",
+    "Settings": "การตั้งค่า",
+    "Choose exchange": "เลือกการแลกเปลี่ยน",
+    "Delete account": "ลบบัญชี",
+    "Haptic Feedback": "การตอบสนองด้วยการสั่น",
+    "Coins animation": "แอนิเมชันเหรียญ",
+    "Privacy policy": "นโยบายความเป็นส่วนตัว",
+    "Join our TG channel": "เข้าร่วมช่อง TG ของเรา",
+    "Follow our X account": "ติดตามบัญชี X ของเรา",
+    "Choose your exchange": "เลือกการแลกเปลี่ยนของคุณ",
+    "Invite 3 friends": "เชิญเพื่อน 3 คน"
+  },
+  "way": "2"
+}

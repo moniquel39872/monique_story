@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_routes.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 
@@ -15,10 +16,11 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   MainController mainController = Get.find();
+  AppService appService = Get.find<AppService>();
   final RxBool _isHapicFeedback = true.obs;
   final RxBool _isCoinsAnim = true.obs;
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Obx(()=>Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +36,7 @@ class _SettingsViewState extends State<SettingsView> {
             ),
           ),
         ),
-        Text("Settings", style: TextStyle(color: AppColors.fontPrimary,
+        Text(appService.getTrans("Settings"), style: TextStyle(color: AppColors.fontPrimary,
               fontSize: 32.sp, fontWeight: FontWeight.bold)
         ),
         SizedBox(height: 20.h,),
@@ -55,10 +57,10 @@ class _SettingsViewState extends State<SettingsView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Select Language", style: TextStyle(color: AppColors.fontPrimary,
+                      Text(appService.getTrans("Select Language"), style: TextStyle(color: AppColors.fontPrimary,
                         fontSize: 18.sp, fontWeight: FontWeight.bold)
                       ),
-                      Text("English", style: TextStyle(color: AppColors.fontSecondary,
+                      Text(appService.getLanguageByCode(appService.lang.value).name??"", style: TextStyle(color: AppColors.fontSecondary,
                         fontSize: 16.sp)
                       ),
                     ],
@@ -84,7 +86,7 @@ class _SettingsViewState extends State<SettingsView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Choose exchange", style: TextStyle(color: AppColors.fontPrimary,
+                    Text(appService.getTrans("Choose exchange"), style: TextStyle(color: AppColors.fontPrimary,
                       fontSize: 18.sp, fontWeight: FontWeight.bold)
                     ),
                     Text("Gate.io", style: TextStyle(color: AppColors.fontSecondary,
@@ -112,7 +114,7 @@ class _SettingsViewState extends State<SettingsView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Delete account", style: TextStyle(color: AppColors.fontPrimary,
+                    Text(appService.getTrans("Delete account"), style: TextStyle(color: AppColors.fontPrimary,
                       fontSize: 18.sp, fontWeight: FontWeight.bold)
                     ),                    
                   ],
@@ -127,7 +129,7 @@ class _SettingsViewState extends State<SettingsView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Haptic Feekback", style: TextStyle(color: AppColors.fontPrimary,
+              Text(appService.getTrans("Haptic Feedback"), style: TextStyle(color: AppColors.fontPrimary,
                 fontSize: 20.sp, fontWeight: FontWeight.bold)
               ),
               FlutterSwitch(
@@ -144,7 +146,7 @@ class _SettingsViewState extends State<SettingsView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Coins animation", style: TextStyle(color: AppColors.fontPrimary,
+              Text(appService.getTrans("Coins animation"), style: TextStyle(color: AppColors.fontPrimary,
                 fontSize: 20.sp, fontWeight: FontWeight.bold)
               ),
               FlutterSwitch(
@@ -158,7 +160,7 @@ class _SettingsViewState extends State<SettingsView> {
         ),
         SizedBox(height: 30.h,),
         Align(alignment: Alignment.center,
-          child: Text("Privacy policy", style: TextStyle(color: AppColors.fontSecondary,
+          child: Text(appService.getTrans("Privacy policy"), style: TextStyle(color: AppColors.fontSecondary,
             fontSize: 18.sp)
           )
         )

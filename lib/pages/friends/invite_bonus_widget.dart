@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:kombat_flutter/widget/first_animator_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
+// ignore: must_be_immutable
 class InviteBonusWidget extends StatelessWidget {
-  const InviteBonusWidget({
-    Key? key,
+  InviteBonusWidget({
+    super.key,
     required this.bonus,
     required this.title,
     required this.image,
-  }) : super(key: key);
+    required this.isAnimate
+  });
 
   final String title;
   final String bonus;
   final String image;
+  final bool isAnimate;
+
+  AppService appService = Get.find<AppService>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,33 +42,29 @@ class InviteBonusWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          WidgetAnimator(
+          FirstAnimatorWidget(
             incomingEffect: WidgetTransitionEffects.incomingScaleUp(
               curve: Curves.elasticInOut,
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
             ),
+            isAnimate: isAnimate,
             child: AppImage.asset(
-              '${image}',
+              image,
               width: 50.w,
               height: 50.w,
             ),
           ),
-          SizedBox(
-            width: 10.w,
-          ),
+          Gap(10.w,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "${title}",
+              Text(appService.getTrans(title),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.sp,
                 ),
               ),
-              SizedBox(
-                height: 10.h,
-              ),
+              Gap( 10.h,),
               Row(
                 children: [
                   Icon(

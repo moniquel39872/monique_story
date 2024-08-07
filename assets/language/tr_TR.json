@@ -1,0 +1,118 @@
+{
+  "languageType": "tr_TR",
+  "title": {
+    "Home": "Ana Sayfa",
+    "Exchange": "Borsa",
+    "Friends": "Arkadaşlar",
+    "Earn": "Kazan",
+    "Airdrop": "Airdrop",
+    "Airdrop Tasks": "Airdrop Görevleri",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "Listeleme yolda. Görevler birazdan görünecek. Airdrop'a katılmak için tamamlayın",
+    "Task list": "Görevler Listesi",
+    "Your league's default skin": "Liginizin varsayılan skini",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta, başkalarına yardım etmeyi seven ve her zaman sıcak bir gülümsemeye sahip, iyi kalpli bir hamsterdır",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie, arkadaşlarıyla vakit geçirmeyi seven ve herkesin kendini evde hissetmesini sağlayan sadık bir arkadaştır",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty, enerji ve heyecan doludur, her zaman eğlenceli bir maceraya veya arkadaşlarla yeni bir oyuna hazırdır",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar müziği sever ve her zaman bir melodi çalmaya veya bir şarkı söylemeye hazırdır, herkesin ruhunu yükseltmek için",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky, partinin neşesi, funky dans hareketleri ve harika bir mizah anlayışıyla neşe ve kahkaha getirir",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky, havalı ve cesur, kendine özgü bir tarzı ve gittiği her yerde dikkat çekme yeteneğiyle",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy, pürüzsüz ve şık, her zaman en son trendlerin üstündedir ve iyi enerjiler yaymayı sever",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny, grubun komedyenidir, her zaman şakalar ve eğlenceli hareketlerle herkesi güldürür",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor, girişimci ruhu ile her zaman yeni fikirler ve herkes için işleri daha iyi hale getirme yolları bulur",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy her zaman aktiftir ve etkinlikler düzenlemek veya arkadaşlara görevlerinde yardımcı olmak gibi üretken kalmayı sever",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty, öğrenmeyi ve bilgi paylaşmayı sever, her zaman meraklıdır ve yeni konuları ve fikirleri keşfetmeye heveslidir",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy, galaksinin uzak köşelerini keşfetmeyi seven maceracı bir astronottur, her zaman ziyaret edilecek yeni gezegenler ve incelenecek yıldızlar hayali kurar",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy cesur ve ilham vericidir, her zaman arkadaşlarını yeni şeyler denemeye ve en iyi halleri olmaya teşvik eder",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius son derece akıllı ve yaratıcıdır, her zaman yeni projeler üzerinde çalışır ve bulmacaları çözer",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy, bilge ve düşüncelidir, ihtiyaç duyan arkadaşlara harika tavsiyeler ve rehberlik sunar",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity, uzay kuvvetleriyle ilgili her şeyin uzmanıdır, evrenin nasıl bir arada durduğunu derin bir anlayışla herkesin ayaklarını yere basmasını sağlar",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo, uzay keşfi ve keşfi konusundaki tutkusuyla görev komutanıdır, her zaman ekibi heyecan verici yıldalararası yolculuklara yönlendirmeye hazırdır",
+    "Connect your TON wallet": "TON cüzdanınızı bağlayın",
+    "Earn more coins": "Daha fazla madeni para kazanın",
+    "Your first steps in Crypto & Stock trading": "Kripto ve Hisse Senedi Ticaretindeki İlk Adımlarınız",
+    "Trading basics for stocks and crypto : Step guide": "Hisse senedi ve kripto ticaretinin temelleri: Adım adım kılavuz",
+    "Watch video": "Videoyu izle",
+    "Check": "Kontrol et",
+    "Daily reward": "Günlük ödül",
+    "Tasks list": "Görevler listesi",
+    "GameStop The Power of The Community": "GameStop Topluluğun Gücü",
+    "5 richest people in the world": "Dünyanın 5 en zengin insanı",
+    "Your balance": "Balançınız",
+    "How a boost works": "Bir destek nasıl çalışır",
+    "Free daily boosters": "Ücretsiz günlük destekler",
+    "Full energy": "Tam enerji",
+    "available": "mevcut",
+    "Turbo": "Turbo",
+    "coming soon": "yakında",
+    "Boosters": "Destekler",
+    "Multitap": "Çoklu dokunuş",
+    "Energy limit": "Enerji sınırı",
+    "Buy\nskin": "Satın al\nskin",
+    "Bronze": "Bronz",
+    "Profit per hour": "Saatlik kazanç",
+    "Boost": "Destek",
+    "Daily cipher": "Günlük şifre",
+    "Play games, get codes and earn keys": "Oyun oynayın, kodlar alın ve anahtarlar kazanın",
+    "Enter the code": "Kodu girin",
+    "Redeem": "Kullan",
+    "Go to games": "Oyunlara git",
+    "Daily combo": "Günlük kombinasyon",
+    "Mini Game": "Mini Oyun",
+    "Invite friends!": "Arkadaşlarını davet et!",
+    "You and your friend will receive bonuses": "Sen ve arkadaşın bonuslar alacak",
+    "More bonuess": "Daha fazla bonus",
+    "List of your friends": "Arkadaşlarınızın listesi",
+    "You haven't invited anyone yet": "Henüz kimseyi davet etmediniz",
+    "Invite a friend": "Bir arkadaş davet et",
+    "Text copied!": "Metin kopyalandı!",
+    "Invite a friend with Telegram Premium": "Telegram Premium ile bir arkadaş davet et",
+    "Connect with wallet": "Cüzdanla bağlan",
+    "Join in": "Katıl",
+    "Ending in": "Sona eriyor",
+    "Income": "Gelir",
+    "Revenue Statistics": "Gelir İstatistikleri",
+    "Personal Orders": "Kişisel Siparişler",
+    "Chosse your wallet": "Cüzdanınızı seçin",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "Cüzdanınızı bağlayarak, Hizmet Şartlarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz",
+    "This page will open another application.": "Bu sayfa başka bir uygulamayı açacaktır.",
+    "Open": "Aç",
+    "Cancel": "İptal et",
+    "Profile": "Profil",
+    "Skin": "Skin",
+    "Your leagues's default skin": "Liginizin varsayılan skini",
+    "Purchased": "Satın alındı",
+    "Choose": "Seç",
+    "Reach the %s league to unlock the skin": "%s ligine ulaşarak skini aç",
+    "Select Language": "Dil Seç",
+    "Settings": "Ayarlar",
+    "Choose exchange": "Borsa seç",
+    "Delete account": "Hesabı sil",
+    "Haptic Feedback": "Dokunsal Geri Bildirim",
+    "Coins animation": "Madeni para animasyonu",
+    "Privacy policy": "Gizlilik Politikası",
+    "Join our TG channel": "TG kanalımıza katılın",
+    "Follow our X account": "X hesabımızı takip edin",
+    "Choose your exchange": "Borsanızı seçin",
+    "Invite 3 friends": "3 arkadaş davet et"
+  },
+  "way": "2"
+}

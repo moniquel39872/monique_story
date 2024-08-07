@@ -26,11 +26,6 @@ class MyNavModel {
 class MainController extends GetxController {
   static MainController get to => Get.find();
 
-  int scores = 0;
-  RxBool isCipher = false.obs;
-  RxString lang = "en".obs;
-  SkinModel skin = AppConstant.skins[0];
-
   final selectedPath = lotteryPath.obs;
   Widget getCurrentPage() {
     switch (selectedPath.value) {
@@ -56,6 +51,4 @@ class MainController extends GetxController {
         return const SizedBox();
     }
   }
-  
-
 }

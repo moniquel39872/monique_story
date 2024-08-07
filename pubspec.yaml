@@ -45,7 +45,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter 
   flutter_easyloading: ^3.0.5
-  shared_preferences:    
+  shared_preferences: ^2.3.1    
   get_storage: ^2.1.1
   toastification: ^2.1.0
   widget_and_text_animator: ^1.1.5
@@ -55,6 +55,8 @@ dependencies:
   flutter_popup_card: ^0.0.5
   flutter_animation_progress_bar: ^2.3.1
   flutter_switch: ^0.3.2
+  gap: ^3.0.1
+  walletconnect_flutter_v2: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +83,19 @@ flutter:
   assets: 
     - assets/images/
     - assets/images/skin/
+    - assets/language/de_De.json
+    - assets/language/en_US.json
+    - assets/language/es_ES.json
+    - assets/language/hi_IN.json
+    - assets/language/id_ID.json
+    - assets/language/pt_PT.json
+    - assets/language/ru_RU.json
+    - assets/language/th_TH.json
+    - assets/language/tr_TR.json
+    - assets/language/uz_UZ.json
+    - assets/language/vi_VN.json
+    - assets/language/zh_CN.json
+    - assets/language/zh_TW.json
 
   fonts:
     - family: WebSymbols

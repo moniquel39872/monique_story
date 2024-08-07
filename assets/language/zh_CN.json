@@ -1,0 +1,117 @@
+{
+  "languageType": "zh_CN",
+  "way": "2",
+  "title": {
+    "Home": "主页",
+    "Exchange": "兑换",
+    "Friends": "朋友",
+    "Earn": "赚取",
+    "Airdrop": "空投",
+    "Airdrop Tasks": "空投任务",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "列表正在进行中。任务将在稍后出现。完成任务即可参与空投",
+    "Task list": "任务列表",
+    "Your league's default skin": "你联盟的默认皮肤",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta 是一只善良的仓鼠，喜欢帮助他人，总是对每个人露出温暖的微笑",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie 是一个忠诚的朋友，喜欢与朋友共度时光，总是知道如何让每个人感到宾至如归",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty 充满了活力和热情，总是愿意与朋友一起参加有趣的冒险或新游戏",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar 喜欢音乐，总是准备好演奏或唱歌来提振大家的精神",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky 是派对的灵魂，以搞怪的舞蹈动作和幽默感带来欢乐和笑声",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky 很酷且前卫，拥有独特的风格，善于吸引注意力",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy 光滑而时尚，总是走在最新趋势的前沿，喜欢传播积极的氛围",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny 是小组的喜剧演员，总是用笑话和搞笑举动让大家开怀大笑",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor 是充满创业精神的人，总是提出新的点子和方法来改善大家的生活",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy 总是很活跃，喜欢保持生产力，无论是组织活动还是帮助朋友完成任务",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty 喜欢学习和分享知识，总是好奇且渴望探索新话题和新想法",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy 是一位冒险的宇航员，喜欢探索银河的遥远角落，总是梦想着访问新行星和研究新星星",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy 勇敢而鼓舞人心，总是鼓励朋友尝试新事物并发挥最好的自己",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius 非常聪明且有创造力，总是动手做新项目和解决难题",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy 既智慧又体贴，为有需要的朋友提供良好的建议和指导",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity 是空间力量方面的专家，以对宇宙如何运作的深刻理解让每个人保持冷静",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo 是任务指挥官，对空间探索和发现充满热情，总是准备好带领团队进行激动人心的星际旅行",
+    "Connect your TON wallet": "连接你的TON钱包",
+    "Earn more coins": "赚取更多硬币",
+    "Your first steps in Crypto & Stock trading": "你在加密货币和股票交易中的第一步",
+    "Trading basics for stocks and crypto: Step guide": "股票和加密货币的交易基础：步骤指南",
+    "Watch video": "观看视频",
+    "Check": "检查",
+    "Daily reward": "每日奖励",
+    "Tasks list": "任务列表",
+    "GameStop The Power of The Community": "GameStop 社区的力量",
+    "5 richest people in the world": "全球5位最富有的人",
+    "Your balance": "你的余额",
+    "How a boost works": "加速器如何工作",
+    "Free daily boosters": "每日免费加速器",
+    "Full energy": "完全能量",
+    "available": "可用",
+    "Turbo": "涡轮",
+    "coming soon": "即将推出",
+    "Boosters": "加速器",
+    "Multitap": "多点触控",
+    "Energy limit": "能量限制",
+    "Buy\nskin": "购买\n皮肤",
+    "Bronze": "青铜",
+    "Profit per hour": "每小时利润",
+    "Boost": "加速",
+    "Daily cipher": "每日密码",
+    "Play games, get codes and earn keys": "玩游戏，获取代码和赚取钥匙",
+    "Enter the code": "输入代码",
+    "Redeem": "兑换",
+    "Go to games": "去游戏",
+    "Daily combo": "每日组合",
+    "Mini Game": "迷你游戏",
+    "Invite friends!": "邀请朋友！",
+    "You and your friend will receive bonuses": "你和你的朋友将获得奖金",
+    "More bonuses": "更多奖金",
+    "List of your friends": "你的朋友列表",
+    "You haven't invited anyone yet": "你还没有邀请任何人",
+    "Invite a friend": "邀请朋友",
+    "Text copied!": "文本已复制！",
+    "Invite a friend with Telegram Premium": "邀请使用Telegram Premium的朋友",
+    "Connect with wallet": "连接钱包",
+    "Join in": "加入",
+    "Ending in": "结束于",
+    "Income": "收入",
+    "Revenue Statistics": "收入统计",
+    "Personal Orders": "个人订单",
+    "Choose your wallet": "选择你的钱包",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "连接钱包即表示你同意我们的服务条款和隐私政策",
+    "This page will open another application.": "此页面将打开另一个应用程序。",
+    "Open": "打开",
+    "Cancel": "取消",
+    "Profile": "个人资料",
+    "Skin": "皮肤",
+    "Purchased": "已购买",
+    "Choose": "选择",
+    "Reach the %s league to unlock the skin": "达到 %s 联赛以解锁皮肤",
+    "Select Language": "选择语言",
+    "Settings": "设置",
+    "Choose exchange": "选择交易所",
+    "Delete account": "删除账户",
+    "Haptic Feedback": "触觉反馈",
+    "Coins animation": "硬币动画",
+    "Privacy policy": "隐私政策",
+    "Join our TG channel": "加入我们的 TG 频道",
+    "Follow our X account": "关注我们的 X 账户",
+    "Choose your exchange": "选择您的交易所",
+    "Invite 3 friends": "邀请 3 位朋友"
+  }
+}

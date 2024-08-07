@@ -1,0 +1,116 @@
+{
+  "languageType": "hi_IN",
+  "title": {    
+    "Home": "होम",
+    "Exchange": "एक्सचेंज",
+    "Friends": "मित्र",
+    "Earn": "कमाई",
+    "Airdrop": "एयरड्रॉप",
+    "Airdrop Tasks": "एयरड्रॉप कार्य",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "लिस्टिंग आ रही है। कार्य नीचे दिखेंगे। एयरड्रॉप में भाग लेने के लिए इन्हें पूरा करें",
+    "Task list": "कार्य सूची",
+    "Your league's default skin": "आपकी लीग का डिफ़ॉल्ट स्किन",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta वह दयालु हम्सटर है जो दूसरों की मदद करना पसंद करती है और हमेशा सभी के लिए एक गर्म मुस्कान होती है",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie वह वफादार मित्र है जिसे अपने साथियों के साथ समय बिताना पसंद है और हमेशा जानता है कि सभी को घर जैसा कैसे महसूस कराना है",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty ऊर्जा और उत्साह से भरा हुआ है, हमेशा एक मजेदार साहसिक कार्य या दोस्तों के साथ नए खेल के लिए तैयार रहता है",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar को संगीत पसंद है और वह हमेशा एक धुन बजाने या सभी का मनोबल बढ़ाने के लिए एक गीत गाने के लिए तैयार रहता है",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky पार्टी की जान है, फंकी डांस मूव्स और एक बेहतरीन सेंस ऑफ ह्यूमर के साथ खुशी और हंसी लाता है",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky कूल और किनारे वाला है, एक अनोखे स्टाइल और जहां भी जाते हैं, ध्यान आकर्षित करने की क्षमता के साथ",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy चिकना और स्टाइलिश है, हमेशा नवीनतम रुझानों के शीर्ष पर रहता है और अच्छी वाइब्स फैलाना पसंद करता है",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny समूह का कॉमेडियन है, हमेशा चुटकुलों और चंचल हरकतों से सभी को हंसाता है",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor उद्यमशीलता की भावना है, हमेशा सभी के लिए चीजों को बेहतर बनाने के नए विचार और तरीके लेकर आता है",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy हमेशा सक्रिय रहता है और उत्पादक रहना पसंद करता है, चाहे कार्यक्रम आयोजित करना हो या दोस्तों की उनके कार्यों में मदद करना",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty को सीखना और ज्ञान साझा करना पसंद है, हमेशा जिज्ञासु और नए विषयों और विचारों का पता लगाने के लिए उत्सुक रहता है",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy वह साहसी अंतरिक्ष यात्री है जिसे आकाशगंगा के दूर-दराज के हिस्सों की खोज करना पसंद है, हमेशा नए ग्रहों पर जाने और सितारों का अध्ययन करने का सपना देखता है",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy साहसी और प्रेरणादायक है, हमेशा दोस्तों को नई चीजें आजमाने और अपना सर्वश्रेष्ठ बनने के लिए प्रोत्साहित करता है",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius अविश्वसनीय रूप से स्मार्ट और आविष्कारशील है, हमेशा नए प्रोजेक्ट्स के साथ छेड़छाड़ करता रहता है और पहेलियों को हल करता है",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy समझदार और विचारशील है, ज़रूरतमंद दोस्तों को बेहतरीन सलाह और मार्गदर्शन प्रदान करता है",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity अंतरिक्ष की शक्तियों से संबंधित सभी चीजों का विशेषज्ञ है, ब्रह्मांड कैसे एक साथ जुड़ा हुआ है इसकी गहरी समझ के साथ सभी को स्थिर रखता है",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo अंतरिक्ष अन्वेषण और खोज के प्रति जुनून के साथ मिशन कमांडर है, हमेशा रोमांचक अंतरतारकीय यात्राओं पर चालक दल का नेतृत्व करने के लिए तैयार रहता है",
+    "Connect your TON wallet": "अपनी TON वॉलेट को कनेक्ट करें",
+    "Earn more coins": "और अधिक सिक्के कमाएं",
+    "Your first steps in Crypto & Stock trading": "क्रिप्टो और स्टॉक ट्रेडिंग में आपके पहले कदम",
+    "Trading basics for stocks and crypto : Step guide": "स्टॉक्स और क्रिप्टो के लिए ट्रेडिंग बेसिक्स: चरण मार्गदर्शिका",
+    "Watch video": "वीडियो देखें",
+    "Check": "जांचें",
+    "Daily reward": "दैनिक पुरस्कार",
+    "Tasks list": "कार्य सूची",
+    "GameStop The Power of The Community": "गेमस्टॉप: समुदाय की शक्ति",
+    "5 richest people in the world": "दुनिया के 5 सबसे अमीर लोग",
+    "Your balance": "आपका संतुलन",
+    "How a boost works": "बूस्ट कैसे काम करता है",
+    "Free daily boosters": "नि: शुल्क दैनिक बूस्टर",
+    "Full energy": "पूर्ण ऊर्जा",
+    "available": "उपलब्ध",
+    "Turbo": "टर्बो",
+    "coming soon": "जल्द आ रहा है",
+    "Boosters": "बूस्टर",
+    "Multitap": "मल्टीटैप",
+    "Energy limit": "ऊर्जा सीमा",
+    "Buy\nskin": "खरीदें\nस्किन",
+    "Bronze": "कांस्य",
+    "Profit per hour": "प्रति घंटे का लाभ",
+    "Boost": "बूस्ट",
+    "Daily cipher": "दैनिक सिफर",
+    "Play games, get codes and earn keys": "खेल खेलें, कोड प्राप्त करें और चाबियां कमाएं",
+    "Enter the code": "कोड दर्ज करें",
+    "Redeem": "भुनाएं",
+    "Go to games": "खेलों पर जाएं",
+    "Daily combo": "दैनिक कॉम्बो",
+    "Mini Game": "मिनी गेम",
+    "Invite friends!": "मित्रों को आमंत्रित करें!",
+    "You and your friend will receive bonuses": "आप और आपका मित्र बोनस प्राप्त करेंगे",
+    "More bonuses": "और बोनस",
+    "List of your friends": "आपके मित्रों की सूची",
+    "You haven't invited anyone yet": "आपने अभी तक किसी को आमंत्रित नहीं किया है",
+    "Invite a friend": "एक मित्र को आमंत्रित करें",
+    "Text copied!": "पाठ कॉपी किया गया!",
+    "Invite a friend with Telegram Premium": "टेलीग्राम प्रीमियम के साथ एक मित्र को आमंत्रित करें",
+    "Connect with wallet": "वॉलेट से कनेक्ट करें",
+    "Join in": "शामिल हों",
+    "Ending in": "समाप्त हो रहा है",
+    "Income": "आय",
+    "Revenue Statistics": "राजस्व सांख्यिकी",
+    "Personal Orders": "व्यक्तिगत आदेश",
+    "Choose your wallet": "अपना वॉलेट चुनें",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "अपनी वॉलेट को कनेक्ट करके, आप हमारी सेवा की शर्तों और हमारी गोपनीयता नीति से सहमत हैं",
+    "This page will open another application.": "यह पृष्ठ एक और एप्लिकेशन खोलेगा।",
+    "Open": "खोलें",
+    "Cancel": "रद्द करें",
+    "Profile": "प्रोफ़ाइल",
+    "Skin": "स्किन",
+    "Choose": "चुनें",
+    "Reach the %s league to unlock the skin": "स्किन अनलॉक करने के लिए %s लीग तक पहुंचें",
+    "Select Language": "भाषा चुनें",
+    "Settings": "सेटिंग्स",
+    "Choose exchange": "एक्सचेंज चुनें",
+    "Delete account": "खाता हटाएं",
+    "Haptic Feedback": "हैप्टिक फीडबैक",
+    "Coins animation": "सिक्कों का एनिमेशन",
+    "Privacy policy": "गोपनीयता नीति",
+    "Join our TG channel": "हमारे TG चैनल में शामिल हों",
+    "Follow our X account": "हमारे X खाते का पालन करें",
+    "Choose your exchange": "अपना विनिमय चुनें",
+    "Invite 3 friends": "3 दोस्तों को आमंत्रित करें"  
+  },
+  "way": "2"
+}

@@ -1,0 +1,118 @@
+{
+  "languageType": "vi_VN",
+  "title": {
+    "Home": "Trang chính",
+    "Exchange": "Sàn giao dịch",
+    "Friends": "Bạn bè",
+    "Earn": "Kiếm tiền",
+    "Airdrop": "Phát miễn phí",
+    "Airdrop Tasks": "Nhiệm vụ phát miễn phí",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "Danh sách đang trên đường. Các nhiệm vụ sẽ xuất hiện bên dưới. Hoàn thành chúng để tham gia phát miễn phí",
+    "Task list": "Danh sách nhiệm vụ",
+    "Your league's default skin": "Giao diện mặc định của liên đoàn của bạn",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta là chú hamster tốt bụng, yêu thích việc giúp đỡ người khác và luôn nở nụ cười ấm áp với mọi người",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie là người bạn trung thành, thích dành thời gian với bạn bè và luôn biết cách làm cho mọi người cảm thấy như ở nhà",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty đầy năng lượng và nhiệt huyết, luôn sẵn sàng cho những cuộc phiêu lưu thú vị hoặc trò chơi mới với bạn bè",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar yêu âm nhạc và luôn sẵn sàng chơi một bản nhạc hoặc hát một bài hát để nâng cao tinh thần của mọi người",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky là linh hồn của bữa tiệc, mang đến niềm vui và tiếng cười với những động tác nhảy funky và khiếu hài hước tuyệt vời",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky rất ngầu và táo bạo, với phong cách độc đáo và khả năng thu hút sự chú ý ở bất cứ đâu",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy mượt mà và thời thượng, luôn cập nhật các xu hướng mới nhất và yêu thích việc lan tỏa những cảm xúc tích cực",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny là diễn viên hài của nhóm, luôn làm cho mọi người cười với những câu chuyện hài hước và hành động vui nhộn",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor là tinh thần doanh nhân, luôn đưa ra những ý tưởng mới và cách cải thiện mọi thứ cho mọi người",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy luôn hoạt động và thích giữ cho mình bận rộn, dù là tổ chức sự kiện hay giúp đỡ bạn bè với nhiệm vụ của họ",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty yêu thích học hỏi và chia sẻ kiến thức, luôn tò mò và sẵn sàng khám phá các chủ đề và ý tưởng mới",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy là nhà du hành vũ trụ ưa phiêu lưu, yêu thích việc khám phá những vùng xa của dải ngân hà, luôn mơ ước về các hành tinh mới để thăm và các ngôi sao để nghiên cứu",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy là người dũng cảm và truyền cảm hứng, luôn khuyến khích bạn bè thử những điều mới và trở thành phiên bản tốt nhất của chính mình",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius rất thông minh và sáng tạo, luôn mày mò với các dự án mới và giải quyết các câu đố",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy là người khôn ngoan và chu đáo, đưa ra những lời khuyên và hướng dẫn tuyệt vời cho bạn bè khi cần",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity là chuyên gia về tất cả các vấn đề liên quan đến các lực của không gian, giữ cho mọi người ổn định với sự hiểu biết sâu sắc về cách vũ trụ giữ gìn sự liên kết",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo là chỉ huy nhiệm vụ với niềm đam mê khám phá không gian và phát hiện, luôn sẵn sàng dẫn dắt đội ngũ trong những chuyến du hành liên sao đầy thú vị",
+    "Connect your TON wallet": "Kết nối ví TON của bạn",
+    "Earn more coins": "Kiếm thêm xu",
+    "Your first steps in Crypto & Stock trading": "Những bước đầu tiên của bạn trong giao dịch Crypto & Cổ phiếu",
+    "Trading basics for stocks and crypto : Step guide": "Các kiến thức cơ bản về giao dịch cổ phiếu và crypto: Hướng dẫn từng bước",
+    "Watch video": "Xem video",
+    "Check": "Kiểm tra",
+    "Daily reward": "Phần thưởng hàng ngày",
+    "Tasks list": "Danh sách nhiệm vụ",
+    "GameStop The Power of The Community": "GameStop Sức mạnh của cộng đồng",
+    "5 richest people in the world": "5 người giàu nhất thế giới",
+    "Your balance": "Số dư của bạn",
+    "How a boost works": "Cách một lần tăng cường hoạt động",
+    "Free daily boosters": "Những lần tăng cường miễn phí hàng ngày",
+    "Full energy": "Năng lượng đầy đủ",
+    "available": "có sẵn",
+    "Turbo": "Turbo",
+    "coming soon": "sắp có",
+    "Boosters": "Các bộ tăng cường",
+    "Multitap": "Multitap",
+    "Energy limit": "Giới hạn năng lượng",
+    "Buy\nskin": "Mua\ngiao diện",
+    "Bronze": "Đồng",
+    "Profit per hour": "Lợi nhuận mỗi giờ",
+    "Boost": "Tăng cường",
+    "Daily cipher": "Mã hàng ngày",
+    "Play games, get codes and earn keys": "Chơi trò chơi, nhận mã và kiếm khóa",
+    "Enter the code": "Nhập mã",
+    "Redeem": "Đổi",
+    "Go to games": "Đi đến trò chơi",
+    "Daily combo": "Combo hàng ngày",
+    "Mini Game": "Trò chơi nhỏ",
+    "Invite friends!": "Mời bạn bè!",
+    "You and your friend will receive bonuses": "Bạn và bạn bè của bạn sẽ nhận được thưởng",
+    "More bonuess": "Nhiều phần thưởng hơn",
+    "List of your friends": "Danh sách bạn bè của bạn",
+    "You haven't invited anyone yet": "Bạn chưa mời ai cả",
+    "Invite a friend": "Mời một người bạn",
+    "Text copied!": "Văn bản đã được sao chép!",
+    "Invite a friend with Telegram Premium": "Mời một người bạn với Telegram Premium",
+    "Connect with wallet": "Kết nối với ví",
+    "Join in": "Tham gia",
+    "Ending in": "Kết thúc trong",
+    "Income": "Thu nhập",
+    "Revenue Statistics": "Thống kê doanh thu",
+    "Personal Orders": "Đơn hàng cá nhân",
+    "Chosse your wallet": "Chọn ví của bạn",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "Bằng cách kết nối ví của bạn, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
+    "This page will open another application.": "Trang này sẽ mở một ứng dụng khác.",
+    "Open": "Mở",
+    "Cancel": "Hủy",
+    "Profile": "Hồ sơ",
+    "Skin": "Giao diện",
+    "Your leagues's default skin": "Giao diện mặc định của liên đoàn của bạn",
+    "Purchased": "Đã mua",
+    "Choose": "Chọn",
+    "Reach the %s league to unlock the skin": "Đạt đến liên đoàn %s để mở khóa giao diện",
+    "Select Language": "Chọn ngôn ngữ",
+    "Settings": "Cài đặt",
+    "Choose exchange": "Chọn sàn giao dịch",
+    "Delete account": "Xóa tài khoản",
+    "Haptic Feedback": "Phản hồi xúc giác",
+    "Coins animation": "Hoạt ảnh xu",
+    "Privacy policy": "Chính sách bảo mật",
+    "Join our TG channel": "Tham gia kênh TG của chúng tôi",
+    "Follow our X account": "Theo dõi tài khoản X của chúng tôi",
+    "Choose your exchange": "Chọn sàn giao dịch của bạn",
+    "Invite 3 friends": "Mời 3 người bạn"
+  },
+  "way": "2"
+}

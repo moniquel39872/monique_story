@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 
 class MainBindings extends Bindings {

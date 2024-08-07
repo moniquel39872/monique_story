@@ -1,0 +1,117 @@
+{
+  "languageType": "es_ES",
+  "title": {
+    "Home": "Inicio",
+    "Exchange": "Intercambio",
+    "Friends": "Amigos",
+    "Earn": "Ganar",
+    "Airdrop": "Airdrop",     
+    "Airdrop Tasks": "Tareas del Airdrop",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "La lista está en camino. Las tareas aparecerán abajo. Complétalas para participar en el Airdrop",
+    "Task list": "Lista de tareas",
+    "Your league's default skin": "Skin predeterminado de tu liga",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta es la hámster de buen corazón que ama ayudar a los demás y siempre tiene una sonrisa cálida para todos",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie es el amigo leal que disfruta pasar tiempo con sus compañeros y siempre sabe cómo hacer que todos se sientan como en casa",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty está lleno de energía y entusiasmo, siempre listo para una aventura divertida o un nuevo juego con amigos",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar ama la música y siempre está listo para tocar una melodía o cantar una canción para levantar el ánimo de todos",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky es el alma de la fiesta, trayendo alegría y risas con movimientos de baile funky y un gran sentido del humor",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky es genial y atrevido, con un estilo único y un talento para llamar la atención dondequiera que vaya",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy es elegante y con estilo, siempre a la vanguardia de las últimas tendencias y le encanta esparcir buenas vibras",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny es el comediante del grupo, siempre haciendo reír a todos con chistes y travesuras juguetonas",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor es el espíritu emprendedor, siempre ideando nuevas formas de mejorar las cosas para todos",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy siempre está activo y le encanta mantenerse productivo, ya sea organizando eventos o ayudando a los amigos con sus tareas",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty ama aprender y compartir conocimientos, siempre curioso y ansioso por explorar nuevos temas e ideas",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy es el astronauta aventurero que ama explorar los confines de la galaxia, siempre soñando con nuevos planetas para visitar y estrellas para estudiar",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy es valiente e inspirador, siempre animando a los amigos a probar cosas nuevas y ser su mejor versión",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius es increíblemente inteligente e inventivo, siempre trasteando con nuevos proyectos y resolviendo acertijos",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy es sabio y considerado, ofreciendo grandes consejos y orientación a los amigos que lo necesitan",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity es el experto en todo lo relacionado con las fuerzas del espacio, manteniendo a todos con los pies en la tierra con un profundo entendimiento de cómo se mantiene unido el universo",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo es el comandante de la misión con una pasión por la exploración y el descubrimiento espacial, siempre listo para liderar a la tripulación en emocionantes viajes interestelares",
+    "Connect your TON wallet": "Conecta tu cartera TON",
+    "Earn more coins": "Gana más monedas",
+    "Your first steps in Crypto & Stock trading": "Tus primeros pasos en el comercio de criptomonedas y acciones",
+    "Trading basics for stocks and crypto : Step guide": "Conceptos básicos de comercio para acciones y criptomonedas: Guía paso a paso",
+    "Watch video": "Ver video",
+    "Check": "Verificar",
+    "Daily reward": "Recompensa diaria",
+    "Tasks list": "Lista de tareas",
+    "GameStop The Power of The Community": "GameStop El Poder de la Comunidad",
+    "5 richest people in the world": "5 personas más ricas del mundo",
+    "Your balance": "Tu saldo",
+    "How a boost works": "Cómo funciona un impulso",
+    "Free daily boosters": "Impulsores diarios gratuitos",
+    "Full energy": "Energía completa",
+    "available": "disponible",
+    "Turbo": "Turbo",
+    "coming soon": "próximamente",
+    "Boosters": "Impulsores",
+    "Multitap": "Multitap",
+    "Energy limit": "Límite de energía",
+    "Buy\nskin": "Comprar\nskin",
+    "Bronze": "Bronce",
+    "Profit per hour": "Ganancia por hora",
+    "Boost": "Impulso",
+    "Daily cipher": "Cifrado diario",
+    "Play games, get codes and earn keys": "Juega, obtén códigos y gana llaves",
+    "Enter the code": "Introduce el código",
+    "Redeem": "Canjear",
+    "Go to games": "Ir a juegos",
+    "Daily combo": "Combo diario",
+    "Mini Game": "Mini Juego",
+    "Invite friends!": "¡Invita a amigos!",
+    "You and your friend will receive bonuses": "Tú y tu amigo recibirán bonificaciones",
+    "More bonuses": "Más bonificaciones",
+    "List of your friends": "Lista de tus amigos",
+    "You haven't invited anyone yet": "No has invitado a nadie aún",
+    "Invite a friend": "Invitar a un amigo",
+    "Text copied!": "¡Texto copiado!",
+    "Invite a friend with Telegram Premium": "Invita a un amigo con Telegram Premium",
+    "Connect with wallet": "Conectar con la cartera",
+    "Join in": "Únete",
+    "Ending in": "Terminando en",
+    "Income": "Ingresos",
+    "Revenue Statistics": "Estadísticas de ingresos",
+    "Personal Orders": "Órdenes personales",
+    "Choose your wallet": "Elige tu cartera",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "Al conectar tu cartera, aceptas nuestros Términos de Servicio y nuestra Política de Privacidad",
+    "This page will open another application.": "Esta página abrirá otra aplicación.",
+    "Open": "Abrir",
+    "Cancel": "Cancelar",
+    "Profile": "Perfil",
+    "Skin": "Skin",
+    "Purchased": "Comprado",
+    "Choose": "Elegir",
+    "Reach the %s league to unlock the skin": "Alcanza la liga %s para desbloquear el skin",
+    "Select Language": "Seleccionar idioma",
+    "Settings": "Configuraciones",
+    "Choose exchange": "Elige intercambio",
+    "Delete account": "Eliminar cuenta",
+    "Haptic Feedback": "Retroalimentación háptica",
+    "Coins animation": "Animación de monedas",
+    "Privacy policy": "Política de privacidad",
+    "Join our TG channel": "Únete a nuestro canal de TG",
+    "Follow our X account": "Sigue nuestra cuenta de X",
+    "Choose your exchange": "Elige tu intercambio",
+    "Invite 3 friends": "Invita a 3 amigos"
+  },
+  "way": "2"
+}

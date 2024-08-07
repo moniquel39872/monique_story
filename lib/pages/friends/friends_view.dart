@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/pages/friends/invite_bonus_widget.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:kombat_flutter/widget/first_animator_widget.dart';
 import 'package:toastification/toastification.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
@@ -14,6 +18,8 @@ class FriendsView extends StatefulWidget {
 }
 
 class _FriendsViewState extends State<FriendsView> {
+  AppService appService = Get.find<AppService>();
+  bool _isFirstLoad = true;
   // late Animation<Offset> _slideAnimation;
   // late AnimationController _controller;
   // late final Animation<Offset> _offsetAnimation = Tween<Offset>(
@@ -39,55 +45,58 @@ class _FriendsViewState extends State<FriendsView> {
     //   ),
     // );
     // TODO: implement initState
+    _isFirstLoad = appService.firstLoad['friends']??true;
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      appService.firstLoad['friends']=false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 100.h,
-        ),
-        WidgetAnimator(
+        Gap(100.h,),
+        FirstAnimatorWidget(
           incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-              duration: Duration(milliseconds: 500),
+              duration:const Duration(milliseconds: 500),
               curve: Curves.elasticInOut),
+          isAnimate: _isFirstLoad,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Text(
-              'Invite friends!',
+            child: Text(appService.getTrans('Invite friends!'),
               style: TextStyle(fontSize: 44.sp),
             ),
           ),
         ),
-        WidgetAnimator(
+        FirstAnimatorWidget(
           incomingEffect: WidgetTransitionEffects.incomingSlideInFromRight(
             duration: Duration(milliseconds: 700),
             curve: Curves.elasticInOut,
           ),
+          isAnimate: _isFirstLoad,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 20.h),
-            child: Text(
-              'You and your friend will receive bonuses',
+            child: Text(appService.getTrans('You and your friend will receive bonuses'),
               style: TextStyle(fontSize: 22.sp),
             ),
           ),
         ),
-        const InviteBonusWidget(
+        InviteBonusWidget(
           bonus: "5,000",
           title: 'Invite a friend',
           image: 'gift1.png',
+          isAnimate: _isFirstLoad,
         ),
-        const InviteBonusWidget(
+        InviteBonusWidget(
           bonus: "25,000",
           title: 'Invite a friend with Telegram Premium',
           image: 'gift2.png',
+          isAnimate: _isFirstLoad,
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h),
-          child: Text(
-            'More bonuess',
+          child: Text(appService.getTrans('More bonuess'),
             style: TextStyle(
               color: const Color(0xff5B61FF),
               fontSize: 22.sp,
@@ -99,7 +108,7 @@ class _FriendsViewState extends State<FriendsView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('List of your friends'),
+              Text(appService.getTrans('List of your friends')),
               GestureDetector(
                 onTap: () {},
                 child: Stack(
@@ -134,124 +143,122 @@ class _FriendsViewState extends State<FriendsView> {
             color: AppColors.secondary,
             borderRadius: BorderRadius.circular(20.w),
           ),
-          child: const Center(
-              child: Text(
-            'You haven\'t invited anyone yet',
-            style: TextStyle(color: AppColors.fontSecondary),
+          child: Center(
+              child: Text(appService.getTrans("You haven't invited anyone yet"),
+            style: const TextStyle(color: AppColors.fontSecondary),
           )),
-        ),
-        WidgetAnimator(
+        ),        
+        FirstAnimatorWidget(
           incomingEffect: WidgetTransitionEffects.incomingSlideInFromBottom(
             curve: Curves.elasticInOut,
-            duration: Duration(milliseconds: 800),
+            duration: const Duration(milliseconds: 800),
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15.w,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: WidgetAnimator(
-                    atRestEffect: WidgetRestingEffects.size(effectStrength: 0.76, duration: Duration(milliseconds: 1100)),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 20.w,
-                      ),
-                      padding: EdgeInsets.all(20.w),
-                      decoration: BoxDecoration(
-                        color: Color(0xff5A60FF),
-                        borderRadius: BorderRadius.circular(20.w),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Invite a friend',
-                            style: TextStyle(fontSize: 20.sp),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Icon(
-                            Icons.person_add_alt_1,
-                            color: Colors.white,
-                            size: 22.sp,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    toastification.showCustom(
-                      context: context,
-                      autoCloseDuration: const Duration(seconds: 3),
-                      alignment: Alignment.topCenter,
-                      builder:
-                          (BuildContext context, ToastificationItem holder) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40.w),
-                            color: const Color(0xff23262A).withOpacity(0.7),
-                          ),
-                          padding: EdgeInsets.all(16.w),
-                          margin: EdgeInsets.all(8.w),
-                          child: Stack(
-                            alignment: AlignmentDirectional.centerEnd,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: const Color(0xff82F88E),
-                                    size: 30.w,
-                                  ),
-                                  SizedBox(
-                                    width: 20.w,
-                                  ),
-                                  Text(
-                                    'Text copied!',
-                                    style: TextStyle(fontSize: 20.w),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.close_outlined,
-                                color: Color(0xffB0B1B3),
-                                size: 20.w,
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 20.w,
-                    ),
-                    padding: EdgeInsets.all(20.w),
-                    decoration: BoxDecoration(
-                      color: const Color(0xff5A60FF),
-                      borderRadius: BorderRadius.circular(20.w),
-                    ),
-                    child: const Icon(
-                      Icons.copy,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
+          isAnimate: _isFirstLoad,
+          child: getInviteWidget()
+        ),        
       ],
+    );
+  }
+
+  Widget getInviteWidget() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 15.w,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: WidgetAnimator(
+              atRestEffect: WidgetRestingEffects.size(effectStrength: 0.76, duration: Duration(milliseconds: 1100)),
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: 20.w,
+                ),
+                padding: EdgeInsets.all(20.w),
+                decoration: BoxDecoration(
+                  color: Color(0xff5A60FF),
+                  borderRadius: BorderRadius.circular(20.w),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(appService.getTrans('Invite a friend'),
+                      style: TextStyle(fontSize: 20.sp),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Icon(
+                      Icons.person_add_alt_1,
+                      color: Colors.white,
+                      size: 22.sp,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Gap( 10.w,),
+          GestureDetector(
+            onTap: () {
+              toastification.showCustom(
+                context: context,
+                autoCloseDuration: const Duration(seconds: 3),
+                alignment: Alignment.topCenter,
+                builder:
+                    (BuildContext context, ToastificationItem holder) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40.w),
+                      color: const Color(0xff23262A).withOpacity(0.7),
+                    ),
+                    padding: EdgeInsets.all(16.w),
+                    margin: EdgeInsets.all(8.w),
+                    child: Stack(
+                      alignment: AlignmentDirectional.centerEnd,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: const Color(0xff82F88E),
+                              size: 30.w,
+                            ),
+                            Gap( 20.w,),
+                            Text(appService.getTrans('Text copied!'),
+                              style: TextStyle(fontSize: 20.w),
+                            ),
+                          ],
+                        ),
+                        Icon(
+                          Icons.close_outlined,
+                          color: Color(0xffB0B1B3),
+                          size: 20.w,
+                        )
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                vertical: 20.w,
+              ),
+              padding: EdgeInsets.all(20.w),
+              decoration: BoxDecoration(
+                color: const Color(0xff5A60FF),
+                borderRadius: BorderRadius.circular(20.w),
+              ),
+              child: const Icon(
+                Icons.copy,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

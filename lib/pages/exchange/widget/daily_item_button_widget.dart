@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 
@@ -18,6 +20,7 @@ class DailyItemButtonWidget extends StatefulWidget {
 class _DailyItemButtonState extends State<DailyItemButtonWidget> with TickerProviderStateMixin  {
 
   late AnimationController _pointController ;
+  AppService appService = Get.find<AppService>();
 
   @override
   void initState() {
@@ -59,8 +62,8 @@ class _DailyItemButtonState extends State<DailyItemButtonWidget> with TickerProv
                     child: AppImage.asset(widget.icon), 
                   )
                 ),
-                Text(widget.label, style: TextStyle(color: AppColors.fontPrimary, 
-                      fontWeight: FontWeight.bold, fontSize: 15.sp)),
+                Text(appService.getTrans(widget.label), style: TextStyle(color: AppColors.fontPrimary, 
+                      fontWeight: FontWeight.bold, fontSize: 14.sp, height: 0.8), textAlign: TextAlign.center,),
                 SizedBox(height: 10.h),
                 Text("18:31", style: TextStyle(color: AppColors.fontSecondary, fontSize: 13.sp))
               ],

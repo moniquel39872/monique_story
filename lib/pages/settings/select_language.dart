@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_constant.dart';
+import 'package:kombat_flutter/app/app_navigator.dart';
 import 'package:kombat_flutter/app/app_routes.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 import 'package:kombat_flutter/model/language_model.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
@@ -16,6 +18,7 @@ class SelectLanguageView extends StatefulWidget {
 
 class _SelectLanguageViewState extends State<SelectLanguageView> {
   MainController mainController = Get.find();
+  AppService appService = Get.find<AppService>();
   RxBool _isHapicFeedback = true.obs;
   RxBool _isCoinsAnim = true.obs;
 
@@ -35,7 +38,7 @@ class _SelectLanguageViewState extends State<SelectLanguageView> {
             ),
           ),
         ),
-        Text("Select Language", style: TextStyle(color: AppColors.fontPrimary,
+        Text(appService.getTrans("Select Language"), style: TextStyle(color: AppColors.fontPrimary,
               fontSize: 32.sp, fontWeight: FontWeight.bold)
         ),
         SizedBox(height: 20.h,),
@@ -63,17 +66,22 @@ class _SelectLanguageViewState extends State<SelectLanguageView> {
         borderRadius: BorderRadius.circular(20.w),
       ),
       child: GestureDetector(
-        onTap: ()=>mainController.lang.value=item.code!,
+        onTap: () async{
+          appService.lang.value=item.code!;
+          appService.setHotlineData();
+          await appService.queryLanguageTrans();
+          mainController.selectedPath.value=exchangePath;
+        },
         child: Row(
           children: [                            
             Expanded(
-              child: Text("${item.label} (${item.code})", style: TextStyle(color: AppColors.fontPrimary,
+              child: Text("${item.name} (${item.code})", style: TextStyle(color: AppColors.fontPrimary,
                 fontSize: 18.sp, fontWeight: FontWeight.bold)
               )
             ),
-            if(item.code==mainController.lang.value)
+            if(item.code==appService.lang.value)
             const Icon(Icons.check_rounded, color: AppColors.fontSecondary),
-            if(item.code!=mainController.lang.value)
+            if(item.code!=appService.lang.value)
             const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.fontSecondary),
           ],
         )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_routes.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
@@ -15,6 +16,7 @@ class BalanceView extends StatefulWidget {
 
 class _BalanceViewState extends State<BalanceView> {
   MainController mainController = Get.find();
+  AppService appService = Get.find<AppService>();
 
     @override
   Widget build(BuildContext context) {
@@ -31,20 +33,20 @@ class _BalanceViewState extends State<BalanceView> {
             ),
           ),
         ),  
-        Text("Your balance", style: TextStyle(color: AppColors.fontSecondary, fontSize: 18.sp)),
+        Text(appService.getTrans("Your balance"), style: TextStyle(color: AppColors.fontSecondary, fontSize: 18.sp)),
         SizedBox(height: 20.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppImage.asset('coin.png'),
             SizedBox(width: 10.w),
-            Text(mainController.scores.toString(), style: TextStyle(color: AppColors.fontPrimary,
+            Text(appService.scores.toString(), style: TextStyle(color: AppColors.fontPrimary,
               fontSize: 25.sp, fontWeight: FontWeight.bold)
             )
           ],
         ),
         SizedBox(height: 20.h),
-        Text("How a boost works", style: TextStyle(color: AppColors.fontMenu1, fontSize: 20.sp)),
+        Text(appService.getTrans("How a boost works"), style: TextStyle(color: AppColors.fontMenu1, fontSize: 20.sp)),
         SizedBox(height: 30.h),
         Expanded(
           child: Padding(
@@ -55,7 +57,7 @@ class _BalanceViewState extends State<BalanceView> {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,                    
-                    child: Text("Free daily boosters",  style: TextStyle(color: AppColors.fontPrimary,
+                    child: Text(appService.getTrans("Free daily boosters"),  style: TextStyle(color: AppColors.fontPrimary,
                       fontSize: 20.sp, fontWeight: FontWeight.bold)
                     ),
                   ),
@@ -75,10 +77,10 @@ class _BalanceViewState extends State<BalanceView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Full energy", style: TextStyle(color: AppColors.fontPrimary,
+                            Text(appService.getTrans("Full energy"), style: TextStyle(color: AppColors.fontPrimary,
                               fontSize: 18.sp, fontWeight: FontWeight.bold)
                             ),
-                            Text("6/6 available", style: TextStyle(color: AppColors.fontSecondary,
+                            Text("6/6 ${appService.getTrans('available')}", style: TextStyle(color: AppColors.fontSecondary,
                               fontSize: 16.sp)
                             ),
                           ],
@@ -103,10 +105,10 @@ class _BalanceViewState extends State<BalanceView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Turbo", style: TextStyle(color: AppColors.fontPrimary,
+                              Text(appService.getTrans("Turbo"), style: TextStyle(color: AppColors.fontPrimary,
                                 fontSize: 18.sp, fontWeight: FontWeight.bold)
                               ),
-                              Text("coming soon", style: TextStyle(color: AppColors.fontSecondary,
+                              Text(appService.getTrans("coming soon"), style: TextStyle(color: AppColors.fontSecondary,
                                 fontSize: 16.sp)
                               ),
                             ],
@@ -118,7 +120,7 @@ class _BalanceViewState extends State<BalanceView> {
                   SizedBox(height: 30.h),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text("Boosters",  style: TextStyle(color: AppColors.fontPrimary,
+                    child: Text(appService.getTrans("Boosters"),  style: TextStyle(color: AppColors.fontPrimary,
                       fontSize: 20.sp, fontWeight: FontWeight.bold)
                     ),                    
                   ),
@@ -139,7 +141,7 @@ class _BalanceViewState extends State<BalanceView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Multitap", style: TextStyle(color: AppColors.fontPrimary,
+                              Text(appService.getTrans("Multitap"), style: TextStyle(color: AppColors.fontPrimary,
                                 fontSize: 18.sp, fontWeight: FontWeight.bold)
                               ),
                               Row(
@@ -174,7 +176,7 @@ class _BalanceViewState extends State<BalanceView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Energy limit", style: TextStyle(color: AppColors.fontPrimary,
+                              Text(appService.getTrans("Energy limit"), style: TextStyle(color: AppColors.fontPrimary,
                                 fontSize: 18.sp, fontWeight: FontWeight.bold)
                               ),
                               Row(

@@ -1,0 +1,118 @@
+{
+  "languageType": "ru_RU",
+  "title": {
+    "Home": "Домой",
+    "Exchange": "Обмен",
+    "Friends": "Друзья",
+    "Earn": "Заработать",
+    "Airdrop": "Airdrop",
+    "Airdrop Tasks": "Airdrop эирдропа",
+    "Listing is on its way. Tasks will appear bello. Complete them to participate in the Airdrop": 
+      "Список в пути. Задачи появятся ниже. Выполните их, чтобы участвовать в Airdrop",
+    "Task list": "Список задач",
+    "Your league's default skin": "Стандартный скин вашей лиги",
+    "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone": 
+      "Marta - добросердечный хомяк, который любит помогать другим и всегда улыбается всем тепло",
+    "Homie is the loyal friend who enjoys spending time with his buddies and always knows how to make everyone feel at home": 
+      "Homie - верный друг, который любит проводить время с друзьями и всегда знает, как сделать так, чтобы все чувствовали себя как дома",
+    "Fighty is full of energy and enthusiasm, always up for a fun adventure or a new game with friends": 
+      "Fighty полон энергии и энтузиазма, всегда готов к веселым приключениям или новой игре с друзьями",
+    "Rockstar loves music and is always ready to play a tune or sing a song to lift everyone's spirits": 
+      "Rockstar любит музыку и всегда готов сыграть мелодию или спеть песню, чтобы поднять всем настроение",
+    "Fanky is the life of the party, bringing joy and laughter with funky dance moves and a great sense of humor": 
+      "Fanky - душа вечеринки, приносящая радость и смех своими фанк-танцами и отличным чувством юмора",
+    "Punky is cool and edgy, with a unique style and a knack for turning heads wherever they go": 
+      "Punky - крутой и стильный, с уникальным стилем и способностью привлекать внимание куда бы ни пошел",
+    "Groovy is smooth and stylish, always on top of the latest trends and loves to spread good vibes": 
+      "Groovy - плавный и стильный, всегда в курсе последних трендов и любит распространять хорошие вибрации",
+    "Funny is the comedian of the group, always making everyone laugh with jokes and playful antics": 
+      "Funny - комик группы, всегда заставляющий всех смеяться своими шутками и игривыми проделками",
+    "Hamstervestor is the entrepreneurial spirit, always coming up with new ideas and ways to make things better for everyone": 
+      "Hamstervestor - предпринимательский дух, всегда придумывающий новые идеи и способы улучшения для всех",
+    "Busy is always active and loves staying productive, whether organizing events or helping friends with their tasks": 
+      "Busy всегда активен и любит оставаться продуктивным, будь то организация мероприятий или помощь друзьям с их задачами",
+    "Smarty loves learning and sharing knowledge, always curious and eager to explore new topics and ideas": 
+      "Smarty любит учиться и делиться знаниями, всегда любопытен и стремится исследовать новые темы и идеи",
+    "Spacy is the adventurous astronaut who loves exploring the far reaches of the galaxy, always dreaming of new planets to visit and stars to study": 
+      "Spacy - авантюрный астронавт, который любит исследовать дальние уголки галактики, всегда мечтает о новых планетах для посещения и звездах для изучения",
+    "Bravy is courageous and inspiring, always encouraging friends to try new things and be their best selves": 
+      "Bravy - смелый и вдохновляющий, всегда поощряющий друзей пробовать новое и быть лучшими версиями самих себя",
+    "Genius is incredibly smart and inventive, always tinkering with new projects and solving puzzles": 
+      "Genius - невероятно умный и изобретательный, всегда возится с новыми проектами и решает головоломки",
+    "Wisy is wise and thoughtful, offering great advice and guidance to friends in need": 
+      "Wisy - мудрый и вдумчивый, предлагает отличные советы и руководство нуждающимся друзьям",
+    "Gravity is the expert on all things related to the forces of space, keeping everyone grounded with a deep understanding of how the universe holds together": 
+      "Gravity - эксперт во всем, что связано с силами космоса, удерживая всех с глубоким пониманием того, как устроена вселенная",
+    "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys": 
+      "Appolo - командир миссии с увлечением исследованием космоса и открытием, всегда готовый вести команду в захватывающие межзвездные путешествия",
+    "Connect your TON wallet": "Подключите ваш TON-кошелек",
+    "Earn more coins": "Заработайте больше монет",
+    "Your first steps in Crypto & Stock trading": "Ваши первые шаги в торговле криптовалютой и акциями",
+    "Trading basics for stocks and crypto : Step guide": "Основы торговли акциями и криптовалютой: пошаговое руководство",
+    "Watch video": "Смотреть видео",
+    "Check": "Проверить",
+    "Daily reward": "Ежедневная награда",
+    "Tasks list": "Список задач",
+    "GameStop The Power of The Community": "GameStop Сила сообщества",
+    "5 richest people in the world": "5 самых богатых людей в мире",
+    "Your balance": "Ваш баланс",
+    "How a boost works": "Как работает ускорение",
+    "Free daily boosters": "Бесплатные ежедневные бустеры",
+    "Full energy": "Полная энергия",
+    "available": "доступно",
+    "Turbo": "Турбо",
+    "coming soon": "скоро будет",
+    "Boosters": "Бустеры",
+    "Multitap": "Мультитап",
+    "Energy limit": "Лимит энергии",
+    "Buy\nskin": "Купить\nскин",
+    "Bronze": "Бронза",
+    "Profit per hour": "Прибыль в час",
+    "Boost": "Ускорение",
+    "Daily cipher": "Ежедневный шифр",
+    "Play games, get codes and earn keys": "Играйте в игры, получайте коды и зарабатывайте ключи",
+    "Enter the code": "Введите код",
+    "Redeem": "Активировать",
+    "Go to games": "Перейти к играм",
+    "Daily combo": "Ежедневный комбо",
+    "Mini Game": "Мини игра",
+    "Invite friends!": "Приглашайте друзей!",
+    "You and your friend will receive bonuses": "Вы и ваш друг получите бонусы",
+    "More bonuess": "Больше бонусов",
+    "List of your friends": "Список ваших друзей",
+    "You haven't invited anyone yet": "Вы еще никого не пригласили",
+    "Invite a friend": "Пригласить друга",
+    "Text copied!": "Текст скопирован!",
+    "Invite a friend with Telegram Premium": "Пригласить друга с Telegram Premium",
+    "Connect with wallet": "Подключиться с кошельком",
+    "Join in": "Присоединиться",
+    "Ending in": "Заканчивается через",
+    "Income": "Доход",
+    "Revenue Statistics": "Статистика доходов",
+    "Personal Orders": "Личные заказы",
+    "Chosse your wallet": "Выберите ваш кошелек",
+    "By connecting your wallet, you agree to our Terms of Service and our Privacy policy": 
+      "Подключая ваш кошелек, вы соглашаетесь с нашими Условиями использования и Политикой конфиденциальности",
+    "This page will open another application.": "Эта страница откроет другое приложение.",
+    "Open": "Открыть",
+    "Cancel": "Отмена",
+    "Profile": "Профиль",
+    "Skin": "Скин",
+    "Your leagues's default skin": "Скин по умолчанию вашей лиги",
+    "Purchased": "Куплено",
+    "Choose": "Выбрать",
+    "Reach the %s league to unlock the skin": "Достигните лиги %s, чтобы разблокировать скин",
+    "Select Language": "Выбрать язык",
+    "Settings": "Настройки",
+    "Choose exchange": "Выбрать обмен",
+    "Delete account": "Удалить аккаунт",
+    "Haptic Feedback": "Тактильная обратная связь",
+    "Coins animation": "Анимация монет",
+    "Privacy policy": "Политика конфиденциальности",
+    "Join our TG channel": "Присоединяйтесь к нашему каналу в TG",
+    "Follow our X account": "Подписывайтесь на наш аккаунт в X",
+    "Choose your exchange": "Выберите свою биржу",
+    "Invite 3 friends": "Пригласите 3 друзей"
+  },
+  "way": "2"
+}

@@ -23,6 +23,8 @@ void main() async {
     await GetStorage.init();
     
     var appService = await Get.putAsync(() => AppService().init(), permanent: true);
+    await appService.getHotlineStorageData();
+    await appService.queryLanguageTrans();
 
     runApp(
       ChangeNotifierProvider(

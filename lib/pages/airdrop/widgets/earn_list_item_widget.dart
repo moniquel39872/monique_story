@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/pages/airdrop/model/earn_list_model.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:kombat_flutter/widget/first_animator_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class AirdropListItemWidget extends StatelessWidget {
-  const AirdropListItemWidget(
-      {Key? key, required this.item, required this.onPressed})
-      : super(key: key);
+  AirdropListItemWidget(
+      {super.key, required this.item, required this.onPressed, required this.isAnimate});
   final AirdropListModel item;
   final VoidCallback onPressed;
+  final bool isAnimate;
+
+  AppService appService = Get.find<AppService>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,27 +29,26 @@ class AirdropListItemWidget extends StatelessWidget {
           horizontal: 15.w,
         ),
         decoration: BoxDecoration(
-          color: Color(0xff34a4e9),
+          color: const Color(0xff34a4e9),
           borderRadius: BorderRadius.circular(20.w),
         ),
         child: Row(
           children: [
-            WidgetAnimator(
+            if(isAnimate)
+            FirstAnimatorWidget(
               incomingEffect: WidgetTransitionEffects.incomingScaleUp(
                 curve: Curves.elasticInOut,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
               ),
+              isAnimate: isAnimate,              
               child: AppImage.asset('${item.image}', width: 50.w, height: 50.w),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
+            ),            
+            Gap(10.w,),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "${item.title}",
+                  Text(appService.getTrans("${item.title}"),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.sp,
@@ -92,7 +97,7 @@ class AirdropListItemWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
+            const Icon(
               Icons.arrow_forward_ios_rounded,
               color: AppColors.fontPrimary,
             ),

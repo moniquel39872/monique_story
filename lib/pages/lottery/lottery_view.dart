@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 import 'package:kombat_flutter/widget/app_bottomsheet_widget.dart';
@@ -15,9 +16,19 @@ class LotteryView extends StatefulWidget {
 
 class _LotteryViewState extends State<LotteryView> {
 
+  AppService appService = Get.find<AppService>();
+
   RxBool _isOpenApp = false.obs;
   RxBool _isJoining = false.obs;
   double _currentValue = 100;
+  bool _isFirstLoad = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isFirstLoad = appService.firstLoad['lottery']??true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +47,19 @@ class _LotteryViewState extends State<LotteryView> {
               ElevatedButton(
                 onPressed: openBottomSheet, 
                 style:  ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 15.w),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.w)),                    
                   backgroundColor: AppColors.buttonBackground,
                   foregroundColor: AppColors.fontPrimary,
-                  textStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                  fixedSize: Size(250.w, 50.h),
+                  textStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),                  
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     AppImage.asset('coin.png', width: 30.w),
                     SizedBox(width: 10.w),
-                    const Text("Connect with wallet")
+                    Text(appService.getTrans("Connect with wallet"))
                   ],
                 ),
               ),
@@ -63,7 +74,7 @@ class _LotteryViewState extends State<LotteryView> {
                   textStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                   fixedSize: Size(250.w, 50.h),
                 ),
-                child: Text("Join in", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
+                child: Text(appService.getTrans("Join in"), style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
               ),
               if(_isOpenApp.value && _isJoining.value)
               FAProgressBar(
@@ -86,7 +97,7 @@ class _LotteryViewState extends State<LotteryView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Ending in", style:TextStyle(fontSize: 18.sp, color: AppColors.fontSecondary)),
+                      Text(appService.getTrans("Ending in"), style:TextStyle(fontSize: 18.sp, color: AppColors.fontSecondary)),
                       Text("8h 41m 20s", style:TextStyle(fontSize: 22.sp, color: AppColors.fontPrimary, fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -95,7 +106,7 @@ class _LotteryViewState extends State<LotteryView> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Income", style:TextStyle(fontSize: 18.sp, color: AppColors.fontSecondary)),
+                          Text(appService.getTrans("Income"), style:TextStyle(fontSize: 18.sp, color: AppColors.fontSecondary)),
                           Text("4.10USDT", style:TextStyle(fontSize: 22.sp, color: AppColors.fontPrimary, fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -125,7 +136,7 @@ class _LotteryViewState extends State<LotteryView> {
                       textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                       minimumSize: Size(200.w, 40.h)
                     ),
-                    child: const Text("收益统计")
+                    child: Text(appService.getTrans("Revenue Statistics"))
                   ),
                   ElevatedButton(
                     onPressed: (){
@@ -140,7 +151,7 @@ class _LotteryViewState extends State<LotteryView> {
                       textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                       minimumSize: Size(200.w, 40.h)
                     ),
-                    child: const Text("个人订单")
+                    child: Text(appService.getTrans("Personal Orders"))
                   ),
                 ],
               )
@@ -159,10 +170,10 @@ class _LotteryViewState extends State<LotteryView> {
             children: [
               AppImage.asset('income.png',),
               SizedBox(height: 30.h),
-              Text('Chosse your wallet', style: TextStyle(color: AppColors.fontPrimary,
+              Text(appService.getTrans('Chosse your wallet'), style: TextStyle(color: AppColors.fontPrimary,
                   fontSize: 25.sp, fontWeight: FontWeight.bold)),
               SizedBox(height: 20.h,),
-              Text('By connecting your wallet, you agree to our Terms of Service and our Privacy policy', 
+              Text(appService.getTrans('By connecting your wallet, you agree to our Terms of Service and our Privacy policy'), 
                 style: TextStyle(color: AppColors.fontSecondary, fontSize: 18.sp),
                 textAlign: TextAlign.center,
               ),
@@ -193,7 +204,7 @@ class _LotteryViewState extends State<LotteryView> {
             AppImage.asset(icon, width: 50.w, height: 50.w),
             SizedBox(width: 20.w),
             Expanded(
-              child: Text(label, style: TextStyle(color: AppColors.fontPrimary,
+              child: Text(appService.getTrans(label), style: TextStyle(color: AppColors.fontPrimary,
                 fontSize: 18.sp, fontWeight: FontWeight.bold)
               ), 
             ),
@@ -216,7 +227,7 @@ class _LotteryViewState extends State<LotteryView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("This page will open another application."),
+              Text(appService.getTrans("This page will open another application.")),
               SizedBox(height: 10.h),
               ElevatedButton(
                 onPressed: (){
@@ -232,7 +243,7 @@ class _LotteryViewState extends State<LotteryView> {
                   textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   minimumSize: Size(200.w, 40.h)
                 ),
-                child: const Text("Open")
+                child: Text(appService.getTrans("Open"))
               ),
               ElevatedButton(
                 onPressed: ()=>Navigator.of(context).pop(), 
@@ -247,7 +258,7 @@ class _LotteryViewState extends State<LotteryView> {
                   textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   minimumSize: Size(200.w, 40.h)
                 ),
-                child: const Text("Cancel")
+                child: Text(appService.getTrans("Cancel"))
               ),
             ]
           )

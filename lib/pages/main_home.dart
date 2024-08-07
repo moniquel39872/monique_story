@@ -11,7 +11,7 @@ import 'package:kombat_flutter/utils/app_image.dart';
 import '../app/app_constant.dart';
 
 class MainHome extends GetView<MainController> {
-  // AppService appService = Get.find<AppService>();
+  AppService appService = Get.find<AppService>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,14 @@ class MainHome extends GetView<MainController> {
       backgroundColor: Colors.black,
       body: Obx(() => controller.getCurrentPage()),
       bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 10.w),
+        padding: EdgeInsets.zero,// symmetric(vertical: 7.h, horizontal: 10.w),
         height: 80.h,
         color: AppColors.secondary,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: AppColors.primary, width: 2.h))
+          ),
           child: getBottomTab(),
         ),
       ),
@@ -59,8 +62,7 @@ class MainHome extends GetView<MainController> {
                         child: AppImage.asset(item.icon ?? "", width: 30.w),
                       ),
                     ),
-                    Text(
-                      item.label ?? "",
+                    Text(appService.getTrans(item.label ?? ""),
                       style: TextStyle(
                         color: controller.selectedPath.value == item.navPath
                             ? AppColors.fontPrimary

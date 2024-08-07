@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'dart:math' as math;
 
 import 'package:kombat_flutter/theme/app_colors.dart';
 
 class CodePopupWidget extends StatelessWidget {
-  const CodePopupWidget({super.key});
+  CodePopupWidget({super.key});
+
+  AppService appService = Get.find<AppService>();
 
   void _logoutPressed(BuildContext context) {
     Navigator.of(context).pop('Logout pressed');
@@ -17,13 +22,14 @@ class CodePopupWidget extends StatelessWidget {
     ScrollController _scrollController = ScrollController();
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
-      width: 330.w, height: 235.h,            
+      width: 330.w, height: 240.h,            
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Play games, get codes and earn keys", style: TextStyle(fontSize: 14.sp, color: AppColors.fontPrimary)),
-          SizedBox(height: 10.h),
-          Text("Enter the code", style: TextStyle(fontSize: 14.sp, 
+          Text(appService.getTrans("Play games, get codes and earn keys"), style: TextStyle(fontSize: 14.sp, color: AppColors.fontPrimary)),
+          Gap(10.h),
+          Text(appService.getTrans("Enter the code"), style: TextStyle(fontSize: 14.sp, 
             color: AppColors.fontPrimary, fontWeight: FontWeight.bold), 
           ),
           Container(
@@ -56,14 +62,14 @@ class CodePopupWidget extends StatelessWidget {
                     foregroundColor: AppColors.fontPrimary,
                     textStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold)
                   ),
-                  child: const Text("Redeem")
+                  child: Text(appService.getTrans("Redeem"))
                 )
               ],
             )
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(height: 15.h,),
           Container(height: 2.h, color: AppColors.secondary),
-          SizedBox(height: 20.h,),
+          SizedBox(height: 15.h,),
           Container(
             height: 50.h,
             decoration: BoxDecoration(
@@ -80,7 +86,7 @@ class CodePopupWidget extends StatelessWidget {
                 textStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 minimumSize: Size.fromHeight(40.h),
               ),
-              child: const Text('Go to games'),
+              child: Text(appService.getTrans('Go to games'), textAlign: TextAlign.center,),
             ),
           ),
           // ElevatedButton(
