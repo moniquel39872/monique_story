@@ -53,14 +53,15 @@ class ExchangeController extends GetxController {
     } else {
       clearCode();
       letter = null;
-    }
-    // String key = morseLetters.keys.firstWhere((k)=>morseLetters[k]==curMorseCode);
-    // if(key==appService.morseCode[curLetters.length]) {
-    //   letter = key;
-    //   curLetters += key;
-    //   curMorseCode="";
-    // } else {
-    // }
+    }    
     return letter;
+  }
+
+  bool checkMorseLetters() {
+    if(curLetters == appService.morseCode) {
+      clearCode();
+      return true;
+    }
+    return false;
   }
 }

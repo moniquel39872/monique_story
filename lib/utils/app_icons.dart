@@ -29,10 +29,11 @@ class AppIcons {
   static const _kFontFam = 'WebSymbols';
   static const String? _kFontPkg = null;
 
-  static const IconData key = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData heart = IconData(0xf004, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData chevron_left = IconData(0xf053, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData chevron_right = IconData(0xf054, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData exclamation_circle = IconData(0xf06a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData chevron_up = IconData(0xf077, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData chevron_down = IconData(0xf078, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData key = IconData(0xf084, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

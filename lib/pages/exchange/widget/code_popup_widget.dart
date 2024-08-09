@@ -7,6 +7,7 @@ import 'dart:math' as math;
 
 import 'package:kombat_flutter/theme/app_colors.dart';
 
+// ignore: must_be_immutable
 class CodePopupWidget extends StatelessWidget {
   CodePopupWidget({super.key});
 
@@ -18,8 +19,8 @@ class CodePopupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _textEditingController = TextEditingController();
-    ScrollController _scrollController = ScrollController();
+    TextEditingController textEditingController = TextEditingController();
+    ScrollController scrollController = ScrollController();
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
       width: 330.w, height: 240.h,            
@@ -42,8 +43,8 @@ class CodePopupWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _textEditingController,
-                    scrollController: _scrollController,
+                    controller: textEditingController,
+                    scrollController: scrollController,
                     style: TextStyle(color: AppColors.fontPrimary, fontSize: 17.sp) ,
                     maxLines: 1,
                     decoration: InputDecoration(

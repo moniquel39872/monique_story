@@ -20,7 +20,7 @@ class AppService extends GetxService{
   RxInt curCoins = 1000.obs;
   RxInt maxCoins = 1000.obs;
   Map<String, bool> firstLoad = {};
-  String morseCode = "EHTMER";
+  String morseCode = "EHTM";
 
   Future<AppService> init() async {
     await Storage.instance.init();

@@ -10,6 +10,7 @@ import 'package:kombat_flutter/app/app_routes.dart';
 import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 import 'package:kombat_flutter/pages/exchange/exchange_controller.dart';
+import 'package:kombat_flutter/pages/exchange/widget/code_cracked_widget.dart';
 import 'package:kombat_flutter/pages/exchange/widget/code_popup_widget.dart';
 import 'package:kombat_flutter/pages/exchange/widget/daily_item_button_widget.dart';
 import 'package:kombat_flutter/pages/exchange/widget/multi_touch_gesture_recognizer.dart';
@@ -39,15 +40,15 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
   Offset _startPos = Offset(100.w, 100.w);
   final List<Widget> _coinList = [];  
   final int _stepCoins = 1;
-  final int _stepMultiCoins = 120;
+  final int _stepMultiCoins = 10000;
   int duration = 200;
   GlobalKey mainCoinKey = GlobalKey();
   late int _startScore = appService.scores, _endScore = appService.scores;
   final RxBool _isMultiCoins = false.obs;  
   final RxBool _isLoading = true.obs;
+  final RxBool _isCrackedMorseCode = false.obs;
   bool _isFirstLoad = true;
   List<Widget> _morseCodes = [];
-  final FocusNode _focusNode = FocusNode();
 
   void _startSingleAnim({TapDownDetails? tapDownDetails, LongPressEndDetails? longPressEndDetails}) {
     bool isLongPress = false;
@@ -318,7 +319,7 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
                               }
                             ),
                             DailyItemButtonWidget(icon: 'daily3.png', label: "Daily combo", 
-                              onPressed: (){}),
+                              onPressed: (){_startIncreaseCoins();}),
                             DailyItemButtonWidget(icon: 'daily4.png', label: "Mini Game",  
                               onPressed: (){}),
                           ],
@@ -375,7 +376,7 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
                           ),
                           Gap(5.w),                          
                           Visibility(
-                            visible: true,//!_isMultiCoins.value,
+                            visible: !_isMultiCoins.value,
                             child: Countup(
                               begin: _startScore.toDouble(),
                               end: _endScore.toDouble(),
@@ -539,6 +540,12 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
               )            
             ),          
             ..._coinList, 
+            if(_isCrackedMorseCode.value)
+            CodeCrackedWidget(onPressed: (){
+              _isCrackedMorseCode.value=false;
+              _startIncreaseCoins();
+              controller.clearCode();
+            },)        
           ],
         )
       ))
@@ -607,13 +614,13 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
 
     final random = math.Random();
     double x = random.nextInt(MediaQuery.of(context).size.width.toInt()).toDouble();
-    double x2 = position.dx+20.w/2, y2 = position.dy+20.h/2;
+    double x2 = position.dx, y2 = position.dy;
     double y = MediaQuery.of(context).size.height - 50 + random.nextInt(50);
     int duration = 300 + random.nextInt(500);
     int delay = 1 + random.nextInt(200);
     return Positioned(
       top: 0, left: 0,
-      child: Image.asset('assets/images/icon_coin.png').animate(        
+      child: Image.asset('assets/images/coin.png').animate(        
         autoPlay: true,
       ).move(
         begin: Offset(x, y), 
@@ -656,8 +663,15 @@ class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMix
     Widget widget = Text(code, style:TextStyle(color: AppColors.fontPrimary, 
       fontSize: 18.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.center,
     )
-    .animate(autoPlay: true)
-    .scale(begin: const Offset(2, 2), end: const Offset(1, 1), duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+    .animate(
+      autoPlay: true,
+      onComplete: (_){        
+        if(controller.checkMorseLetters()) {
+          _isCrackedMorseCode.value=true;          
+        }
+      }
+    )
+    .scale(begin: const Offset(4, 4), end: const Offset(1, 1), duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
     
     setState(() {
       _morseCodes.add(widget);
