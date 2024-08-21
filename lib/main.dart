@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,6 +23,7 @@ void main() async {
     await GetStorage.init();
     
     var appService = await Get.putAsync(() => AppService().init(), permanent: true);
+    await appService.setHttpInterceptor();
     await appService.getHotlineStorageData();
     await appService.queryLanguageTrans();
 
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget {
       fontSizeResolver: FontSizeResolvers.width,
       builder: (context, child) {
         return GetMaterialApp(
-          builder: EasyLoading.init(),
+          builder: BotToastInit(),//EasyLoading.init(),
+          navigatorObservers: [BotToastNavigatorObserver()],
           title: 'Hamster Kombat',
           debugShowCheckedModeBanner: false,
           // initialRoute: grabCreatePath,

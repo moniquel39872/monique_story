@@ -44,7 +44,7 @@ class SplashView extends StatelessWidget {
               width: 200.w,
               height: 200.w,
               child: const Text("Loading...", style: TextStyle(fontSize: 20, 
-                fontWeight: FontWeight.bold, color: Colors.white)
+                fontWeight: FontWeight.w700, color: Colors.white)
               ),
             ),
           ),          

@@ -73,7 +73,7 @@ class InviteBonusWidget extends StatelessWidget {
                     color: Colors.yellow,
                   ),
                   AppImage.asset(
-                    'coin.png',
+                    'mine/coin.png',
                     width: 30.w,
                     height: 30.w,
                   ),

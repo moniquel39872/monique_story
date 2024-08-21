@@ -6,19 +6,20 @@ import 'package:kombat_flutter/pages/splash/splash_view.dart';
 const splashPath = '/splash';
 const homePath = '/home';
 const lotteryPath = '/lottery';
-const exchangePath = '/exchange';
+const minePath = '/mine';
 const friendsPath = '/friends';
 const earnPath = '/earn';
-const airDropPath = '/airDrop';
+const exchangePath = '/exchange';
 const settingsPath = '/settins';
 const balancePath = '/balacne';
 const selectLangPath = '/language';
 const profilePath = '/profile';
+const earnMorePath = 'earnMore';
 
 final List<GetPage> routes = [
   GetPage(
     name: splashPath,
-    page: () => SplashView(),
+    page: () => const SplashView(),
   ),
   GetPage(
     name: homePath,

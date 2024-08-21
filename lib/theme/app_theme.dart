@@ -23,6 +23,7 @@ class AppTheme extends ChangeNotifier {
       bodyMedium: TextStyle(color: Colors.white),
       bodySmall: TextStyle(color: Colors.white),
     ),
+    fontFamily: 'Roboto',
     extensions: <ThemeExtension<dynamic>>[
       AppThemeColors.light(),
     ],

@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_service.dart';
-import 'package:kombat_flutter/pages/earn/model/earn_list_model.dart';
+import 'package:kombat_flutter/model/earn_list_model.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:kombat_flutter/utils/app_utils.dart';
 import 'package:kombat_flutter/widget/first_animator_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
@@ -64,14 +65,14 @@ class EarnListItemWidget extends StatelessWidget {
                       ),
                       Gap(5.w,),
                       AppImage.asset(
-                        'coin.png',
+                        'mine/coin.png',
                         width: 20.w,
                         height: 20.w,
                       ),
                       Gap(5.w,),
                       Text.rich(
                         TextSpan(
-                          text: " +${item.bonus}",
+                          text: " +${AppUtils.intToStrWithComma(item.bonus??0)}",
                           children: const [
                             TextSpan(
                               text: " for you and your friend",

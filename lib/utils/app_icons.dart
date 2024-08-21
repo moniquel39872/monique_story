@@ -36,4 +36,5 @@ class AppIcons {
   static const IconData chevron_up = IconData(0xf077, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData chevron_down = IconData(0xf078, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData key = IconData(0xf084, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData question_circle_o = IconData(0xf29c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -15,7 +15,7 @@ class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
   @override
-  _ProfileViewState createState() => _ProfileViewState();
+  State<ProfileView> createState() => _ProfileViewState();
 }
 
 class _ProfileViewState extends State<ProfileView> {
@@ -27,7 +27,7 @@ class _ProfileViewState extends State<ProfileView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    skinIndex.value = AppConstant.skins.indexWhere((item)=>item.code==appService.skin.value);
+    skinIndex.value = AppConstant.skins.indexWhere((item)=>item.code==appService.currentSkin.value);
   }
 
   @override
@@ -46,12 +46,12 @@ class _ProfileViewState extends State<ProfileView> {
                 Positioned(
                   top: 2.h, left: 5.w,
                   child: GestureDetector(
-                    onTap: ()=>mainController.selectedPath.value=exchangePath,
+                    onTap: ()=>mainController.selectedPath.value=minePath,
                     child: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.fontSecondary)
                   ),
                 ),
                 Text(appService.getTrans("Profile"), style: TextStyle(color: AppColors.fontPrimary,
-                  fontSize: 25.sp, fontWeight: FontWeight.bold),
+                  fontSize: 25.sp, fontWeight: FontWeight.w700),
                 ),
               ]
             )
@@ -68,13 +68,18 @@ class _ProfileViewState extends State<ProfileView> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10.w)),
                     color: AppColors.avatarBackground,
-                    border: const Border(right: BorderSide(color: Colors.black, width: 2))
+                    // border: const Border(right: BorderSide(color: Colors.black, width: 2))
                   ),
-                  child: AppImage.asset('avatar5.png'),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.w),
+                    child: appService.mineInfoModel.value!=null ?
+                      AppImage.asset('avatar/${appService.mineInfoModel.value?.avatar??0}.jpg',
+                      height: 40.h) : Container()
+                  )
                 ),
                 SizedBox(width: 10.w),
-                Text("Dirk Ackerman", style: TextStyle(color: AppColors.fontPrimary,
-                  fontSize: 18.sp, fontWeight: FontWeight.bold)
+                Text(appService.mineInfoModel.value?.userName??"", style: TextStyle(color: AppColors.fontPrimary, 
+                    fontWeight: FontWeight.w700, fontSize: 18.sp)
                 ),
               ],
             ),
@@ -98,7 +103,7 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 Gap(15.h,),
                 Text(appService.getTrans("Skin"),  style: TextStyle(color: AppColors.fontPrimary,
-                  fontSize: 20.sp, fontWeight: FontWeight.bold)
+                  fontSize: 20.sp, fontWeight: FontWeight.w700)
                 ),
                 Gap(20.h,),
                 Row(
@@ -112,7 +117,7 @@ class _ProfileViewState extends State<ProfileView> {
                       },
                       icon: const Icon(Icons.arrow_back_ios_new_rounded)
                     ),
-                    AppImage.asset('skin/${AppConstant.skins[skinIndex.value].icon}', height: 350.h),
+                    AppImage.asset('skin/${AppConstant.skins[skinIndex.value].icon}', height: 350.h, width: 170.w),
                     IconButton(
                       onPressed: (){
                         if(skinIndex<AppConstant.skins.length-1){
@@ -134,11 +139,12 @@ class _ProfileViewState extends State<ProfileView> {
                     color: AppColors.secondary
                   ),
                   child: loadSkinPurchasePanel(),
-                )
+                ),
+                SizedBox(height: 100.h)
                 // )
               ],
             )
-          )
+          ),          
         ]
       ),        
         // Positioned(
@@ -159,12 +165,12 @@ class _ProfileViewState extends State<ProfileView> {
       children: [
         Column(children: [
           Text(skin.label??"", style: TextStyle(color: AppColors.fontPrimary,
-            fontSize: 20.sp, fontWeight: FontWeight.bold)
+            fontSize: 20.sp, fontWeight: FontWeight.w700)
           ),
           Gap(10.h,),
           Container(
             constraints: BoxConstraints(minHeight: 40.h),
-            child: Text(skin.code==appService.skin.value
+            child: Text(skin.id==appService.mineInfoModel.value?.level
               ?appService.getTrans("Your league's default skin")
               :appService.getTrans(skin.desc??""),  
               style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp), textAlign: TextAlign.center,
@@ -172,40 +178,42 @@ class _ProfileViewState extends State<ProfileView> {
           )
         ],),
         Gap(10.h),
-        if(skin.code==appService.skin.value)
+        if(skin.id<=appService.getCurLevel())
         Container(
           constraints: BoxConstraints(minHeight: 40.h),
           child: Text(appService.getTrans("Purchased"),  style: TextStyle(color: AppColors.fontMenu3,
             fontSize: 18.sp)
           ),
         ),
-        if(skin.code!=appService.skin.value)
+        if(skin.id>appService.getCurLevel())
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AppImage.asset("coin_grey.png", width:35.w), SizedBox(width: 10.w),
-            Text(AppUtils.intToStrWithComma(skin.price??0), style: TextStyle(color: AppColors.fontSecondary,
-              fontSize: 25.sp, fontWeight: FontWeight.bold))
+            // AppImage.asset("mine/coin_grey.png", width:35.w), SizedBox(width: 10.w),
+            // Text(AppUtils.intToStrWithComma(skin.price??0), style: TextStyle(color: AppColors.fontSecondary,
+            //   fontSize: 25.sp, fontWeight: FontWeight.w700))
+            Text("Level ${skin.id}", style: TextStyle(color: AppColors.fontSecondary,
+              fontSize: 25.sp, fontWeight: FontWeight.w700))
           ],
         ),
-        Gap(25.h),
-        ElevatedButton(
-          onPressed: (){                                
-          }, 
-          style:  ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),                    
-            backgroundColor: AppColors.buttonBackground,
-            foregroundColor: AppColors.fontPrimary,
-            textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-            minimumSize: Size.fromHeight(70.h),
-          ),
-          child: Text(skin.code==appService.skin.value
-            ? appService.getTrans("Choose")
-            : appService.getTrans("Reach the %s league to unlock the skin", params: [skin.type??""]),
-            textAlign: TextAlign.center,
-          )
-        ),
+        // Gap(25.h),
+        // ElevatedButton(
+        //   onPressed: (){                                
+        //   }, 
+        //   style:  ElevatedButton.styleFrom(
+        //     padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+        //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),                    
+        //     backgroundColor: AppColors.buttonBackground,
+        //     foregroundColor: AppColors.fontPrimary,
+        //     textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
+        //     minimumSize: Size.fromHeight(70.h),
+        //   ),
+        //   child: Text(skin.id==appService.mineInfoModel.value?.level
+        //     ? appService.getTrans("Choose")
+        //     : appService.getTrans("Reach the %s league to unlock the skin", params: [skin.type??""]),
+        //     textAlign: TextAlign.center,
+        //   )
+        // ),
       ],
     );
   }

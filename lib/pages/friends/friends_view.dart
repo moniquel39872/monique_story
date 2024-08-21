@@ -2,161 +2,134 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_constant.dart';
 import 'package:kombat_flutter/app/app_service.dart';
-import 'package:kombat_flutter/pages/friends/invite_bonus_widget.dart';
+import 'package:kombat_flutter/model/friend_model.dart';
+import 'package:kombat_flutter/pages/friends/friends_controller.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
+import 'package:kombat_flutter/utils/app_date_util.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
-import 'package:kombat_flutter/widget/first_animator_widget.dart';
-import 'package:toastification/toastification.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class FriendsView extends StatefulWidget {
-  const FriendsView({Key? key}) : super(key: key);
+  const FriendsView({super.key});
 
   @override
-  _FriendsViewState createState() => _FriendsViewState();
+  State<FriendsView> createState() => _FriendsViewState();
 }
 
-class _FriendsViewState extends State<FriendsView> {
+class _FriendsViewState extends State<FriendsView>  with TickerProviderStateMixin{
   AppService appService = Get.find<AppService>();
+  FriendsController controller = Get.put(FriendsController());
+  late TabController _tabController;
+  late List<Tab> tabs;
   bool _isFirstLoad = true;
-  // late Animation<Offset> _slideAnimation;
-  // late AnimationController _controller;
-  // late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-  //   begin: Offset.zero,
-  //   end: const Offset(1.5, 0.0),
-  // ).animate(CurvedAnimation(
-  //   parent: _controller,
-  //   curve: Curves.elasticIn,
-  // ));
+
   @override
   void initState() {
-    // _controller = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 2000),
-    // )..repeat(reverse: true);
-    // _slideAnimation = Tween<Offset>(
-    //   begin: const Offset(-1, 0),
-    //   end: Offset.zero,
-    // ).animate(
-    //   CurvedAnimation(
-    //     parent: _controller,
-    //     curve: const Interval(.6875, 1.0, curve: Curves.fastOutSlowIn),
-    //   ),
-    // );
     // TODO: implement initState
+    tabs = <Tab> [Tab(text: appService.getTrans('Friends'))];
     _isFirstLoad = appService.firstLoad['friends']??true;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       appService.firstLoad['friends']=false;
     });
+
+    _tabController = TabController(length: tabs.length, vsync: this);
+
+    controller.getFriends();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Gap(100.h,),
-        FirstAnimatorWidget(
-          incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-              duration:const Duration(milliseconds: 500),
-              curve: Curves.elasticInOut),
-          isAnimate: _isFirstLoad,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Text(appService.getTrans('Invite friends!'),
-              style: TextStyle(fontSize: 44.sp),
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Column(
+        children: [
+          Gap(30.h),
+          TabBar(              
+            controller: _tabController,
+            isScrollable: true,
+            physics: const ClampingScrollPhysics(),
+            indicatorSize: TabBarIndicatorSize.label,
+            tabAlignment: TabAlignment.start,
+            labelStyle: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700), 
+            indicator: null,
+            labelColor: AppColors.fontPrimary,
+            indicatorColor: AppColors.buttonBackground,
+            tabs: tabs,
+          ),
+          Obx(()=>Expanded(
+            child: TabBarView(controller: _tabController, physics: const NeverScrollableScrollPhysics(),
+              children: [
+                controller.isLoading.value?
+                Container() :
+                ListView.builder(
+                  itemCount: controller.friendsList.length,
+                  itemBuilder: (BuildContext context, int index){
+                    FriendModel item = controller.friendsList[index];
+                    return _getFriendItem(item);
+                  }
+                )
+              ]
             ),
-          ),
-        ),
-        FirstAnimatorWidget(
-          incomingEffect: WidgetTransitionEffects.incomingSlideInFromRight(
-            duration: Duration(milliseconds: 700),
-            curve: Curves.elasticInOut,
-          ),
-          isAnimate: _isFirstLoad,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.h),
-            child: Text(appService.getTrans('You and your friend will receive bonuses'),
-              style: TextStyle(fontSize: 22.sp),
-            ),
-          ),
-        ),
-        InviteBonusWidget(
-          bonus: "5,000",
-          title: 'Invite a friend',
-          image: 'gift1.png',
-          isAnimate: _isFirstLoad,
-        ),
-        InviteBonusWidget(
-          bonus: "25,000",
-          title: 'Invite a friend with Telegram Premium',
-          image: 'gift2.png',
-          isAnimate: _isFirstLoad,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.h),
-          child: Text(appService.getTrans('More bonuess'),
-            style: TextStyle(
-              color: const Color(0xff5B61FF),
-              fontSize: 22.sp,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(appService.getTrans('List of your friends')),
-              GestureDetector(
-                onTap: () {},
-                child: Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Icon(
-                      Icons.replay_rounded,
-                      color: Colors.white,
-                      size: 30.w,
+          ))
+        ]
+      )
+    );
+  }
+
+  Widget _getFriendItem(FriendModel item) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.w),
+        color: AppColors.cardBackground
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(children: [
+            CircleAvatar(
+              backgroundImage: ExactAssetImage('assets/images/avatar/${item.avatar}.jpg'),
+              radius: 30.w,
+            ),            
+            Gap(10.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.userName, style: TextStyle(color: AppColors.fontPrimary, fontSize: 20.sp, fontWeight: FontWeight.w700)),
+                Gap(5.h),
+                Row(children: [
+                  Container(
+                    width: 7.w, height: 7.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(item.status==-1?0x80ffffff:0xFF84CB69).withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 0.3,
+                          offset: const Offset(0, 0), // changes position of shadow
+                        ),
+                      ],
+                      color: Color(item.status==-1?0x80ffffff:0xFF84CB69)
                     ),
-                    Text(
-                      '5',
-                      style: TextStyle(color: Colors.white, fontSize: 10.w),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(
-            vertical: 20.w,
-            horizontal: 15.w,
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: 30.w,
-            horizontal: 10.w,
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.secondary,
-            borderRadius: BorderRadius.circular(20.w),
-          ),
-          child: Center(
-              child: Text(appService.getTrans("You haven't invited anyone yet"),
-            style: const TextStyle(color: AppColors.fontSecondary),
-          )),
-        ),        
-        FirstAnimatorWidget(
-          incomingEffect: WidgetTransitionEffects.incomingSlideInFromBottom(
-            curve: Curves.elasticInOut,
-            duration: const Duration(milliseconds: 800),
-          ),
-          isAnimate: _isFirstLoad,
-          child: getInviteWidget()
-        ),        
-      ],
+                  ),
+                  Gap(10.w),
+                  Text(AppDateUtil.YMdhms(item.updatedAt??item.createdAt), style: TextStyle(color: AppColors.fontSecondary, fontSize: 15.sp))
+                ],)
+              ],
+            )
+          ],),
+          item.status==-1?
+          AppImage.svgByAsset('add_friend.svg', height: 30.h, color: AppColors.fontSecondary):
+          SizedBox(height: 30.w, width: 30.w)
+        ],
+      )
     );
   }
 
@@ -169,7 +142,7 @@ class _FriendsViewState extends State<FriendsView> {
         children: [
           Expanded(
             child: WidgetAnimator(
-              atRestEffect: WidgetRestingEffects.size(effectStrength: 0.76, duration: Duration(milliseconds: 1100)),
+              atRestEffect: WidgetRestingEffects.size(effectStrength: 0.76, duration: const Duration(milliseconds: 1100)),
               child: Container(
                 margin: EdgeInsets.symmetric(
                   vertical: 20.w,
@@ -202,45 +175,6 @@ class _FriendsViewState extends State<FriendsView> {
           Gap( 10.w,),
           GestureDetector(
             onTap: () {
-              toastification.showCustom(
-                context: context,
-                autoCloseDuration: const Duration(seconds: 3),
-                alignment: Alignment.topCenter,
-                builder:
-                    (BuildContext context, ToastificationItem holder) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.w),
-                      color: const Color(0xff23262A).withOpacity(0.7),
-                    ),
-                    padding: EdgeInsets.all(16.w),
-                    margin: EdgeInsets.all(8.w),
-                    child: Stack(
-                      alignment: AlignmentDirectional.centerEnd,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.check_circle,
-                              color: const Color(0xff82F88E),
-                              size: 30.w,
-                            ),
-                            Gap( 20.w,),
-                            Text(appService.getTrans('Text copied!'),
-                              style: TextStyle(fontSize: 20.w),
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          Icons.close_outlined,
-                          color: Color(0xffB0B1B3),
-                          size: 20.w,
-                        )
-                      ],
-                    ),
-                  );
-                },
-              );
             },
             child: Container(
               margin: EdgeInsets.symmetric(

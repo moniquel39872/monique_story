@@ -31,13 +31,13 @@ class _SettingsViewState extends State<SettingsView> {
           child: Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
-              onTap: ()=>mainController.selectedPath.value=exchangePath,
+              onTap: ()=>mainController.selectedPath.value=minePath,
               child: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.fontSecondary)
             ),
           ),
         ),
         Text(appService.getTrans("Settings"), style: TextStyle(color: AppColors.fontPrimary,
-              fontSize: 32.sp, fontWeight: FontWeight.bold)
+              fontSize: 32.sp, fontWeight: FontWeight.w700)
         ),
         SizedBox(height: 20.h,),
         GestureDetector(
@@ -58,9 +58,9 @@ class _SettingsViewState extends State<SettingsView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(appService.getTrans("Select Language"), style: TextStyle(color: AppColors.fontPrimary,
-                        fontSize: 18.sp, fontWeight: FontWeight.bold)
+                        fontSize: 18.sp, fontWeight: FontWeight.w700)
                       ),
-                      Text(appService.getLanguageByCode(appService.lang.value).name??"", style: TextStyle(color: AppColors.fontSecondary,
+                      Text(appService.getLanguageByCode(appService.currentLang.value).name??"", style: TextStyle(color: AppColors.fontSecondary,
                         fontSize: 16.sp)
                       ),
                     ],
@@ -71,93 +71,93 @@ class _SettingsViewState extends State<SettingsView> {
             )
           )
         ),
-        Container(
-          constraints: BoxConstraints(minHeight: 70.h),
-          padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
-          margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.w,),
-          decoration: BoxDecoration(
-            color: AppColors.secondary,
-            borderRadius: BorderRadius.circular(20.w),
-          ),
-          child: Row(
-            children: [ 
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(appService.getTrans("Choose exchange"), style: TextStyle(color: AppColors.fontPrimary,
-                      fontSize: 18.sp, fontWeight: FontWeight.bold)
-                    ),
-                    Text("Gate.io", style: TextStyle(color: AppColors.fontSecondary,
-                      fontSize: 16.sp)
-                    ),
-                  ],
-                )
-              ),
-              const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.fontSecondary),
-            ],
-          )
-        ),
-        Container(
-          constraints: BoxConstraints(minHeight: 70.h),
-          padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
-          margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.w,),
-          decoration: BoxDecoration(
-            color: AppColors.secondary,
-            borderRadius: BorderRadius.circular(20.w),
-          ),
-          child: Row(
-            children: [ 
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(appService.getTrans("Delete account"), style: TextStyle(color: AppColors.fontPrimary,
-                      fontSize: 18.sp, fontWeight: FontWeight.bold)
-                    ),                    
-                  ],
-                )
-              ),
-              const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.fontSecondary),
-            ],
-          )
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 40.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(appService.getTrans("Haptic Feedback"), style: TextStyle(color: AppColors.fontPrimary,
-                fontSize: 20.sp, fontWeight: FontWeight.bold)
-              ),
-              FlutterSwitch(
-                  width: 50.h, height: 30.h,
-                  value: _isHapicFeedback.value,
-                  activeColor: const Color(0xff11c1f3),
-                  onToggle: (bool value) => _isHapicFeedback.value=value ,
-                )
-            ],
-          )
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 40.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(appService.getTrans("Coins animation"), style: TextStyle(color: AppColors.fontPrimary,
-                fontSize: 20.sp, fontWeight: FontWeight.bold)
-              ),
-              FlutterSwitch(
-                  width: 50.h, height: 30.h,
-                  value: _isCoinsAnim.value,
-                  activeColor: const Color(0xff11c1f3),
-                  onToggle: (bool value) => _isCoinsAnim.value=value ,
-                )
-            ],
-          )
-        ),
+        // Container(
+        //   constraints: BoxConstraints(minHeight: 70.h),
+        //   padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
+        //   margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.w,),
+        //   decoration: BoxDecoration(
+        //     color: AppColors.secondary,
+        //     borderRadius: BorderRadius.circular(20.w),
+        //   ),
+        //   child: Row(
+        //     children: [ 
+        //       Expanded(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Text(appService.getTrans("Choose exchange"), style: TextStyle(color: AppColors.fontPrimary,
+        //               fontSize: 18.sp, fontWeight: FontWeight.w700)
+        //             ),
+        //             Text("Gate.io", style: TextStyle(color: AppColors.fontSecondary,
+        //               fontSize: 16.sp)
+        //             ),
+        //           ],
+        //         )
+        //       ),
+        //       const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.fontSecondary),
+        //     ],
+        //   )
+        // ),
+        // Container(
+        //   constraints: BoxConstraints(minHeight: 70.h),
+        //   padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
+        //   margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 20.w,),
+        //   decoration: BoxDecoration(
+        //     color: AppColors.secondary,
+        //     borderRadius: BorderRadius.circular(20.w),
+        //   ),
+        //   child: Row(
+        //     children: [ 
+        //       Expanded(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Text(appService.getTrans("Delete account"), style: TextStyle(color: AppColors.fontPrimary,
+        //               fontSize: 18.sp, fontWeight: FontWeight.w700)
+        //             ),                    
+        //           ],
+        //         )
+        //       ),
+        //       const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.fontSecondary),
+        //     ],
+        //   )
+        // ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 40.w),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Text(appService.getTrans("Haptic Feedback"), style: TextStyle(color: AppColors.fontPrimary,
+        //         fontSize: 20.sp, fontWeight: FontWeight.w700)
+        //       ),
+        //       FlutterSwitch(
+        //           width: 50.h, height: 30.h,
+        //           value: _isHapicFeedback.value,
+        //           activeColor: const Color(0xff11c1f3),
+        //           onToggle: (bool value) => _isHapicFeedback.value=value ,
+        //         )
+        //     ],
+        //   )
+        // ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 40.w),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Text(appService.getTrans("Coins animation"), style: TextStyle(color: AppColors.fontPrimary,
+        //         fontSize: 20.sp, fontWeight: FontWeight.w700)
+        //       ),
+        //       FlutterSwitch(
+        //           width: 50.h, height: 30.h,
+        //           value: _isCoinsAnim.value,
+        //           activeColor: const Color(0xff11c1f3),
+        //           onToggle: (bool value) => _isCoinsAnim.value=value ,
+        //         )
+        //     ],
+        //   )
+        // ),
         SizedBox(height: 30.h,),
         Align(alignment: Alignment.center,
           child: Text(appService.getTrans("Privacy policy"), style: TextStyle(color: AppColors.fontSecondary,

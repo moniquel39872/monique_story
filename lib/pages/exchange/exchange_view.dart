@@ -1,680 +1,376 @@
-import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_popup_card/flutter_popup_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kombat_flutter/app/app_routes.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kombat_flutter/app/app_service.dart';
-import 'package:kombat_flutter/controllers/main_controller.dart';
-import 'package:kombat_flutter/pages/exchange/exchange_controller.dart';
-import 'package:kombat_flutter/pages/exchange/widget/code_cracked_widget.dart';
-import 'package:kombat_flutter/pages/exchange/widget/code_popup_widget.dart';
-import 'package:kombat_flutter/pages/exchange/widget/daily_item_button_widget.dart';
-import 'package:kombat_flutter/pages/exchange/widget/multi_touch_gesture_recognizer.dart';
+import 'package:kombat_flutter/model/backpack_model.dart';
+import 'package:kombat_flutter/model/exchange_model.dart';
+import 'package:kombat_flutter/pages/exchange/exchange1_controller.dart';
+import 'package:kombat_flutter/pages/exchange/model/earn_list_model.dart';
+import 'package:kombat_flutter/pages/exchange/widgets/earn_list_item_widget.dart';
+import 'package:kombat_flutter/pages/earn/widgets/earn_list_item_widget.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_icons.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
-import 'package:kombat_flutter/widget/app_positioned_background.dart';
-import 'dart:math' as math;
-
-import 'package:kombat_flutter/widget/core_button.dart';
+import 'package:kombat_flutter/utils/app_utils.dart';
+import 'package:kombat_flutter/widget/app_bottomsheet_widget.dart';
+import 'package:kombat_flutter/widget/app_common_dialog.dart';
+import 'package:kombat_flutter/widget/app_toast.dart';
 import 'package:kombat_flutter/widget/first_animator_widget.dart';
+import 'package:kombat_flutter/widget/wave_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
-class ExchangePage extends StatefulWidget {
-  const ExchangePage({super.key});
+class ExchangeView extends StatefulWidget {
+  const ExchangeView({super.key});
 
   @override
-  _ExchangePageState createState() => _ExchangePageState();
+  State<ExchangeView> createState() => _ExchangeViewState();
 }
 
-class _ExchangePageState extends State<ExchangePage> with TickerProviderStateMixin  {
-  MainController mainController = Get.find();
+class _ExchangeViewState extends State<ExchangeView> {
   AppService appService = Get.find<AppService>();
   ExchangeController controller = Get.put(ExchangeController());
-  
-  late final AnimationController _coinsController;  
-  Offset _startPos = Offset(100.w, 100.w);
-  final List<Widget> _coinList = [];  
-  final int _stepCoins = 1;
-  final int _stepMultiCoins = 10000;
-  int duration = 200;
-  GlobalKey mainCoinKey = GlobalKey();
-  late int _startScore = appService.scores, _endScore = appService.scores;
-  final RxBool _isMultiCoins = false.obs;  
-  final RxBool _isLoading = true.obs;
-  final RxBool _isCrackedMorseCode = false.obs;
   bool _isFirstLoad = true;
-  List<Widget> _morseCodes = [];
+  final RxInt _tabIndex = 0.obs;
+  final RxBool _isSent = false.obs;
 
-  void _startSingleAnim({TapDownDetails? tapDownDetails, LongPressEndDetails? longPressEndDetails}) {
-    bool isLongPress = false;
-    _startScore = appService.scores;
-    appService.scores += _stepCoins;
-    _endScore = appService.scores;  
-    appService.curCoins.value -= _stepCoins;  
-    _isMultiCoins.value = false;    
-    if(tapDownDetails!=null){
-      _startPos = Offset(tapDownDetails.globalPosition.dx, tapDownDetails.globalPosition.dy);
-    } else if(longPressEndDetails!=null) {
-      _startPos = Offset(longPressEndDetails.globalPosition.dx, longPressEndDetails.globalPosition.dy);
-      isLongPress = true;
-    }
-    
-    _coinList.add(_singleColin(_startPos, isLongPress: isLongPress)); 
-    setState(() {});    
-  }
-
-  void _startMultiSingleAnim(List<TapDownDetails> tapDetails) {
-    for(int i=0;i<tapDetails.length;i++){
-      TapDownDetails details=tapDetails[i];
-      _startSingleAnim(tapDownDetails: details);
-    }
-  }
-
-  void _startIncreaseCoins() {
-    for(int i=0;i<60;i++){
-      _coinList.add(_randomSigleCoin());
-    }    
-    _startScore = appService.scores;
-    appService.scores += _stepMultiCoins;
-    _endScore = appService.scores;
-    _isMultiCoins.value = true;
-    setState(() {});    
-    Future.delayed(const Duration(milliseconds: 300), (){
-      _coinsController.forward();
-      _coinsController.repeat().timeout(Duration(milliseconds:  duration * 3), onTimeout:  () {
-        _coinsController.forward(from: 0);
-        _coinsController.stop(canceled: true);
-      });
-    });
-  }
+  TextEditingController textEditingController1 = TextEditingController();
+  TextEditingController textEditingController2 = TextEditingController();  
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _coinsController = AnimationController(duration: Duration(milliseconds: duration), vsync: this);
     _isFirstLoad = appService.firstLoad['exchange']??true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       appService.firstLoad['exchange']=false;
     });
+
+    controller.getExchanges();
   }
 
   @override
-  void dispose() {
-    _coinsController.dispose();
-    // TODO: implement dispose
-    super.dispose();
-  }
-  
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Obx(()=>SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(height: MediaQuery.of(context).size.height),
-            AppPositionedBackground(assetPath: 'gradient1.png', top: -80, left: 0, height: 400),
-            AppPositionedBackground(assetPath: 'back1.png', top: 90, left: 0, height: Get.height+300),                      
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
-              child: Column(
-                children: [
-                  Gap(40.h),                
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap:()=> mainController.selectedPath.value=profilePath,
-                            child: Container(
-                              constraints: BoxConstraints(minWidth: 100.w, maxWidth: 150.w),
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                                // border: Border.all(color: Colors.transparent, width: 2),
-                                gradient: const LinearGradient(
-                                  colors: [Color(0xFFfa3a01), Color(0xFFffac45),],
-                                  begin: FractionalOffset(0.0, 0.0),
-                                  end: FractionalOffset(1.0, 0.0),
-                                  stops: [0.0, 1.0],
-                                  tileMode: TileMode.clamp
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 40.w,
-                                    padding: EdgeInsets.symmetric(vertical: 2.h),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                                      color: AppColors.avatarBackground,
-                                      border: const Border(right: BorderSide(color: Colors.black, width: 2))
-                                    ),
-                                    child: AppImage.asset('avatar5.png')
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 5.w),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(appService.getTrans("Buy\nskin"), 
-                                          style: TextStyle(color: AppColors.fontPrimary, fontSize: 11.sp),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Gap(5.w),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 2.h),
-                                          child: AppImage.asset('avatar5.png'),
-                                        )
-                                      ]
-                                    ),
-                                  )
-                                ],
-                              ) 
-                            ),
-                          ),                        
-                          Gap(5.w),
-                          Text("Dirk Ackerman(CEO)", style: TextStyle(color: AppColors.fontPrimary, 
-                            fontWeight: FontWeight.bold, fontSize: 16.sp)
-                          )
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: _showPopup,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.w),
-                            color: AppColors.secondary
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(AppIcons.key, color: AppColors.iconColor, size: 20.w,),
-                              Gap(3.w),
-                              Text("100", style:TextStyle(color: AppColors.fontPrimary, fontSize: 12.sp)),
-                              Gap(3.w),
-                              Icon(AppIcons.chevron_right, color: AppColors.fontSecondary, size: 10.w,),
-                            ],
-                          )
-                        )
-                      )                    
-                    ]
+      backgroundColor: AppColors.background,
+      body: Obx(()=>Stack(
+        children: [
+          SingleChildScrollView(
+            child: Obx(()=>Column(
+              children: [
+                Gap(80.h),
+                FirstAnimatorWidget(
+                  incomingEffect: WidgetTransitionEffects.incomingSlideInFromTop(
+                    curve: Curves.elasticInOut,
+                    duration: const Duration(milliseconds: 600),
+                  ), 
+                  isAnimate: _isFirstLoad, 
+                  child: AppImage.asset('exchange/coins.png', height: 200.h),  
+                ),          
+                Gap(20.h,),
+                FirstAnimatorWidget(
+                  incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                    curve: Curves.elasticInOut,
+                    duration: const Duration(milliseconds: 600),
                   ),
-                  Gap(5.h),                
-                  Row(
-                    children: [
-                      SizedBox(                      
-                        width: 170.w,
-                        child: Column(
-                          children: [
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(appService.getTrans('Bronze'), style: TextStyle(color: AppColors.fontPrimary, 
-                                        fontWeight: FontWeight.bold, fontSize: 12.sp)
-                                      ),
-                                      Icon(AppIcons.chevron_right, color: AppColors.fontSecondary, size: 10.w)
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("1", style: TextStyle(color: AppColors.fontPrimary, fontWeight: FontWeight.bold, fontSize: 12.sp)),
-                                      Text("/11", style: TextStyle(color: AppColors.fontSecondary, fontSize: 12.sp))
-                                    ],
-                                  )
-                                ]
-                              ),
-                            ), 
-                            Gap(5.h,),
-                            Container(                            
-                              height: 10.h, width: 170.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.h),
-                                color: const Color(0xFF49412d),
-                                border: Border.all(color: AppColors.borderColor, width: 1.w),                              
-                              ),
-                            )
-                          ],
-                        )
+                  isAnimate: _isFirstLoad,
+                  child: Text(AppUtils.intToStrWithComma(appService.mineInfoModel.value?.gold??0),
+                    style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
+                  ),
+                ),          
+                Gap(30.h),
+                Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: (){
+                        _tabIndex.value=0;
+                        controller.getExchanges();
+                      }, 
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _tabIndex.value==0?AppColors.cardBackground: AppColors.background
                       ),
-                      Gap(30.w),
-                      Expanded(
-                        child: Container(
-                          height: 50.h,
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.w),
-                            border: Border.all(color: AppColors.borderColor, width: 2.w),
-                            color: const Color(0xFF49412d)
-                          ),
-                          child: Row(                          
-                            children: [
-                              AppImage.asset('avatar0.png'),
-                              Gap(5.w),
-                              VerticalDivider(color: AppColors.borderColor, thickness: 2.w, indent: 8.h, endIndent: 8.h,),
-                              Expanded(child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(appService.getTrans("Profit per hour"), style: TextStyle(color: AppColors.fontMenu4, fontSize: 13.sp)),
-                                  Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AppImage.asset('coin.png', width: 20.w),
-                                      Gap(5.w),
-                                      Text("0", style: TextStyle(color: AppColors.fontPrimary, fontWeight: FontWeight.bold, fontSize: 16.sp)),
-                                      Gap(5.w),
-                                      Icon(AppIcons.exclamation_circle, color: AppColors.borderColor, size: 16.w)
-                                    ]
-                                  )
-                                ],
-                              )),
-                              VerticalDivider(color: AppColors.borderColor, thickness: 2.w, indent: 8.h, endIndent: 8.h,),
-                              Gap(5.w),
-                              GestureDetector(
-                                onTap: ()=>mainController.selectedPath.value=settingsPath,
-                                child: Icon(Icons.settings, color: AppColors.fontPrimary, size: 30.w)
-                              )
-                            ] 
-                          )
-                        )
-                      )
-                    ],
-                  ),                                
-                  Column(
-                    children: [
-                      Gap(10.h),
-                      FirstAnimatorWidget(
-                        incomingEffect: WidgetTransitionEffects.incomingSlideInFromRight(
-                          curve: Curves.elasticInOut,                          
-                          duration: const Duration(milliseconds: 500),
-                        ),
-                        isAnimate: _isFirstLoad,
-                        child: GridView.count(
-                          primary: false,
-                          shrinkWrap: true,
-                          crossAxisCount:4,
-                          mainAxisSpacing: 10.w,
-                          crossAxisSpacing: 10.w,
-                          children: [
-                            DailyItemButtonWidget(icon: 'daily1.png', label: "Daily reward", 
-                              onPressed: ()=>mainController.selectedPath.value=earnPath),
-                            DailyItemButtonWidget(icon: 'daily2.png', label: "Daily cipher", 
-                              onPressed: (){
-                                controller.isCipher.value=!controller.isCipher.value;
-                                _morseCodes=[];
-                                controller.clearCode();
-                              }
-                            ),
-                            DailyItemButtonWidget(icon: 'daily3.png', label: "Daily combo", 
-                              onPressed: (){_startIncreaseCoins();}),
-                            DailyItemButtonWidget(icon: 'daily4.png', label: "Mini Game",  
-                              onPressed: (){}),
-                          ],
-                        ),
+                      child: Row(children: [
+                        Text(appService.getTrans('Limited Exchange'), style: TextStyle(color: AppColors.fontPrimary, fontSize: 20.sp)),
+                        Gap(5.w),
+                        Icon(AppIcons.question_circle_o , color: AppColors.fontSecondary, size: 20.w)
+                      ],)                  
+                    ),
+                    Gap(10.w),
+                    ElevatedButton(
+                      onPressed: (){
+                        _tabIndex.value=1;
+                        controller.getBackpack();
+                      },  
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _tabIndex.value==1?AppColors.cardBackground: AppColors.background
                       ),
-                      Gap(25.h),   
-                      if(_isLoading.value && _isFirstLoad)
-                      // ************ Coins on loading **********
-                      FirstAnimatorWidget(
-                        incomingEffect: WidgetTransitionEffects.incomingScaleUp(
-                          curve: Curves.elasticInOut,                          
-                          duration: const Duration(milliseconds: 300),
-                        ),
-                        isAnimate: _isFirstLoad,
-                        onIncomingAnimationComplete: (_){
-                          _isLoading.value=false;
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [                            
-                            Container(
-                              key: mainCoinKey,
-                              child: AppImage.asset('coin.png').animate(                        
-                                autoPlay: false,
-                                controller: _coinsController
-                              ).scale(delay: 100.ms, end: const Offset(1.2, 1.2), duration: 100.ms, curve: Curves.easeOut),
-                            ),
-                            Gap(5.w),                            
-                            Countup(
-                              begin: _startScore.toDouble(),
-                              end: _endScore.toDouble(),
-                              duration: const Duration(milliseconds: 100),
-                              separator: ',',
-                              style: TextStyle(
-                                fontSize: 30.sp,
-                                fontWeight : FontWeight.bold,
-                                color: Colors.white
-                              ), 
-                            ),
-                          ],
-                        ),    
-                      ), 
-                      if(!_isLoading.value || !_isFirstLoad)
-                      // *********** Coins ***********
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [                            
-                          Container(
-                            key: mainCoinKey,
-                            child: AppImage.asset('coin.png').animate(                        
-                              autoPlay: false,
-                              controller: _coinsController
-                            ).scale(delay: 100.ms, end: const Offset(1.2, 1.2), duration: 100.ms, curve: Curves.easeOut),
-                          ),
-                          Gap(5.w),                          
-                          Visibility(
-                            visible: !_isMultiCoins.value,
-                            child: Countup(
-                              begin: _startScore.toDouble(),
-                              end: _endScore.toDouble(),
-                              duration: const Duration(milliseconds: 100),
-                              separator: ',',
-                              style: TextStyle(
-                                fontSize: 30.sp,
-                                fontWeight : FontWeight.bold,
-                                color: Colors.white
-                              ), 
-                            ),
-                          ),
-                          Visibility(
-                            visible: _isMultiCoins.value,
-                            child: Countup(
-                              begin: _startScore.toDouble(),
-                              end: _endScore.toDouble(),
-                              duration: const Duration(seconds: 1),
-                              separator: ',',
-                              style: TextStyle(
-                                fontSize: 30.sp,
-                                fontWeight : FontWeight.bold,
-                                color: Colors.white
-                              ), 
-                            )
-                          ).animate( 
-                            autoPlay: false,
-                            controller: _coinsController
-                          ).scale(delay: 100.ms, end: const Offset(1.2, 1.2), duration: 100.ms, curve: Curves.easeOut),
-                        ],
-                      ),
-                      // *********** End Coins ***********
-                      //************ Main board on loading *************/                                                
-                      Gap(25.h),
-                      if(_isLoading.value && _isFirstLoad)
-                      FirstAnimatorWidget(
-                        incomingEffect: WidgetTransitionEffects.incomingScaleUp(
-                          curve: Curves.elasticInOut,                          
-                          duration: const Duration(milliseconds: 300),
-                        ),
-                        isAnimate: _isFirstLoad,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children:[
-                            CoreButton(
-                              onTapUp: (_) {},
-                              onMultiTapUp: (_){},
-                              onLongPressEnd: (_){},
-                              child: AppImage.asset("skin/${appService.getSkinByCode(appService.skin.value).icon}"),
-                            ),                              
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(children: [
-                                  AppImage.asset("vector1.png"),
-                                  Gap(10.w),
-                                  Text("1000 / 1000", style: TextStyle(color: AppColors.fontPrimary, 
-                                    fontWeight: FontWeight.bold, fontSize: 20.sp))
-                                ],),
-                                Row(children: [
-                                  AppImage.asset("boost.png"),
-                                  Gap(10.w),
-                                  Text(appService.getTrans("Boost"), style: TextStyle(color: AppColors.fontPrimary, 
-                                    fontWeight: FontWeight.bold, fontSize: 20.sp))
-                                ],)
-                              ],
-                            )          
-                          ]
-                        )
-                      ),
-                      //),
-                      //************** End Main board on loading *****************/
-                      //************ Main board *************/
-                      if(!_isLoading.value || !_isFirstLoad)
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children:[
-                          if(controller.isCipher.value) 
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
-                            margin: EdgeInsets.only(bottom: 20.h),
-                            height: 60.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.w),
-                              color: AppColors.secondary
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(appService.getTrans("Daily cipher"), style:TextStyle(color: AppColors.fontPrimary, 
-                                  fontSize: 16.sp, fontWeight: FontWeight.bold)
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: _morseCodes,
-                                  )
-                                ),                                
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.w),
-                                    gradient: const LinearGradient(
-                                      colors: [Color(0xFF6060ff), Color(0xFFb25aff),],
-                                      begin: FractionalOffset(0.0, 0.0),
-                                      end: FractionalOffset(1.0, 0.0),
-                                      stops: [0.0, 1.0],
-                                      tileMode: TileMode.clamp
-                                    ),                                      
-                                  ),
-                                  child: Row(                                
-                                    children: [
-                                      AppImage.asset("coin.png", width: 25.w),
-                                      Gap(5.w),
-                                      Text("+1,000,000", style: TextStyle(color: AppColors.fontPrimary, 
-                                        fontSize: 16.sp, fontWeight: FontWeight.bold)
-                                      )
-                                    ],
-                                  )
-                                ),
-                              ]
-                            ),
-                          ),
-                          CoreButton(                              
-                            onTapUp: (TapDownDetails details) => _startSingleAnim(tapDownDetails: details),
-                            onMultiTapUp: (List<TapDownDetails> tapDetails) => _startMultiSingleAnim(tapDetails),
-                            onLongPressEnd: (LongPressEndDetails details){
-                              if(controller.isCipher.value){
-                                _startSingleAnim(longPressEndDetails: details);
-                              }
-                            },
-                            child: AppImage.asset("skin/${appService.getSkinByCode(appService.skin.value).icon}"),
-                          ),
-                          Gap(20.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(children: [
-                                AppImage.asset("vector1.png"),
-                                Gap(10.w),
-                                Text("${appService.curCoins.value} / ${appService.maxCoins.value}", style: TextStyle(color: AppColors.fontPrimary, 
-                                  fontWeight: FontWeight.bold, fontSize: 20.sp))
-                              ],),
-                              GestureDetector(
-                                onTap: ()=>mainController.selectedPath.value=balancePath,
-                                child: Row(children: [
-                                  AppImage.asset("boost.png"),
-                                  Gap(10.w),
-                                  Text(appService.getTrans("Boost"), style: TextStyle(color: AppColors.fontPrimary, 
-                                    fontWeight: FontWeight.bold, fontSize: 20.sp))
-                                ],)
-                              )
-                            ],
-                          )          
-                        ]
-                      )
-                      //************** End Main board *****************/
-                    ],
+                      child: Row(children: [
+                        Text(appService.getTrans('Backpack'), style: TextStyle(color: AppColors.fontPrimary, fontSize: 20.sp)),
+                      ],)                  
+                    )
+                  ],
+                ),
+                GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 15.w,
+                  crossAxisSpacing: 15.w,
+                  childAspectRatio: 0.8,
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                  children: 
+                  _tabIndex.value==0 ?
+                  [
+                    ...List.generate(controller.exchangeList.length, (index){
+                      return _getExchangeItem(controller.exchangeList.value[index]);
+                    })
+                  ]:
+                  [
+                    ...List.generate(controller.backpackList.length, (index){
+                      return _getBackpackItem(controller.backpackList.value[index]);
+                    })
+                  ],
+                )
+              ],
+            )),
+          ),
+          if(_isSent.value)
+          GestureDetector(
+            onTap: ()=>_isSent.value=false,
+            child: WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingScaleDown(
+                curve: Curves.elasticInOut,
+                duration: const Duration(milliseconds: 2000),
+              ),
+              child: Container(               
+                alignment: Alignment.center,
+                width: Get.width, height: Get.height,
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: ExactAssetImage('assets/images/exchange/got.png'),
+                  ),
+                  color: Colors.black.withOpacity(0.9)
+                ),
+                child: Column(children: [Gap(550.h),
+                  Text(appService.getTrans('Your backpack has been delivered'), 
+                    style: TextStyle(color: AppColors.fontPrimary, fontSize: 20.sp)
                   )
-                ],
-              )            
-            ),          
-            ..._coinList, 
-            if(_isCrackedMorseCode.value)
-            CodeCrackedWidget(onPressed: (){
-              _isCrackedMorseCode.value=false;
-              _startIncreaseCoins();
-              controller.clearCode();
-            },)        
-          ],
-        )
+                ])
+              )
+            )
+          )
+        ],
       ))
     );
   }
 
-  Widget _singleColin(Offset offset, {bool isLongPress=false}) {
-    return Positioned(
-      top: 0, left: 0,
-      child: _animateNumber(isLongPress)
-        .animate(
-          autoPlay: true,
-          onComplete: (_) {
-            appService.curCoins.value += _stepCoins;
-            if(controller.isCipher.value) {
-              String code = isLongPress?"1":"0";
-              String? letter = controller.checkMorseCode(code);
-              if(letter!=null) {
-                if(letter!="") {
-                  enterMorseCode(letter);
-                }
-              } else {
-                setState(() {_morseCodes=[];});
-              }
-            }
-          }
-        ).move(
-          begin: offset, 
-          end: Offset(offset.dx, offset.dy-150), 
-          delay: 1.ms, 
-          duration: 500.ms
-        )
-        .fadeOut(delay: 200.ms)
-        .hide()                    
-    );   
-  } 
-
-  Widget _animateNumber(bool isLongPress){
-    if(!controller.isCipher.value){
-      return Text("+$_stepCoins", 
-        style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.bold)
-      );
-    } else {
-      if(!isLongPress) {
-        return Container(
-          width: 25.w, height: 25.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.w)),
-            color: AppColors.fontSecondary
-          ),
-        );
-      } else {
-        return Container(
-          width: 30.w, height: 10.h,
-          decoration: const BoxDecoration(
-            color: AppColors.fontSecondary
-          ),
-        );
-      }
+  Widget _getExchangeItem(ExchangeModel item) {
+    String button = 'Get';    
+    bool enable = true;
+    if(item.status==0){
+      button = 'Completed';
+      enable = false;
+    } else if(item.price>appService.getCurrentGolds()) {
+      button = 'Not enough';
+      enable = false;
     }
-  }
-
-  Widget _randomSigleCoin() {
-    RenderBox box = mainCoinKey.currentContext?.findRenderObject() as RenderBox;
-    Offset position = box.localToGlobal(Offset.zero); //this is global position    
-
-    final random = math.Random();
-    double x = random.nextInt(MediaQuery.of(context).size.width.toInt()).toDouble();
-    double x2 = position.dx, y2 = position.dy;
-    double y = MediaQuery.of(context).size.height - 50 + random.nextInt(50);
-    int duration = 300 + random.nextInt(500);
-    int delay = 1 + random.nextInt(200);
-    return Positioned(
-      top: 0, left: 0,
-      child: Image.asset('assets/images/coin.png').animate(        
-        autoPlay: true,
-      ).move(
-        begin: Offset(x, y), 
-        end: Offset(x2, y2), 
-        delay: delay.ms, 
-        duration: duration.ms
-      )
-      // .scaleXY(delay: 100.ms, end: 0.5, curve: Curves.easeIn) 
-      .fadeOut(delay: 200.ms).hide()
-    );   
-  }
-
-  Future<void> _showPopup() async {
-    final result = await showPopupCard<String>(
-      context: context,
-      builder: (context) {
-        return PopupCard(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.w),
-            side: BorderSide(
-              color: AppColors.secondary,
-              width: 2.w
-            ),
-          ),
-          color: AppColors.primary,
-          child: CodePopupWidget()
-        );
-      },
-      offset: const Offset(-8, 50),
-      alignment: Alignment.topRight,
-      useSafeArea: true,
-    );
-    if (result == null) return;
-    // setState(() {
-    //   message = result;
-    // });
-  }
-
-  void enterMorseCode(String code) {    
-    Widget widget = Text(code, style:TextStyle(color: AppColors.fontPrimary, 
-      fontSize: 18.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.center,
-    )
-    .animate(
-      autoPlay: true,
-      onComplete: (_){        
-        if(controller.checkMorseLetters()) {
-          _isCrackedMorseCode.value=true;          
-        }
+    String desc = "", times = 'times';
+    if(item.amountLimit>0) {
+      if(item.amountLimit==1) {
+        times = 'time';
       }
-    )
-    .scale(begin: const Offset(4, 4), end: const Offset(1, 1), duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-    
-    setState(() {
-      _morseCodes.add(widget);
-    });
+      desc = "${item.amountLimit} $times Limited";
+    }
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.w),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xff414347), Color(0xff1c1f24),],
+        )
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        Expanded(child:
+          Center(child: AppImage.asset('exchange/${item.symbol}.png', width: 80.w)),
+        ),
+        Text('${double.parse(item.amount).toPrecision(2)} ${item.name}', style: TextStyle(color: AppColors.fontPrimary, fontSize: 22.sp)),
+        Gap(10.h),
+        Text(desc, style: TextStyle(color: AppColors.fontSecondary, fontSize: 18.sp)),
+        Gap(20.h),
+        Row(children: [
+          AppImage.asset('mine/coin.png', width: 25.w),
+          Gap(5.w),
+          Text(AppUtils.intToStrWithComma(item.price), style: TextStyle(color: AppColors.fontPrimary, fontSize: 17.sp))
+        ],),
+        ElevatedButton(
+          onPressed: (){
+            if(enable) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) =>
+                  AppCommonDialog(                    
+                    msg: 'You will exchange ${AppUtils.intToStrWithComma(item.price)} to your backpack.',
+                    cancelLabel: 'Later',
+                    onOk: () async {
+                      bool result = await controller.exchangeTrade(item.id, item.price);
+                      if(result) {
+                        _isSent.value=true;                        
+                      } else {
+                        AppToast.showError(msg: appService.getTrans('Request Failed'));
+                      }
+                      Navigator.pop(context);
+                    },
+                    onCancel: ()=>Navigator.pop(context),
+                  )
+              );
+            }
+          }, 
+          style: ElevatedButton.styleFrom(
+            backgroundColor: enable==false ? AppColors.fontSecondary: AppColors.buttonBackground,
+            padding: EdgeInsets.zero,
+            minimumSize: Size.fromHeight(40.h)
+          ),                          
+          child: Text(appService.getTrans(button), style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp))
+        )
+      ],)
+    );
   }
+
+  Widget _getBackpackItem(BackpackModel item) {
+    String button = 'Withdrawal';
+    if(item.status==2){
+      button = 'Completed';
+    } 
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.w),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xff414347), Color(0xff1c1f24),],
+        )
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+        Expanded(child:
+          AppImage.asset('exchange/${item.symbol}.png', width:80.w),
+        ),
+        Text('${double.parse(item.amount).toPrecision(2)} ${item.name}', style: TextStyle(color: AppColors.fontPrimary, fontSize: 22.sp)),
+        Gap(20.h),
+        ElevatedButton(
+          onPressed: (){
+            if(item.status==1) {
+              _openBottomSheet(item);
+            }
+          }, 
+          style: ElevatedButton.styleFrom(
+            backgroundColor: item.status!=1? AppColors.fontSecondary: AppColors.buttonBackground,
+            padding: EdgeInsets.zero,
+            minimumSize: Size.fromHeight(40.h)
+          ),                          
+          child: Text(appService.getTrans(button), style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp))
+        )
+      ],)
+    );
+  }
+  
+  void _openBottomSheet(BackpackModel item) {
+    textEditingController1.text="";
+    textEditingController2.text="";
+    Get.bottomSheet(
+      AppBottomsheetWidget(
+        child: Padding(padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppImage.asset('exchange/${item.symbol}.png', width: 100.w),
+                  Text('${double.parse(item.amount).toPrecision(2)} ${item.name}', style: TextStyle(color: AppColors.fontPrimary,
+                    fontSize: 23.sp, fontWeight: FontWeight.w700)),  
+                ]
+              ), 
+              Gap(20.h,),
+              Text(appService.getTrans('To Dress: '), style: TextStyle(color: AppColors.fontPrimary,
+                  fontSize: 18.sp)),
+              Gap(10.h),
+              Container(
+                height: 45.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.w),
+                  color: AppColors.secondary,
+                ),
+                child: TextField(
+                  controller: textEditingController1,
+                  style: TextStyle(color: AppColors.fontPrimary, fontSize: 17.sp) ,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
+                    border: InputBorder.none,                      
+                  ),
+                ),
+              ),
+              Gap(20.h),
+              Text(appService.getTrans('Message: '), style: TextStyle(color: AppColors.fontPrimary,
+                  fontSize: 18.sp)),
+              Gap(10.h),
+              Container(
+                height: 45.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.w),
+                  color: AppColors.secondary,
+                ),
+                child: TextField(
+                  controller: textEditingController2,
+                  style: TextStyle(color: AppColors.fontPrimary, fontSize: 17.sp) ,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
+                    border: InputBorder.none,                      
+                  ),
+                ),
+              ),
+              Gap(20.h),
+              ElevatedButton(
+                onPressed: () async {
+                  String address = textEditingController1.text;
+                  if(address=='') {
+                    AppToast.showError(msg: appService.getTrans('Please enter address'));
+                  }
+                  bool result = await controller.withdrawal(item.id, address);
+                  if(result) {
+                    AppToast.showSuccess(msg: appService.getTrans('Successfully sent'));
+                  } else {
+                    AppToast.showError(msg: appService.getTrans('Operation Failed'));
+                  }
+                  Navigator.of(context).pop();
+                }, 
+                style:  ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.w)),                    
+                  backgroundColor: AppColors.buttonBackground,
+                  foregroundColor: AppColors.fontPrimary,
+                  textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
+                  minimumSize: Size.fromHeight(50.h)
+                ),
+                child: Text(appService.getTrans("Send"))
+              )
+            ],
+          ),
+        )                      
+      ),
+      isScrollControlled: true,
+    );
+  }
+
 }

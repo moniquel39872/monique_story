@@ -33,13 +33,13 @@ class _SelectLanguageViewState extends State<SelectLanguageView> {
           child: Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
-              onTap: ()=>mainController.selectedPath.value=exchangePath,
+              onTap: ()=>mainController.selectedPath.value=minePath,
               child: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.fontSecondary)
             ),
           ),
         ),
         Text(appService.getTrans("Select Language"), style: TextStyle(color: AppColors.fontPrimary,
-              fontSize: 32.sp, fontWeight: FontWeight.bold)
+              fontSize: 32.sp, fontWeight: FontWeight.w700)
         ),
         SizedBox(height: 20.h,),
         Expanded(
@@ -67,21 +67,19 @@ class _SelectLanguageViewState extends State<SelectLanguageView> {
       ),
       child: GestureDetector(
         onTap: () async{
-          appService.lang.value=item.code!;
-          appService.setHotlineData();
-          await appService.queryLanguageTrans();
-          mainController.selectedPath.value=exchangePath;
+          appService.setLanguage(item.code??"end");          
+          mainController.selectedPath.value=minePath;
         },
         child: Row(
           children: [                            
             Expanded(
               child: Text("${item.name} (${item.code})", style: TextStyle(color: AppColors.fontPrimary,
-                fontSize: 18.sp, fontWeight: FontWeight.bold)
+                fontSize: 18.sp, fontWeight: FontWeight.w700)
               )
             ),
-            if(item.code==appService.lang.value)
-            const Icon(Icons.check_rounded, color: AppColors.fontSecondary),
-            if(item.code!=appService.lang.value)
+            if(item.code==appService.currentLang.value)
+            const Icon(Icons.check_rounded, color: AppColors.fontMenu3),
+            if(item.code!=appService.currentLang.value)
             const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.fontSecondary),
           ],
         )

@@ -125,7 +125,7 @@ class _AppCircularProgressIndicatorWithImageState
                                       color: AppColors.fontMenu2,
                                       width: 15.w),
                                   shape: BoxShape.circle),
-                              child: AppImage.asset('coin.png',
+                              child: AppImage.asset('mine/coin.png',
                                   width: 50.w)),
                         )),
                       ),

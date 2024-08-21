@@ -1,4 +1,5 @@
 class SkinModel {
+  int id;
   String code;
   String? icon;
   String? label;
@@ -7,6 +8,7 @@ class SkinModel {
   int? price;
 
   SkinModel({
+    required this.id,
     this.icon,
     this.label,
     this.type,
