@@ -37,16 +37,16 @@ class MineView extends StatefulWidget {
 }
 
 class MineViewState extends State<MineView> with TickerProviderStateMixin  {
-  MainController mainController = Get.find();
-  AppService appService = Get.find<AppService>();
-  MineViewController controller = Get.put(MineViewController());
+  final MainController mainController = Get.find();
+  final AppService appService = Get.find<AppService>();
+  final MineViewController controller = Get.put(MineViewController());
   
   late final AnimationController _coinsController;  
   Offset _startPos = Offset(100.w, 100.w);
   final List<Widget> _coinList = [];  
   final int _stepCoins = 1;
   int duration = 200;
-  GlobalKey mainCoinKey = GlobalKey();
+  final GlobalKey mainCoinKey = GlobalKey();
   late int _startScore = appService.getCurrentGolds(), _endScore = _startScore;
   final RxBool _isMultiCoins = false.obs;  
   final RxBool _isLoading = true.obs;
@@ -157,7 +157,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   GestureDetector(
-                                    onTap: (){
+                                    onTap: () {
                                       checkIncreasedGolds();
                                       mainController.selectedPath.value=profilePath;
                                     },

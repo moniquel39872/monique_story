@@ -13,6 +13,7 @@ import 'package:kombat_flutter/http/response_model.dart';
 import 'package:kombat_flutter/model/hotline_model.dart';
 import 'package:kombat_flutter/model/language_model.dart';
 import 'package:kombat_flutter/model/mine_info_model.dart';
+import 'package:kombat_flutter/model/morse_code_model.dart';
 import 'package:kombat_flutter/model/token_model.dart';
 import 'package:kombat_flutter/model/user_info_model.dart';
 import 'package:kombat_flutter/model/skin_model.dart';
@@ -23,7 +24,7 @@ import 'package:http/http.dart' as http;
 import 'package:kombat_flutter/widget/app_toast.dart';
 
 class AppService extends GetxService with ApiHandler {
-  String walletAddress = '9JvVRpmUPGkSqwtbwCPw2QvRX2EmNbRhjAaa5muqdakz';
+  final String walletAddress = '9JvVRpmUPGkSqwtbwCPw2QvRX2EmNbRhjAaa5muqdakz';
 
   late AppHttpClient httpClient;
 
@@ -281,5 +282,31 @@ class AppService extends GetxService with ApiHandler {
       return mineInfoModel.value?.level??1;
     }
     return 1;
+  }
+
+   Future<void> signIn() async {
+    // AppToast.showLoading(msg: getTrans('Sign in...'));
+    NetBaseEntity<TokenModel> data = await httpClient.signIn(walletAddress);
+    // AppToast.dismiss();
+    if(data.code==200) {
+      isLogin.value = true;
+      tokenModel.value = data.data;
+      await getMorseCode();
+    } else {
+      isLogin.value = false;
+      tokenModel.value = null;
+      AppToast.showToast(data.message);
+    }
+  }
+
+  Future<void> getMorseCode() async {
+    NetBaseEntity<MorseCodeModel> data = await httpClient.getMorseCode();
+    if(data.code==200) {
+      morseCode = data.data?.letters??"";      
+    } else {
+      morseCode = "";
+      // AppToast.showToast(data.message);
+      print(data.message);
+    }
   }
 }

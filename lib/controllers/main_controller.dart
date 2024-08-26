@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/pages/exchange/exchange_view.dart';
 import 'package:kombat_flutter/pages/earn/earn_view.dart';
 import 'package:kombat_flutter/pages/mine/balance_view.dart';
@@ -24,6 +25,14 @@ class MyNavModel {
 
 class MainController extends GetxController {
   static MainController get to => Get.find();
+  final AppService appService = Get.find();
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    // appService.signIn();
+    super.onReady();
+  }
 
   final selectedPath = lotteryPath.obs;
   Widget getCurrentPage(GlobalKey lotteryViewKey, GlobalKey mineViewKey) {
