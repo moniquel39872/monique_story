@@ -14,9 +14,9 @@ class ExchangeController extends GetxController {
 
   Future<void> getExchanges() async {
     isLoading.value = true;
-    AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
     NetBaseListEntity<ExchangeModel> data = await appService.httpClient.getExchange();
-    AppToast.dismiss();
+    // AppToast.dismiss();
     isLoading.value = false;
     if(data.code==200) {
       exchangeList.value = data.data??[];
@@ -28,9 +28,9 @@ class ExchangeController extends GetxController {
 
   Future<bool> exchangeTrade(int eId, int gold) async {
     isLoading.value = true;
-    AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
     NetBaseEntity<String> data = await appService.httpClient.exchangeTrade(eId);
-    AppToast.dismiss();
+    // AppToast.dismiss();
     isLoading.value = false;
     if(data.data=='ok') {      
       appService.getMineInfo();
@@ -41,9 +41,9 @@ class ExchangeController extends GetxController {
 
   Future<void> getBackpack() async {
     isLoading.value = true;
-    AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
     NetBaseListEntity<BackpackModel> data = await appService.httpClient.getBackpack();
-    AppToast.dismiss();
+    // AppToast.dismiss();
     isLoading.value = false;
     if(data.code==200) {
       backpackList.value = data.data??[];
@@ -55,9 +55,9 @@ class ExchangeController extends GetxController {
 
   Future<bool> withdrawal(int eId, String address) async {
     isLoading.value = true;
-    AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
     NetBaseEntity<String> data = await appService.httpClient.withdrawal(eId, address);
-    AppToast.dismiss();
+    // AppToast.dismiss();
     isLoading.value = false;
     if(data.data=='ok') {      
       appService.getMineInfo();

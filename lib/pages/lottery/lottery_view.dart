@@ -22,28 +22,35 @@ class LotteryView extends StatefulWidget {
 
 class LotteryViewState extends State<LotteryView> with TickerProviderStateMixin {
 
-  AppService appService = Get.find<AppService>();
-  MainController mainController = Get.find();
-  LotteryController controller = Get.put(LotteryController());
+  final AppService appService = Get.find<AppService>();
+  final MainController mainController = Get.find();
+  final LotteryController controller = Get.put(LotteryController());
   late final AnimationController _animController;
 
-  final RxBool _isOpenApp = false.obs;
-  final RxBool _isJoining = false.obs;
-  final double _currentValue = 100;
-  bool _isFirstLoad = true;
+  // final RxBool _isOpenApp = false.obs;
+  // final RxBool _isJoining = false.obs;
+  // final double _currentValue = 100;
+  // bool _isFirstLoad = true;
   Duration duration = const Duration(microseconds: 200);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _isFirstLoad = appService.firstLoad['lottery']??true;
+    // _isFirstLoad = appService.firstLoad['lottery']??true;
     _animController = AnimationController(vsync: this);
     _animController.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
         _animController.reset();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -305,7 +312,7 @@ class LotteryViewState extends State<LotteryView> with TickerProviderStateMixin 
                 onPressed: () async {
                   Navigator.of(context).pop();
                   Navigator.pop(context);
-                  await controller.signIn();
+                  await appService.signIn();
                   await appService.getMineInfo();
                 }, 
                 style:  ElevatedButton.styleFrom(

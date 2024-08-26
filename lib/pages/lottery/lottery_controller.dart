@@ -9,31 +9,4 @@ import 'package:kombat_flutter/widget/app_toast.dart';
 
 class LotteryController extends GetxController {
   AppService appService = Get.find();
-
-  Future<void> signIn() async {
-    AppToast.showLoading(msg: appService.getTrans('Sign in...'));
-    String walletAddress = appService.walletAddress;
-    NetBaseEntity<TokenModel> data = await appService.httpClient.signIn(walletAddress);
-    AppToast.dismiss();
-    if(data.code==200) {
-      appService.isLogin.value = true;
-      appService.tokenModel.value = data.data;
-      await getMorseCode();
-    } else {
-      appService.isLogin.value = false;
-      appService.tokenModel.value = null;
-      AppToast.showToast(data.message);
-    }
-  }
-
-  Future<void> getMorseCode() async {
-    NetBaseEntity<MorseCodeModel> data = await appService.httpClient.getMorseCode();
-    if(data.code==200) {
-      appService.morseCode = data.data?.letters??"";      
-    } else {
-      appService.morseCode = "";
-      // AppToast.showToast(data.message);
-      print(data.message);
-    }
-  }
 }

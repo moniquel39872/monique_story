@@ -12,9 +12,9 @@ class FriendsController extends GetxController {
 
   Future<void> getFriends() async {
     isLoading.value = true;
-    AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
     NetBaseListEntity<FriendModel> data = await appService.httpClient.getFriends();
-    AppToast.dismiss();
+    // AppToast.dismiss();
     isLoading.value = false;
     if(data.code==200) {
       friendsList.value = data.data??[];

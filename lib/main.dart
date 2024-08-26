@@ -26,6 +26,7 @@ void main() async {
     await appService.setHttpInterceptor();
     await appService.getHotlineStorageData();
     await appService.queryLanguageTrans();
+    await appService.signIn();
 
     runApp(
       ChangeNotifierProvider(
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
           title: 'Hamster Kombat',
           debugShowCheckedModeBanner: false,
           // initialRoute: grabCreatePath,
-          initialRoute: '/splash',
+          initialRoute: splashPath,
           getPages: routes,
           theme: AppTheme.lightTheme, // Use light theme
           darkTheme: AppTheme.darkTheme, // Use dark them
