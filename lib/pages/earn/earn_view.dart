@@ -142,7 +142,7 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
           ),
           SizedBox(
             height: 250.h,
-            child: DateScroller(),
+            child: SizedBox(), //DateScroller(),
           ),
           Obx(() {
             return Expanded(
@@ -323,93 +323,102 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
   }
 }
 
-class DateScroller extends StatelessWidget {
-  final List<String> days = ["26", "27", "28", "29", "30", "31", "1"];
-  final int selectedIndex = 3; // Assume "29" is selected
+// class DateScroller extends StatelessWidget {
+//   final List<String> days = ["26", "27", "28", "29", "30", "31", "1"];
+//   final int selectedIndex = 3; // Assume "29" is selected
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Stack(
-        children: [
-          // The curved line
-          Positioned.fill(
-            child: CustomPaint(
-              painter: CurvePainter(selectedIndex: selectedIndex),
-            ),
-          ),
-          // The date list
-          ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: days.length,
-            itemBuilder: (context, index) {
-              return Center(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (index == selectedIndex)
-                        Text(
-                          "JAN",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      SizedBox(height: 5),
-                      CircleAvatar(
-                        backgroundColor: index == selectedIndex
-                            ? Colors.blueAccent
-                            : Colors.transparent,
-                        child: Text(
-                          days[index],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 250,
+//       child: Column(
+//         children: [
+//           // ListView.builder(
+//           //   scrollDirection: Axis.horizontal,
+//           //   itemCount: days.length,
+//           //   itemBuilder: (context, index) {
+//           //     return Center(
+//           //       child: Container(
+//           //         margin: EdgeInsets.symmetric(horizontal: 15),
+//           //         child: Column(
+//           //           mainAxisAlignment: MainAxisAlignment.center,
+//           //           children: [
+//           //             if (index == selectedIndex)
+//           //               Text(
+//           //                 "JAN",
+//           //                 style: TextStyle(color: Colors.white, fontSize: 12),
+//           //               ),
+//           //             SizedBox(height: 5),
+//           //             CircleAvatar(
+//           //               backgroundColor: index == selectedIndex
+//           //                   ? Colors.blueAccent
+//           //                   : Colors.transparent,
+//           //               child: Text(
+//           //                 days[index],
+//           //                 style: TextStyle(
+//           //                   color: Colors.white,
+//           //                   fontSize: 16,
+//           //                 ),
+//           //               ),
+//           //             ),
+//           //           ],
+//           //         ),
+//           //       ),
+//           //     );
+//           //   },
+//           // ),
+//           // The curved line
+//           SizedBox(
+//             height: 200,
+//             child: Stack(
+//               children: [
+//                 Positioned.fill(
+//                   child: CustomPaint(
+//                     painter: CurvePainter(selectedIndex: selectedIndex),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
 
-class CurvePainter extends CustomPainter {
-  final int selectedIndex;
+//           // The date list
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-  CurvePainter({required this.selectedIndex});
+// class CurvePainter extends CustomPainter {
+//   final int selectedIndex;
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.blueAccent
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0;
+//   CurvePainter({required this.selectedIndex});
 
-    final path = Path();
-    // Start point
-    path.moveTo(0, size.height / 2);
-    // Control points and curve drawing
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.8,
-        size.width * 0.5, size.height * 0.5);
-    path.quadraticBezierTo(size.width * 0.75, size.height * 0.2,
-        size.width, size.height * 0.5);
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()
+//       ..color = Colors.blueAccent
+//       ..style = PaintingStyle.stroke
+//       ..strokeWidth = 2.0;
 
-    canvas.drawPath(path, paint);
+//     final path = Path();
+//     // Start point
+//     path.moveTo(0, size.height / 2);
+//     // Control points and curve drawing
+//     path.quadraticBezierTo(size.width * 0.25, size.height * 0.8,
+//         size.width * 0.5, size.height * 0.5);
+//     path.quadraticBezierTo(
+//         size.width * 0.75, size.height * 0.2, size.width, size.height * 0.5);
 
-    // Draw the selected point circle
-    final circleX = (size.width / 6) * selectedIndex + size.width * 0.05;
-    final circleY = size.height * 0.5;
+//     canvas.drawPath(path, paint);
 
-    canvas.drawCircle(Offset(circleX, circleY), 8, paint..style = PaintingStyle.fill);
-  }
+//     // Draw the selected point circle
+//     final circleX = (size.width / 6) * selectedIndex + size.width * 0.05;
+//     final circleY = size.height * 0.5;
 
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-}
+//     canvas.drawCircle(
+//         Offset(circleX, circleY), 8, paint..style = PaintingStyle.fill);
+//   }
+
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) => false;
+// }
