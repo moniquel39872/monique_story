@@ -1,18 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:kombat_flutter/app/app_routes.dart';
 import 'package:kombat_flutter/model/earn_item_model.dart';
-import 'package:kombat_flutter/model/friend_model.dart';
 import 'package:kombat_flutter/model/language_model.dart';
 import 'package:kombat_flutter/model/main_tab.dart';
-import 'package:kombat_flutter/model/order_model.dart';
 import 'package:kombat_flutter/model/skin_model.dart';
 
 class AppConstant {
   static const _debugBaseUrl =
-      "https://api.walletconnect8.com/";
+      "https://api.walletconnect8.com";
   
   static const _releaseBaseUrl =
-      "https://api.walletconnect8.com/";
+      "https://api.walletconnect8.com";
       
   /// 获取运行环境是否是正式环境
   static bool getRunEnvIsRelease() {
@@ -77,7 +75,7 @@ class AppConstant {
   ];
 
   static List<SkinModel> skins = [
-    SkinModel(id: 1, code: "default", icon:"default.png", label: "Default", type: "", desc: "Your league's default skin", price:0),
+    SkinModel(id: 1, code: "default", icon:"default.png", label: "Default", type: "", desc: "That's default skin", price:0),
     SkinModel(id: 2, code: "marta", icon:"marta.png", label: "Marta", type:"Legendary", 
       desc: "Marta is the kind-hearted hamster who loves helping others and always has a warm smile for everyone", price: 2500000),
     SkinModel(id: 3, code: "homie", icon:"homie.png", label: "Homie", type:"Legendary",
@@ -113,30 +111,6 @@ class AppConstant {
     SkinModel(id: 18, code: "appolo", icon:"appolo.png", label: "Appolo", type: "Lord", 
       desc: "Appolo is the mission commander with a passion for space exploration and discovery, always ready to lead the crew on exciting interstellar journeys", price: 200000000),
   ];
-
-  // static List<FriendModel> friends = [
-  //   FriendModel(id: '1', name: 'Cynthia', avatar: 'avatar.png', level: 11, times: '9'),
-  //   FriendModel(id: '2', name: 'Zoey', avatar: 'avatar.png', level: 10, times: '8'),
-  //   FriendModel(id: '3', name: 'Gaffes', avatar: 'avatar.png', level: 9, times: '6'),
-  //   FriendModel(id: '4', name: '123456', avatar: 'avatar.png', level: 1, times: '8'),
-  //   FriendModel(id: '5', name: 'Monique', avatar: 'avatar.png', level: 4, times: '5'),
-  //   FriendModel(id: '6', name: 'Graham', avatar: 'avatar.png', level: 5, times: '7'),
-  //   FriendModel(id: '7', name: 'Gohan', avatar: 'avatar.png', level: 7, times: '5'),
-  //   FriendModel(id: '8', name: 'Police', avatar: 'avatar.png', level: 8, times: '6'),
-  //   FriendModel(id: '9', name: 'Iwan', avatar: 'avatar.png', level: 12, times: '7'),
-  //   FriendModel(id: '10', name: 'Igori', avatar: 'avatar.png', level: 13, times: '4'),
-  // ];
-
-  // static List<OrderModel> orders = [
-  //   OrderModel(id: '3298126598712', earnings: -0.5, blessingEarnings: 3.0, status: 1, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '2365126598712', earnings: 0.5, blessingEarnings: -1.5, status: 1, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '5871426598712', earnings: 3.5, status: 1, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '3298126598712', earnings: -3.5, blessingEarnings: 3.0, status: 0, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '6965126598712', earnings: 2.5,  status: 1, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '9871126598712', earnings: 1.5, blessingEarnings: -3.0, status: 1, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '5987126598712', earnings: 0.5, status: 1, times: '2024-07-29 18:25:14'),
-  //   OrderModel(id: '2587126598712', earnings: 0.5, blessingEarnings: 3.0, status: 0, times: '2024-07-29 18:25:14'),
-  // ];
 
   static List<EarnItemModel> earns = [
     EarnItemModel(id: '1', title: 'Dividend', prize: -0.5, date: '2024-07-08'),

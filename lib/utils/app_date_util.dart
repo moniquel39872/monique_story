@@ -16,6 +16,9 @@ class AppDateUtil {
   }
 
   static String YMdhms(int timestamp) {
+    if(timestamp==0) {
+      return "";
+    }
     DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     DateFormat format = DateFormat('yyyy-MM-dd HH:mm:ss');
     return format.format(date);
@@ -38,6 +41,12 @@ class AppDateUtil {
       return '${date1.year}年${pad(date1.month, 2, '0')}月${pad(date1.day, 2, '0')}日';
     }
     return dateStr;
+  }
+
+  static String curDate() {
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    DateTime date = DateTime.now();
+    return format.format(date);
   }
 
   static String pad(int n, int width, String z) {
@@ -69,12 +78,17 @@ class AppDateUtil {
 
   static String displayCloseTime(int timestamp) {
     if (timestamp >= 0) {
-      int hours = timestamp ~/ (3600);
-      int minutes = (timestamp % (3600)) ~/ (60);
-      int seconds = (timestamp % (60)) ;
-      return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+      DateTime curDate = DateTime.now();      
+      int t = date.difference(curDate).inSeconds;
+      if(t>0) {
+        int hours = t ~/ (3600);
+        int minutes = (t % (3600)) ~/ (60);
+        int seconds = (t % (60)) ;
+        return '${hours}h ${minutes}m ${seconds}s';
+      }
     } 
-    return '封盘中';
+    return 'Closed';//'封盘中';
   }
 
   static int getCloseTimes(String closeTime) {

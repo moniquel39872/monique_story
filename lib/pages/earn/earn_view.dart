@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -11,6 +11,7 @@ import 'package:kombat_flutter/pages/earn/earn_controller.dart';
 import 'package:kombat_flutter/pages/earn/widgets/earn_summary_item_widget.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_date_util.dart';
+import 'package:kombat_flutter/utils/app_icons.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 
 class EarnView extends StatefulWidget {
@@ -52,8 +53,6 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
   @override
   void dispose() {
     _tabController.dispose();
-    controller.dispose();
-
     // TODO: implement dispose
     super.dispose();
   }
@@ -164,127 +163,120 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
 
   Widget _getOrderItem(OrderModel item) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.w),
-            color: AppColors.cardBackground),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text('${appService.getTrans('No ')} ${item.orderNo}',
-                  style: TextStyle(
-                      color: AppColors.fontPrimary,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w700)),
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.w),
+        color: AppColors.cardBackground
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('${appService.getTrans('NO. ')} ${item.orderNo}',
+                style: TextStyle(
+                    color: AppColors.fontPrimary,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w700)
+              ),
               Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  decoration: BoxDecoration(
-                      color: item.fast == -1
-                          ? AppColors.buttonBackground
-                          : AppColors.level,
-                      borderRadius: BorderRadius.circular(10.w)),
-                  child: Text(
-                      appService.getTrans(
-                          item.fast == -1 ? 'Not Awarded' : 'Awarded'),
-                      style: TextStyle(
-                          color: AppColors.fontPrimary, fontSize: 15.sp)))
-            ]),
-            if (double.parse(item.orderAmount) != 0)
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                decoration: BoxDecoration(
+                  color: controller.getOrderTotalColor(item),
+                  borderRadius: BorderRadius.circular(10.w)
+                ),
+                child: Text('${controller.getOrderTotal(item)} SOL',
+                  style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp)
+                )
+              )
+            ]
+          ),
+          Divider(thickness: 0.3.h, height: 30.h,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      AppImage.asset('earn/coins1.png', width: 40.w),
-                      Gap(10.w),
-                      Text(appService.getTrans('Earnings'),
-                          style: TextStyle(
-                              color: AppColors.fontPrimary, fontSize: 18.sp)),
-                      Gap(20.w),
-                      item.status == 0
-                          ? Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: AppColors.fontSecondary,
-                                      width: 1.w),
-                                  borderRadius: BorderRadius.circular(20.w)),
-                              child: Text(appService.getTrans("Unsettled"),
-                                  style: TextStyle(
-                                      color: AppColors.fontSecondary,
-                                      fontSize: 15.sp)))
-                          : double.parse(item.orderAmount) > 0
-                              ? Text(
-                                  '+${double.parse(item.orderAmount).toPrecision(4)} USDT',
-                                  style: TextStyle(
-                                      color: AppColors.fontMenu3,
-                                      fontSize: 15.sp))
-                              : Text('${item.orderAmount} USDT',
-                                  style: TextStyle(
-                                      color: AppColors.font3, fontSize: 15.sp))
-                    ],
+                  AppImage.asset('earn/coins1.png', width: 40.w),
+                  Gap(10.w),
+                  Text(appService.getTrans('Order amount'),
+                    style: TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp)
                   ),
-                  double.parse(item.outAmount) != 0
-                      ? Container()
-                      : Text(
-                          item.updateAt != null
-                              ? AppDateUtil.YMdhms(item.updateAt ?? 0)
-                              : AppDateUtil.YMdhms(item.createdAt),
-                          style: TextStyle(
-                              color: AppColors.fontSecondary, fontSize: 15.sp),
-                          textAlign: TextAlign.right,
-                        )
                 ],
               ),
-            if (double.parse(item.outAmount) != 0)
+              Text('${double.parse(item.orderAmount).toStringAsFixed(4)} SOL', style: TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      AppImage.asset('earn/coins2.png', width: 40.w),
-                      Gap(10.w),
-                      Text(appService.getTrans('Blessing Earnings'),
-                          style: TextStyle(
-                              color: AppColors.fontPrimary, fontSize: 18.sp)),
-                      Gap(20.w),
-                      item.status == 0
-                          ? Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: AppColors.fontSecondary,
-                                      width: 1.w),
-                                  borderRadius: BorderRadius.circular(20.w)),
-                              child: Text(appService.getTrans("Unsettled"),
-                                  style: TextStyle(
-                                      color: AppColors.fontSecondary,
-                                      fontSize: 15.sp)))
-                          : double.parse(item.outAmount) > 0
-                              ? Text(
-                                  '+${double.parse(item.outAmount).toPrecision(4)} USDT',
-                                  style: TextStyle(
-                                      color: AppColors.fontMenu3,
-                                      fontSize: 15.sp))
-                              : Text('${item.orderAmount} USDT',
-                                  style: TextStyle(
-                                      color: AppColors.font3, fontSize: 15.sp))
-                    ],
+                  AppImage.asset('earn/coins2.png', width: 40.w),
+                  Gap(10.w),
+                  Text(appService.getTrans('Order revenue'),
+                    style: TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp)
                   ),
-                  Text(
-                    item.updateAt != null
-                        ? AppDateUtil.YMdhms(item.updateAt ?? 0)
-                        : AppDateUtil.YMdhms(item.createdAt),
-                    style: TextStyle(
-                        color: AppColors.fontSecondary, fontSize: 15.sp),
-                    textAlign: TextAlign.right,
-                  )
+                ],
+              ),              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(AppIcons.up, size: 10.w, color: AppColors.fontMenu3),
+                  Gap(3.w),
+                  Text('${controller.getOutAmount(item)} SOL', style: TextStyle(color: AppColors.fontMenu3, fontSize: 18.sp))
                 ],
               )
-          ],
-        ));
+            ],
+          ),
+          Gap(20.h),
+          FAProgressBar(
+            currentValue: controller.getProgressValue(item),
+            backgroundColor: AppColors.secondary,
+            border: Border.all(color: AppColors.secondary, width: 0.1.h),
+            borderRadius: BorderRadius.circular(10.w),
+            progressGradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [Color(0xff9e4745), Color(0xff4f2423),],
+            ),
+            size: 5.h
+          ),
+          Gap(20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(appService.getTrans('Order time'), style: TextStyle(fontSize: 15.sp, color: AppColors.fontSecondary)),
+                      if(item.updateAt!=null)
+                      Text(appService.getTrans(item.status==2?'End time': 'Update time'), style: TextStyle(fontSize: 15.sp, color: AppColors.fontSecondary))
+                    ]
+                  ),
+                  Gap(10.w),
+                  Column(
+                    children: [
+                      Text(AppDateUtil.YMdhms(item.createdAt), style: TextStyle(fontSize: 15.sp, color: AppColors.fontSecondary)),
+                      if(item.updateAt!=null)
+                      Text(AppDateUtil.YMdhms(item.updateAt??0), style: TextStyle(fontSize: 15.sp, color: AppColors.fontSecondary))
+                    ]
+                  ),
+                ],
+              ),
+              item.status==2?
+              Text(appService.getTrans('Finished'), style: TextStyle(color: AppColors.fontSecondary, fontSize: 15.sp)):
+              Text(appService.getTrans('Unfinished'), style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp))
+            ],
+          )
+        ],
+      )
+    );
+              
   }
 
   Widget _getOrderLogItem(OrderLogModel item) {

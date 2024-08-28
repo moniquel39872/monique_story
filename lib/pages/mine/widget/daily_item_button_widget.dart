@@ -65,7 +65,7 @@ class _DailyItemButtonState extends State<DailyItemButtonWidget> with TickerProv
                 Text(appService.getTrans(widget.label), style: TextStyle(color: AppColors.fontPrimary, 
                       fontWeight: FontWeight.w700, fontSize: 14.sp, height: 0.8), textAlign: TextAlign.center,),
                 SizedBox(height: 10.h),
-                Text("18:31", style: TextStyle(color: AppColors.fontSecondary, fontSize: 13.sp))
+                Text("18:31", style: TextStyle(color: AppColors.fontSecondary, fontFamily: "SFUIText", fontSize: 13.sp))
               ],
             ),
             Positioned(

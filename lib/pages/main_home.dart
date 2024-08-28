@@ -48,7 +48,7 @@ class MainHome extends GetView<MainController> {
             return InkWell(
               onTap: () {
                 if(!appService.isLogin.value) {
-                  lotteryViewKey.currentState!.openBottomSheet();
+                  lotteryViewKey.currentState!.openWalletBottomSheet();
                 } else {
                   if(mineViewKey.currentState!=null) {
                     mineViewKey.currentState!.checkIncreasedGolds();

@@ -15,7 +15,6 @@ import 'package:kombat_flutter/pages/mine/mine_view_controller.dart';
 import 'package:kombat_flutter/pages/mine/widget/code_cracked_widget.dart';
 import 'package:kombat_flutter/pages/mine/widget/code_popup_widget.dart';
 import 'package:kombat_flutter/pages/mine/widget/daily_item_button_widget.dart';
-import 'package:kombat_flutter/pages/mine/widget/multi_touch_gesture_recognizer.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_icons.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
@@ -44,7 +43,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
   late final AnimationController _coinsController;  
   Offset _startPos = Offset(100.w, 100.w);
   final List<Widget> _coinList = [];  
-  final int _stepCoins = 1;
+  int _stepCoins = 1;
   int duration = 200;
   final GlobalKey mainCoinKey = GlobalKey();
   late int _startScore = appService.getCurrentGolds(), _endScore = _startScore;
@@ -60,6 +59,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
     _startScore = appService.getCurrentGolds();    
     _endScore = _startScore + _stepCoins;  
     // appService.mineInfoModel.value?.gold = _endScore;
+    appService.dailyGolds.value-= _stepCoins;
     _isMultiCoins.value = false;    
     if(tapDownDetails!=null){
       _startPos = Offset(tapDownDetails.globalPosition.dx, tapDownDetails.globalPosition.dy);
@@ -106,6 +106,8 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       appService.firstLoad['exchange']=false;
     });
+    appService.dailyGolds.value = appService.mineInfoModel.value?.dailyGoldsLimit??0;
+    _stepCoins = appService.mineInfoModel.value?.level??1;
   }
 
   @override
@@ -223,13 +225,13 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                               children: [
                                 Icon(AppIcons.key, color: AppColors.iconColor, size: 20.w,),
                                 Gap(3.w),
-                                Text("100", style:TextStyle(color: AppColors.fontPrimary, fontSize: 12.sp)),
+                                Text("100", style:TextStyle(color: AppColors.fontPrimary, fontFamily: "SFUIText", fontSize: 12.sp, fontWeight: FontWeight.bold)),
                                 Gap(3.w),
                                 Icon(AppIcons.chevron_right, color: AppColors.fontSecondary, size: 10.w,),
                               ],
                             )
                           )
-                        )                    
+                        )
                       ]
                     ),
                     Gap(10.h),                     
@@ -252,8 +254,8 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                 Gap(30.w),
                                 Row(
                                   children: [
-                                    Text("${appService.mineInfoModel.value?.level??1}", style: TextStyle(color: AppColors.fontPrimary, fontWeight: FontWeight.w700, fontSize: 12.sp)),
-                                    Text(" / ${appService.mineInfoModel.value?.maxLevel??11}", style: TextStyle(color: AppColors.fontSecondary, fontSize: 12.sp))
+                                    Text("${appService.mineInfoModel.value?.level??1}", style: TextStyle(color: AppColors.fontPrimary, fontFamily: "SFUIText", fontWeight: FontWeight.w700, fontSize: 12.sp)),
+                                    Text(" / ${appService.mineInfoModel.value?.maxLevel??11}", style: TextStyle(color: AppColors.fontSecondary, fontFamily: "SFUIText", fontSize: 12.sp, fontWeight: FontWeight.bold))
                                   ],
                                 )
                               ]
@@ -262,11 +264,15 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                           Gap(5.h,),
                           FAProgressBar(
                             currentValue: appService.getLevelPercent(),
-                            backgroundColor: AppColors.progressBackground,
-                            border: Border.all(color: AppColors.progressBorder, width: 2.h),
+                            backgroundColor: AppColors.secondary,
+                            border: Border.all(color: AppColors.fontSecondary, width: 1.h),
                             borderRadius: BorderRadius.circular(10.w),
-                            progressColor: AppColors.progress,
-                            size: 20.h
+                            progressGradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.topRight,
+                              colors: [Color(0xfff7f7cf), Color(0xffeae3a6), Color(0xff81b2e1), Color(0xffb881d9),],
+                            ),
+                            size: 17.h
                           ),
                         ],
                       )
@@ -350,6 +356,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                 style: TextStyle(
                                   fontSize: 30.sp,
                                   fontWeight : FontWeight.w700,
+                                  fontFamily: "SFUIText",
                                   color: Colors.white
                                 ), 
                               ),
@@ -379,6 +386,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                 style: TextStyle(
                                   fontSize: 30.sp,
                                   fontWeight : FontWeight.w700,
+                                  fontFamily: "SFUIText",
                                   color: Colors.white
                                 ), 
                               ),
@@ -393,6 +401,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                 style: TextStyle(
                                   fontSize: 30.sp,
                                   fontWeight : FontWeight.w700,
+                                  fontFamily: "SFUIText",
                                   color: Colors.white
                                 ), 
                               )
@@ -428,7 +437,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                     AppImage.asset("mine/energy.png", width: 50.w),
                                     Gap(10.w),
                                     Text("${appService.getDialyGolds()} / ${appService.mineInfoModel.value?.dailyGoldsLimit??0}", 
-                                      style: TextStyle(color: AppColors.fontPrimary, fontWeight: FontWeight.w700, fontSize: 20.sp))
+                                      style: TextStyle(color: AppColors.fontPrimary, fontFamily: "SFUIText", fontWeight: FontWeight.bold, fontSize: 20.sp))
                                   ],),
                                   Row(children: [
                                     AppImage.asset("mine/boost.png", width: 50.w),
@@ -486,7 +495,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                         AppImage.asset("mine/coin.png", width: 25.w),
                                         Gap(5.w),
                                         Text("+${AppUtils.intToStrWithComma(appService.morseCodeGolds.value)}", style: TextStyle(color: AppColors.fontPrimary, 
-                                          fontSize: 16.sp, fontWeight: FontWeight.w700)
+                                          fontSize: 16.sp, fontFamily: "SFUIText", fontWeight: FontWeight.w700)
                                         )
                                       ],
                                     )
@@ -511,8 +520,8 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
                                 Row(children: [
                                   AppImage.asset("mine/energy.png", width: 50.w),
                                   Gap(10.w),
-                                  Text("${appService.getDialyGolds()} / ${appService.mineInfoModel.value?.dailyGoldsLimit}", 
-                                    style: TextStyle(color: AppColors.fontPrimary, fontWeight: FontWeight.w700, fontSize: 20.sp))
+                                  Text("${appService.dailyGolds} / ${appService.mineInfoModel.value?.dailyGoldsLimit}", 
+                                    style: TextStyle(color: AppColors.fontPrimary, fontFamily: "SFUIText", fontWeight: FontWeight.bold, fontSize: 20.sp))
                                 ],),
                                 GestureDetector(
                                   onTap: (){
@@ -558,6 +567,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
           autoPlay: true,
           onComplete: (_) {
             appService.increasedGolds.value += _stepCoins;
+            appService.dailyGolds.value += _stepCoins;    
             if(controller.isCipher.value) {
               String code = isLongPress?"1":"0";
               String? letter = controller.checkMorseCode(code);
@@ -584,7 +594,7 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
   Widget _animateNumber(bool isLongPress){
     if(!controller.isCipher.value){
       return Text("+$_stepCoins", 
-        style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w700)
+        style: TextStyle(color: Colors.white, fontSize: 33.sp, fontFamily: "SFUIText", fontWeight: FontWeight.w700)
       );
     } else {
       if(!isLongPress) {

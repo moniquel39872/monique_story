@@ -73,25 +73,45 @@ class AppToast {
   static Future showLoading({String? msg}) async {
     // return await EasyLoading.show(status: msg ?? "加载中");
     dismiss();
-    AppService.toastResult = BotToast.showAnimationWidget(                    
-      onlyOne: true,
+    // AppService.toastResult = BotToast.showAnimationWidget(
+    //   onlyOne: true,
+    //   allowClick: false,         
+    //   animationDuration: const Duration(milliseconds: 500),
+    //   wrapAnimation: (controller, cancelFunc, widget) {
+    //     return _getTransition(controller, widget);
+    //   },
+    //   toastBuilder:(_){
+    //     return _getWidget(msg: msg??"加载中", 
+    //       prefixWidget: SizedBox(
+    //         height: 30.w,
+    //         width: 30.w,
+    //         child: const Center(
+    //           child: CircularProgressIndicator(color: AppColors.fontPrimary)
+    //         ),
+    //       ),
+    //       isClose: false
+    //     );        
+    //   },
+    // );
+    AppService.toastResult = BotToast.showLoading(
+      crossPage: false,
       allowClick: false,         
-      animationDuration: const Duration(milliseconds: 500),
-      wrapAnimation: (controller, cancelFunc, widget) {
-        return _getTransition(controller, widget);
-      },
-      toastBuilder:(_){
-        return _getWidget(msg: msg??"加载中", 
-          prefixWidget: SizedBox(
-            height: 30.w,
-            width: 30.w,
-            child: const Center(
-              child: CircularProgressIndicator(color: AppColors.fontPrimary)
-            ),
-          ),
-          isClose: false)
-        ;
-      },
+      // animationDuration: const Duration(milliseconds: 500),
+      // wrapAnimation: (controller, cancelFunc, widget) {
+      //   return _getTransition(controller, widget);
+      // },
+      // toastBuilder:(_){
+      //   return _getWidget(msg: msg??"加载中", 
+      //     prefixWidget: SizedBox(
+      //       height: 30.w,
+      //       width: 30.w,
+      //       child: const Center(
+      //         child: CircularProgressIndicator(color: AppColors.fontPrimary)
+      //       ),
+      //     ),
+      //     isClose: false
+      //   );        
+      // },
     );
   }
 

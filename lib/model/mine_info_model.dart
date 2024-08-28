@@ -19,9 +19,10 @@ class MineInfoModel {
   String? loginIp;
   int? createAt;
   int? updateAt;
-  String? dailyGoldsLimit;
+  dynamic dailyGoldsLimit;
   int? maxLevel;
   int? dailyGolds;
+  int? orderLimitTime;
 
   MineInfoModel({
     this.userName, 
@@ -46,7 +47,8 @@ class MineInfoModel {
     this.updateAt,
     this.dailyGoldsLimit,
     this.maxLevel,
-    this.dailyGolds
+    this.dailyGolds,
+    this.orderLimitTime,
   });
 
   MineInfoModel.fromJson(dynamic json) {
@@ -73,6 +75,7 @@ class MineInfoModel {
     dailyGoldsLimit = json['daily_golds_limit'];
     maxLevel = json['max_level'];
     dailyGolds = json['daily_golds'];
+    orderLimitTime = json['order_limit_time'];
   }
  
 
@@ -102,6 +105,7 @@ class MineInfoModel {
     map['daily_golds_limit'] = dailyGoldsLimit;
     map['max_level'] = maxLevel;
     map['daily_golds'] = dailyGolds;
+    map['order_limit_time'] = orderLimitTime;
    
     return map;
   }

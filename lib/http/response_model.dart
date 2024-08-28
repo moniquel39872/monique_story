@@ -1,13 +1,20 @@
 // ignore_for_file: type_literal_in_constant_pattern, unreachable_switch_case
 
 import 'package:kombat_flutter/model/add_gold_model.dart';
+import 'package:kombat_flutter/model/daily_task_model.dart';
 import 'package:kombat_flutter/model/exchange_model.dart';
 import 'package:kombat_flutter/model/friend_model.dart';
+import 'package:kombat_flutter/model/game_prize_model.dart';
+import 'package:kombat_flutter/model/home_game_model.dart';
 import 'package:kombat_flutter/model/hotline_model.dart';
 import 'package:kombat_flutter/model/mine_info_model.dart';
 import 'package:kombat_flutter/model/morse_code_model.dart';
 import 'package:kombat_flutter/model/order_log_model.dart';
 import 'package:kombat_flutter/model/order_model.dart';
+import 'package:kombat_flutter/model/prize_model.dart';
+import 'package:kombat_flutter/model/prize_result_model.dart';
+import 'package:kombat_flutter/model/recharge_model.dart';
+import 'package:kombat_flutter/model/signin_history_model.dart';
 import 'package:kombat_flutter/model/token_model.dart';
 import 'package:kombat_flutter/model/user_info_model.dart';
 import 'package:kombat_flutter/utils/app_logger.dart';
@@ -133,7 +140,21 @@ class FlutterJsonBeanFactory<T> {
       case OrderListModel:
         return OrderListModel.fromJson(json);      
       case OrderLogListModel:
-        return OrderLogListModel.fromJson(json);      
+        return OrderLogListModel.fromJson(json);
+      case RechargeModel:
+        return RechargeModel.fromJson(json);      
+      case DailyTaskModel:
+        return DailyTaskModel.fromJson(json);      
+      case GamePrizeModel:
+        return GamePrizeModel.fromJson(json);      
+      case HomeGameModel:
+        return HomeGameModel.fromJson(json);      
+      case PrizeResultModel:
+        return PrizeResultModel.fromJson(json);      
+      case PrizeModel:
+        return PrizeModel.fromJson(json);      
+      case SigninHistoryModel:
+        return SigninHistoryModel.fromJson(json);      
       default:
         return json;
     }

@@ -2,6 +2,10 @@ import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/http/response_model.dart';
 import 'package:kombat_flutter/model/add_gold_model.dart';
+import 'package:kombat_flutter/model/daily_task_model.dart';
+import 'package:kombat_flutter/model/signin_history_model.dart';
+import 'package:kombat_flutter/utils/app_date_util.dart';
+import 'package:kombat_flutter/widget/app_toast.dart';
 
 class MineViewController extends GetxController {
   AppService appService = Get.find<AppService>();
@@ -36,6 +40,8 @@ class MineViewController extends GetxController {
 
   RxBool isCipher = false.obs;
   String curMorseCode=""; String curLetters="";
+  RxList<DailyTaskModel> dailyTasks = RxList();
+  RxList<SigninHistoryModel> signinHistory = RxList();
 
   void clearCode() {
     curMorseCode = "";
@@ -75,7 +81,6 @@ class MineViewController extends GetxController {
       appService.mineInfoModel.value?.dailyGolds = int.parse(data.data?.golds??"0");  
       appService.increasedGolds.value = 0;    
     } else {
-      // AppToast.showToast(data.message);
       print(data.message);
     }
   }
@@ -85,8 +90,55 @@ class MineViewController extends GetxController {
     if(data.code==200) {
       appService.morseCodeGolds.value = data.data??0;
     } else {
-      // AppToast.showToast(data.message);
       print(data.message);
+    }
+  }
+
+  Future<void> getDailyTasks() async {
+    AppToast.showLoading();
+    NetBaseListEntity<DailyTaskModel> data = await appService.httpClient.getDailyTask();
+    AppToast.dismiss();
+    if(data.code==200) {
+      dailyTasks.value = data.data!;
+      await getSigninHistory();
+      for(int i=0;i<dailyTasks.length;i++) {
+        dailyTasks[i].isSelected = false;
+        dailyTasks[i].isCompleted = checkCompletedTask(dailyTasks[i]);
+      }
+    } else {
+      print(data.message);
+    }
+  }
+
+  Future<void> getSigninHistory() async {
+    AppToast.showLoading();
+    NetBaseListEntity<SigninHistoryModel> data = await appService.httpClient.getSigninHistory();
+    AppToast.dismiss();
+    if(data.code==200) {
+      signinHistory.value = data.data!;
+    } else {
+      print(data.message);
+    }
+  }
+
+  bool checkCompletedTask(DailyTaskModel task) {
+    String curDate = AppDateUtil.curDate();
+    for(int i=0;i<signinHistory.length;i++) {
+      if(curDate == signinHistory[i].signinDate && (signinHistory[i].points??0)>0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<bool> completeSigninTask() async {
+    AppToast.showLoading();
+    NetBaseEntity<String> data = await appService.httpClient.completeSigninTask();
+    AppToast.dismiss();
+    if(data.code==200 && data.data=='success') {
+      return true;
+    } else {
+      return false;
     }
   }
 }

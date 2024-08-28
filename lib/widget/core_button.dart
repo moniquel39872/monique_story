@@ -129,32 +129,7 @@ class _CoreButtonState extends State<CoreButton>
           },
         ),
       },
-      key: mainKey,
-    // GestureDetector(
-      // key: mainKey,
-      // onTap: () {
-      //   // widget.onTap?.call();
-      //   _shrinkButtonSize();
-      //   _restoreButtonSize();
-      // },
-      // onTapDown: (TapDownDetails details) {
-      //   widget.onTapDown?.call(details);
-      //   Offset pos = Offset(details.globalPosition.dx, details.globalPosition.dy);
-      //   RenderBox box = mainKey.currentContext?.findRenderObject() as RenderBox;
-      //   Offset position = box.localToGlobal(Offset.zero);
-      //   Offset center = Offset(box.size.width/2, box.size.height/2);
-      //   _sX = (center.dx-pos.dx)*0.6/(box.size.width/2);
-      //   _sY = (center.dy+position.dy-pos.dy)*0.6/(box.size.height/2);        
-      //   _shrinkButtonSize();
-      // },
-      // onTapCancel: _restoreButtonSize,
-      // child: Transform.scale(
-      //   scale: _scaleTransformValue,
-      //   child: Container(
-      //     alignment: Alignment.center,
-      //     child: widget.child,           
-      //   ),
-      // ),
+      key: mainKey,    
       child: GestureDetector(
         onLongPressEnd: (LongPressEndDetails details){
           isLongPressed = true;
@@ -174,9 +149,9 @@ class _CoreButtonState extends State<CoreButton>
               alignment: Alignment.center,
               children: [
                 if(!controller.isCipher.value)
-                AppImage.asset('mine/frame.png'),
+                AppImage.asset('mine/frame.png', width: 550.w),
                 if(controller.isCipher.value)
-                AppImage.asset('mine/frame_cipher.png'),
+                AppImage.asset('mine/frame_cipher.png', width: 550.w),
                 Visibility(
                   visible: _showFlash.value,
                   child: Container(

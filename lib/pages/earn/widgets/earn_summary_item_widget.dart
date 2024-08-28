@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 
@@ -30,10 +29,6 @@ class EarnSummaryItemWidget extends StatelessWidget {
         opacity: isSelected ? 1 : 0.3,
         child: GestureDetector(
           onTap: onPressed,
-          // onTap: () {
-          //   // controller.earningIndex.value = index;
-          //   // controller.chooseOrderLogs();
-          // },
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),

@@ -7,11 +7,15 @@ class AppBottomsheetWidget extends StatefulWidget {
   AppBottomsheetWidget({
     super.key,
     required this.child,
-    this.topImage
+    this.topImage,
+    this.isBack,
+    this.onBack
   });
 
   final Widget child;
   Widget? topImage; 
+  bool? isBack;
+  VoidCallback? onBack;
 
   @override
   State<AppBottomsheetWidget> createState() => _AppBottomsheetWidgetState();
@@ -89,6 +93,20 @@ class _AppBottomsheetWidgetState extends State<AppBottomsheetWidget> {
               Icons.close_rounded,
               size: 25,
             ),
+          ),
+        ),
+      ),
+      if(widget.isBack==true)
+      Positioned(
+        top: 20.h, left: 30.w,
+        child: GestureDetector(
+          onTap: () {
+            widget.onBack?.call();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            size: 25,
+            color: AppColors.fontSecondary
           ),
         ),
       ),

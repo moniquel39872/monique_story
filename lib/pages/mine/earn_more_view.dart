@@ -4,11 +4,15 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/model/daily_rewards_model.dart';
+import 'package:kombat_flutter/model/daily_task_model.dart';
 import 'package:kombat_flutter/model/earn_list_model.dart';
+import 'package:kombat_flutter/model/order_model.dart';
 import 'package:kombat_flutter/pages/earn/widgets/earn_list_item_widget.dart';
+import 'package:kombat_flutter/pages/mine/mine_view_controller.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 import 'package:kombat_flutter/widget/app_bottomsheet_widget.dart';
+import 'package:kombat_flutter/widget/app_toast.dart';
 import 'package:kombat_flutter/widget/first_animator_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
@@ -21,6 +25,7 @@ class EarnMoreView extends StatefulWidget {
 
 class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMixin  {
   final AppService appService = Get.find<AppService>();
+  MineViewController controller = Get.find();
   bool _isFirstLoad = true;
   int _selectedIndex = -1;
   
@@ -34,18 +39,18 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
     ),
   ];
 
-  final List<DailyRewardsModel> dailyRewards = [
-    DailyRewardsModel(title: "Day1", coins: "500", isEnable: true),
-    DailyRewardsModel(title: "Day2", coins: "1K", isEnable: false),
-    DailyRewardsModel(title: "Day3", coins: "2K", isEnable: false),
-    DailyRewardsModel(title: "Day4", coins: "3K", isEnable: false),
-    DailyRewardsModel(title: "Day5", coins: "4K", isEnable: false),
-    DailyRewardsModel(title: "Day6", coins: "5K", isEnable: false),
-    DailyRewardsModel(title: "Day7", coins: "6K", isEnable: false),
-    DailyRewardsModel(title: "Day8", coins: "7K", isEnable: false),
-    DailyRewardsModel(title: "Day9", coins: "8K", isEnable: false),
-    DailyRewardsModel(title: "Day10", coins: "10K", isEnable: false),
-  ];
+  // final List<DailyRewardsModel> dailyRewards = [
+  //   DailyRewardsModel(title: "Day1", coins: "500", isEnable: true),
+  //   DailyRewardsModel(title: "Day2", coins: "1K", isEnable: false),
+  //   DailyRewardsModel(title: "Day3", coins: "2K", isEnable: false),
+  //   DailyRewardsModel(title: "Day4", coins: "3K", isEnable: false),
+  //   DailyRewardsModel(title: "Day5", coins: "4K", isEnable: false),
+  //   DailyRewardsModel(title: "Day6", coins: "5K", isEnable: false),
+  //   DailyRewardsModel(title: "Day7", coins: "6K", isEnable: false),
+  //   DailyRewardsModel(title: "Day8", coins: "7K", isEnable: false),
+  //   DailyRewardsModel(title: "Day9", coins: "8K", isEnable: false),
+  //   DailyRewardsModel(title: "Day10", coins: "10K", isEnable: false),
+  // ];
   
   @override
   void initState() {
@@ -55,6 +60,7 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
     WidgetsBinding.instance.addPostFrameCallback((_) {
       appService.firstLoad['earn']=false;
     });
+    controller.getDailyTasks();
   }
 
   @override
@@ -113,8 +119,8 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
 
   bool _checkEnableTask() {
     bool result = false;
-    for(int i=0;i<dailyRewards.length;i++) {
-      if(dailyRewards[i].isEnable==true && (dailyRewards[i].isCompleted==null) || dailyRewards[i].isCompleted==false) {
+    for(int i=0;i<controller.dailyTasks.length;i++) {
+      if(controller.dailyTasks[i].isCompleted==false) {
         result = true;
         break;
       }
@@ -158,19 +164,20 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
                       crossAxisSpacing: 10.w,
                       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                       children: [
-                        ...List.generate(dailyRewards.length, (index){                  
+                        ...List.generate(10, (index){
+                          DailyTaskModel item = index<controller.dailyTasks.length?controller.dailyTasks[index]:DailyTaskModel();
                           return GestureDetector(
-                            onTap: (){     
-                              if((dailyRewards[index].isEnable??false) && !(dailyRewards[index].isCompleted??false)){
-                                setState(() {
-                                  dailyRewards[index].isSelected=!(dailyRewards[index].isSelected??false);
-                                  _selectedIndex = (dailyRewards[index].isSelected??false)?index:-1;
+                            onTap: item.id==null ? null: () {
+                              if(item.isCompleted==false) {
+                                setState(() {                         
+                                  item.isSelected=true;
+                                  _selectedIndex = index;
                                 });
                               }
                             },
-                            child: Opacity(opacity: (dailyRewards[index].isEnable??false)?1.0:0.3,
+                            child: Opacity(opacity: (item.id!=null)?1.0:0.3,
                               child: Container( 
-                                decoration: dailyRewards[index].isCompleted==true? 
+                                decoration: item.isCompleted==true? 
                                 BoxDecoration(
                                   borderRadius: BorderRadius.circular(30.w),
                                   gradient: const LinearGradient(
@@ -182,13 +189,13 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
                                 BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.w),
                                   color: AppColors.secondary,
-                                  border: dailyRewards[index].isSelected==true
+                                  border: item.isSelected==true
                                     ?Border.all(color: AppColors.fontMenu3, width: 1.h):Border.all(color: Colors.transparent)
                                 ),
-                                child: Column(
+                                child: item.id!=null? Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text('${dailyRewards[index].title}', style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp)),
+                                    Text('${item.taskType}', style: TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp)),
                                     Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -203,11 +210,11 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
                                       ),                                      
                                       child: AppImage.asset('mine/coin.png', width: 40.w),
                                     ),
-                                    Text('${dailyRewards[index].coins}', 
+                                    Text('${item.points}', 
                                       style:TextStyle(color: AppColors.fontPrimary, fontSize: 15.sp, fontWeight: FontWeight.w700)
                                     )
                                   ]
-                                )
+                                ): Container()
                               )
                             )
                           );
@@ -216,11 +223,19 @@ class _EarnMoreViewState extends State<EarnMoreView> with TickerProviderStateMix
                     ),
                     Padding(padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       child: ElevatedButton(
-                        onPressed: _selectedIndex>-1?(){
-                          setState((){
-                            dailyRewards[_selectedIndex].isCompleted = true;
-                            _selectedIndex = -1;
-                          });
+                        onPressed: _selectedIndex>-1?() async{
+                          DailyTaskModel item = controller.dailyTasks[_selectedIndex];                          
+                          if(item.isCompleted==false){
+                            bool result = await controller.completeSigninTask();
+                            if(result) {
+                              setState((){
+                                item.isCompleted = true;
+                                _selectedIndex = -1;
+                              });
+                            } else {
+                              AppToast.showError(msg: appService.getTrans("Can't complete this task"));
+                            }
+                          }                          
                         }:null, 
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff5A60FF),

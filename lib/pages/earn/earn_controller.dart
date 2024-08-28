@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/http/response_model.dart';
@@ -51,7 +52,7 @@ class EarnController extends GetxController {
         id: 1,
         label: 'Dividend income',
         icon: 'earn/money_growth.png',
-        price: '${getDividendIncome()}',
+        price: getDividendIncome(),
       ),
       MyEarningTab(
         id: 2,
@@ -75,10 +76,10 @@ class EarnController extends GetxController {
 
   Future<void> getOrderList() async {
     isLoading1.value = true;
-    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    AppToast.showLoading();
     NetBaseEntity<OrderListModel> data =
         await appService.httpClient.getOrderList();
-    // AppToast.dismiss();
+    AppToast.dismiss();
     isLoading1.value = false;
     if (data.code == 200) {
       orderList.value = data.data;
@@ -89,10 +90,10 @@ class EarnController extends GetxController {
 
   Future<void> getOrderLogList() async {
     isLoading2.value = true;
-    // AppToast.showLoading(msg: appService.getTrans('Request processing...'));
+    AppToast.showLoading();
     NetBaseEntity<OrderLogListModel> data =
         await appService.httpClient.getOrderLogList(1);
-    // AppToast.dismiss();
+    AppToast.dismiss();
     isLoading2.value = false;
     if (data.code == 200) {
       orderLogList0.value = data.data;
@@ -114,5 +115,35 @@ class EarnController extends GetxController {
           .where((item) => item.type == 1)
           .toList();
     }
+  }
+
+  String getOrderTotal(OrderModel order) {
+    if(order.fast==-1 || order.fast == 2) {
+      return '0';
+    } else {
+      return (1.5 * double.parse(order.orderAmount)).toStringAsFixed(4);
+    }
+  }
+
+  String getOutAmount(OrderModel order) {
+    double a = double.parse(order.outAmount);
+    if(a>0) {
+      return a.toStringAsFixed(4);
+    }
+    return '0';
+  }
+
+  Color getOrderTotalColor(OrderModel order) {
+    if(order.fast == -1) {
+      return const Color(0xff333333);
+    } else if(order.fast == 2) {
+      return const Color(0xff4f4ce8);
+    } else {
+      return const Color(0xff9e473b);
+    }
+  }
+
+  double getProgressValue(OrderModel order) {
+    return (double.parse(order.outAmount)/double.parse(order.outTotal))*100;
   }
 }

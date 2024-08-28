@@ -24,13 +24,14 @@ import 'package:http/http.dart' as http;
 import 'package:kombat_flutter/widget/app_toast.dart';
 
 class AppService extends GetxService with ApiHandler {
-  final String walletAddress = '9JvVRpmUPGkSqwtbwCPw2QvRX2EmNbRhjAaa5muqdakz';
+  final String walletAddress = '9JvVRpmUPGkSqwtbwCPw2QvRX2EmNbRhjAaa5muqdakz';  
 
   late AppHttpClient httpClient;
 
   RxString curTab = "lottery".obs;
   RxString currentLang = "en".obs;
   RxString currentSkin = "default".obs;  
+  RxBool showGuide = true.obs;
   Rxn<HotlineModel> hotlineModel = Rxn();  
   Rx<Map<String, dynamic>> languageMap = Rx(<String, dynamic>{});
   Rx<Map<String, dynamic>> engLanguageMap = Rx(<String, dynamic>{});
@@ -42,6 +43,7 @@ class AppService extends GetxService with ApiHandler {
   RxInt increasedGolds = 0.obs;
   RxBool isLogin = false.obs;
   RxString countryCode = "RU".obs;
+  RxInt dailyGolds = 0.obs;
 
   Rxn<TokenModel> tokenModel = Rxn();
   /// 登录信息
@@ -68,9 +70,9 @@ class AppService extends GetxService with ApiHandler {
         iosDeviceInfo = await deviceInfo.iosInfo;
       }
     }
-    try {
-      await getCountryPhoneCode();
-    } catch (e) {}
+    // try {
+    //   await getCountryPhoneCode();
+    // } catch (e) {}
 
     for(int i=0;i<AppConstant.mainTabs.length;i++){
       firstLoad[AppConstant.mainTabs[i].code] = true;
@@ -84,12 +86,14 @@ class AppService extends GetxService with ApiHandler {
       if (hotlineString == "") {
         hotlineModel.value = HotlineModel(
           lang: "en", 
-          skin: "default"
+          skin: "default",
+          showGuide: true
         );
       } else {
         hotlineModel.value = HotlineModel.fromJson(jsonDecode(hotlineString));
         currentLang.value = hotlineModel.value?.lang ?? "en";
         currentSkin.value = hotlineModel.value?.skin ?? "default";
+        showGuide.value = hotlineModel.value?.showGuide ?? true;
       }
       // loadingIntercepter.value = true;
     } catch (e) {
@@ -101,6 +105,7 @@ class AppService extends GetxService with ApiHandler {
   void setHotlineData() {
     hotlineModel.value?.lang = currentLang.value;
     hotlineModel.value?.skin = currentSkin.value;
+    hotlineModel.value?.showGuide = showGuide.value;
     Storage.instance
           .setString(StorageKey.HOTLINE_KEY, jsonEncode(hotlineModel.value));
   }
@@ -115,13 +120,6 @@ class AppService extends GetxService with ApiHandler {
     try {
       httpClient =
           AppHttpClient(AppHttpCore(baseUrl: AppConstant.getBaseUrl()).dio);
-      // fbAppHttpClient =
-      //     FBAppHttpClient(AppHttpCore(baseUrl: AppConstant.getFBbaseUrl()).dio);
-      // fbDataHttpClient = FBDataHttpClient(
-      //     AppHttpCore(baseUrl: AppConstant.getFBDataBaseUrl()).dio);
-      // imAppHttpClient =
-      //     IMAppHttpClient(AppHttpCore(baseUrl: AppConstant.getIMbaseUrl()).dio);
-      // await queryLanguageTrans();
     } catch (e) {
       loadingIntercepter.value = false;
     }
@@ -167,8 +165,8 @@ class AppService extends GetxService with ApiHandler {
     final data = await AppJSON.loadJsonObjFromAssets(
         'language/${getLanguageByCode(currentLang.value).shortName}.json');
     languageMap.value = data['title'] as Map<String, dynamic>;
-    final engData =
-        await AppJSON.loadJsonObjFromAssets('language/en_US.json');
+    final engData = data;
+        // await AppJSON.loadJsonObjFromAssets('language/en_US.json');
     engLanguageMap.value = engData['title'] as Map<String, dynamic>;
   }
 
@@ -234,16 +232,16 @@ class AppService extends GetxService with ApiHandler {
   }
 
   Future<void> getMineInfo() async {
-    AppToast.showLoading(msg: getTrans('Getting UserInfo...'));
+    AppToast.showLoading();
     NetBaseEntity<MineInfoModel> data = await httpClient.getMineInfo();
     AppToast.dismiss();
     if(data.code==200) {
       mineInfoModel.value = data.data;
-      setLanguage(data.data?.lang??"en");      
+      setLanguage(data.data?.lang??"en");
+      dailyGolds.value = data.data?.dailyGoldsLimit??0;
     } else {
       mineInfoModel.value = null;
-      // AppToast.showToast(data.message);
-      print(data.message);
+      AppToast.showToast(data.message);      
     }
   }
 
@@ -284,10 +282,10 @@ class AppService extends GetxService with ApiHandler {
     return 1;
   }
 
-   Future<void> signIn() async {
-    // AppToast.showLoading(msg: getTrans('Sign in...'));
-    NetBaseEntity<TokenModel> data = await httpClient.signIn(walletAddress);
-    // AppToast.dismiss();
+  Future<void> signIn(String wallet) async {
+    AppToast.showLoading();
+    NetBaseEntity<TokenModel> data = await httpClient.signIn(wallet);
+    AppToast.dismiss();
     if(data.code==200) {
       isLogin.value = true;
       tokenModel.value = data.data;
@@ -305,8 +303,7 @@ class AppService extends GetxService with ApiHandler {
       morseCode = data.data?.letters??"";      
     } else {
       morseCode = "";
-      // AppToast.showToast(data.message);
-      print(data.message);
+      AppToast.showToast(data.message);
     }
   }
 }
