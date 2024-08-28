@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/pages/splash/splash_controller.dart';
+import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_circle_progress_image.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
 
@@ -13,17 +14,21 @@ class SplashView extends StatelessWidget {
     final controller = Get.put(SplashController());
 
     return Scaffold(
+      backgroundColor: AppColors.primary,
       body: Obx(() {
         if (controller.isLoading.value == false) {
           controller.onClose();
         }
         return Stack(children: [
-          SizedBox(
+          Container(
             width: Get.width,
             height: Get.height,
-            child: Center(
-              child: AppImage.asset('splash.png'),
-            ),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage('assets/images/splash.png'),
+                fit: BoxFit.fill
+              )
+            ),            
           ),
           Positioned(
             bottom: 140.w,

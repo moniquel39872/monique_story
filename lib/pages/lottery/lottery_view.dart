@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -210,17 +209,29 @@ class LotteryViewState extends State<LotteryView> with TickerProviderStateMixin 
                       LotteryButtonItem(icon: "connect", label: "Wallet", onPressed: openWalletBottomSheet, index: 0,),
                       LotteryButtonItem(icon: "order", label: "Order", index: 1,
                         onPressed: (){
+                          if(!appService.isLogin.value) {
+                            openWalletBottomSheet();
+                            return;
+                          } 
                           appService.initEarnTabIndex = 0;
-                          mainController.selectedPath.value=earnPath;
+                          mainController.selectedPath.value=earnPath;                          
                         }
                       ),
                       LotteryButtonItem(icon: "main", label: "Lucky Time", index: 2,
                         onPressed: (){
+                          if(!appService.isLogin.value) {
+                            openWalletBottomSheet();
+                            return;
+                          } 
                           openRechargeBottomSheet();                          
                         }
                       ),
                       LotteryButtonItem(icon: "earn", label: "Earn", index: 3,
                         onPressed: (){
+                          if(!appService.isLogin.value) {
+                            openWalletBottomSheet();
+                            return;
+                          } 
                           appService.initEarnTabIndex = 1;
                           mainController.selectedPath.value=earnPath;
                         }
