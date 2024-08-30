@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_constant.dart';
 import 'package:kombat_flutter/errors/mixins/api_handler.dart';
@@ -30,6 +29,7 @@ class AppService extends GetxService with ApiHandler {
 
   late AppHttpClient httpClient;
 
+  int maxMultitouchNumber = 4;
   RxString curTab = "lottery".obs;
   RxString currentLang = "en".obs;
   RxString currentSkin = "default".obs;  
@@ -37,7 +37,6 @@ class AppService extends GetxService with ApiHandler {
   Rxn<HotlineModel> hotlineModel = Rxn();  
   Rx<Map<String, dynamic>> languageMap = Rx(<String, dynamic>{});
   Rx<Map<String, dynamic>> engLanguageMap = Rx(<String, dynamic>{});
-  int scores = 0;    
   Map<String, bool> firstLoad = {};
   String morseCode = "";
   RxInt morseCodeGolds = 10000.obs;
@@ -167,8 +166,8 @@ class AppService extends GetxService with ApiHandler {
     final data = await AppJSON.loadJsonObjFromAssets(
         'language/${getLanguageByCode(currentLang.value).shortName}.json');
     languageMap.value = data['title'] as Map<String, dynamic>;
-    final engData = data;
-        // await AppJSON.loadJsonObjFromAssets('language/en_US.json');
+    final engData = currentLang.value=='en' ? data :
+        await AppJSON.loadJsonObjFromAssets('language/en_US.json');
     engLanguageMap.value = engData['title'] as Map<String, dynamic>;
   }
 

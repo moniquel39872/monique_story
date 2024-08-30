@@ -6,7 +6,7 @@ class MultiTouchGestureRecognizer extends MultiTapGestureRecognizer {
   TapDownRecognizerCallback onRealTapUp;  
   TapCancelRecognizerCallback onRealTapCancel;  
   var numberOfTouches = 0;
-  int minNumberOfTouches = 0;
+  int maxNumberOfTouches = 0;
   List<TapDownDetails> tapDetails = [];
 
   MultiTouchGestureRecognizer(this.onMultiTap, this.onRealTap, this.onRealTapUp, this.onRealTapCancel) {
@@ -22,7 +22,7 @@ class MultiTouchGestureRecognizer extends MultiTapGestureRecognizer {
   }
 
   void removeTouch(int pointer, TapUpDetails details) {
-    if (numberOfTouches>1 && numberOfTouches <= minNumberOfTouches) {      
+    if (numberOfTouches>1 && numberOfTouches <= maxNumberOfTouches) {      
       onMultiTap(tapDetails);
     } else if(numberOfTouches==1){
       onRealTapUp(pointer, tapDetails[0]);

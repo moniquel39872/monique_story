@@ -125,7 +125,7 @@ class _CoreButtonState extends State<CoreButton>
             MultiTouchGestureRecognizer>(
           () => MultiTouchGestureRecognizer(_multiTapUp, _realTap, _realTapUp, _realTapCancel),
           (MultiTouchGestureRecognizer instance) {
-            instance.minNumberOfTouches = 5;            
+            instance.maxNumberOfTouches = appService.maxMultitouchNumber;            
           },
         ),
       },

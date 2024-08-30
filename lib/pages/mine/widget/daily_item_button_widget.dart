@@ -14,7 +14,7 @@ class DailyItemButtonWidget extends StatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  _DailyItemButtonState createState() => _DailyItemButtonState();
+  State<DailyItemButtonWidget> createState() => _DailyItemButtonState();
 }
 
 class _DailyItemButtonState extends State<DailyItemButtonWidget> with TickerProviderStateMixin  {
