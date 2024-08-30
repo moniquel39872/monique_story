@@ -31,11 +31,11 @@ class OrderLogModel {
 }
 
 class OrderLogListModel {
-  final int total;
-  final int perPage;
-  final int currentPage;
-  final int lastPage;
-  final List<OrderLogModel> data;
+  int total;
+  int perPage;
+  int currentPage;
+  int lastPage;
+  List<OrderLogModel> data;
 
   OrderLogListModel({
     required this.total,

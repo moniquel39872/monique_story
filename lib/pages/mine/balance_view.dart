@@ -6,6 +6,7 @@ import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/controllers/main_controller.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:kombat_flutter/utils/app_utils.dart';
 
 class BalanceView extends StatefulWidget {
   const BalanceView({super.key});
@@ -40,8 +41,8 @@ class _BalanceViewState extends State<BalanceView> {
           children: [
             AppImage.asset('mine/coin.png', width: 80.w),
             SizedBox(width: 10.w),
-            Text(appService.scores.toString(), style: TextStyle(color: AppColors.fontPrimary,
-              fontSize: 25.sp, fontWeight: FontWeight.w700)
+            Text(AppUtils.intToStrWithComma(appService.getCurrentGolds()), style: TextStyle(color: AppColors.fontPrimary,
+              fontSize: 28.sp, fontWeight: FontWeight.w700, fontFamily: "SFUIText")
             )
           ],
         ),

@@ -30,6 +30,9 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
   late TabController _tabController;
   late ListObserverController observerController;
   final ScrollController _scrollController = ScrollController();
+  final ScrollController scrollControllerOrderList = ScrollController();
+  final ScrollController scrollControllerOrderLogList = ScrollController();
+  int curPageOrders = 1, curPageOrderLogs = 1;
 
   @override
   void initState() {
@@ -49,19 +52,42 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
         initialIndex: appService.initEarnTabIndex);
 
     observerController = ListObserverController(controller: _scrollController);
+    scrollControllerOrderList.addListener(_loadMoreOrderList);
+    scrollControllerOrderLogList.addListener(_loadMoreOrderLogList);
 
-    controller.getOrderList();
-    controller.getOrderLogList();
-    controller.getEarnDates();
-    controller.getChartDataList(7);
+
+    controller.init();      
     super.initState();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController.dispose();    
     // TODO: implement dispose
     super.dispose();
+  }
+
+  void _loadMoreOrderList() async {
+    if(controller.orderList.value!=null){
+      if(curPageOrders == controller.orderList.value?.lastPage) {
+        return;
+      }
+      curPageOrders++;
+    }
+    await controller.getOrderList(curPageOrders);
+    setState(() {});
+  }
+
+
+  void _loadMoreOrderLogList() async {
+    if(controller.orderLogList0.value!=null){
+      if(curPageOrderLogs == controller.orderLogList0.value?.lastPage) {
+        return;
+      }
+      curPageOrderLogs++;
+    }
+    await controller.getOrderLogList(curPageOrderLogs);
+    setState(() {});
   }
 
   @override
@@ -84,13 +110,7 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
               labelColor: AppColors.fontPrimary,
               indicatorColor: AppColors.buttonBackground,
               tabs: tabs,
-              onTap: (value) {
-                if (value == 0) {
-                  controller.getOrderList();
-                } else {
-                  controller.getOrderLogList();
-                }
-              },
+              onTap: (value) {},
             ),
             Expanded(
               child: TabBarView(
@@ -113,6 +133,7 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
       if (controller.isLoading1.value) return const SizedBox();
 
       return ListView.builder(
+        controller: scrollControllerOrderList,
         itemCount: (controller.orderList.value?.data ?? []).length,
         itemBuilder: (BuildContext context, int index) {
           OrderModel item = controller.orderList.value!.data[index];
@@ -152,19 +173,16 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
             height: 220.h,
             child: _getChartData(),
           ),
-          Obx(() {
-            return Expanded(
-              child: controller.isLoading2.value
-                  ? const SizedBox()
-                  : ListView.builder(
-                      itemCount: controller.orderLogs.value.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return _getOrderLogItem(
-                            controller.orderLogs.value[index]);
-                      },
-                    ),
-            );
-          }),
+          Obx(()=> Expanded(
+              child: ListView.builder(
+                controller: scrollControllerOrderLogList,
+                itemCount: controller.orderLogs.value.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _getOrderLogItem(controller.orderLogs.value[index]);
+                },
+              ),
+            )
+          ),
         ],
       ),
     );
@@ -338,9 +356,9 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
                 alignment: Alignment.topCenter,                
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 36.h),
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () async{
                     controller.getEarnDates(isWeekDates: false);
-                    controller.getChartDataList(30);
+                    await controller.getChartDataList(30);
                     Future.delayed(const Duration(milliseconds: 300), (){
                       observerController.jumpTo(index: controller.selectedDateIndex.value);
                     });

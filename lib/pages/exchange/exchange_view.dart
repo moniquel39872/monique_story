@@ -71,10 +71,10 @@ class _ExchangeViewState extends State<ExchangeView> {
                     duration: const Duration(milliseconds: 600),
                   ),
                   isAnimate: _isFirstLoad,
-                  child: Text(AppUtils.intToStrWithComma(appService.mineInfoModel.value?.gold??0),
+                  child: Text(AppUtils.intToStrWithComma(appService.getCurrentGolds()),
                     style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                   ),
-                ),          
+                ),
                 Gap(30.h),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [

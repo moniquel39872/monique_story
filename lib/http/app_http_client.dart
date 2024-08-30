@@ -54,11 +54,14 @@ abstract class AppHttpClient {
   );
 
   @POST('/User/order')
-  Future<NetBaseEntity<OrderListModel>> getOrderList();
+  Future<NetBaseEntity<OrderListModel>> getOrderList(
+    @Field("current_page") int curPage
+  );
 
   @POST('/User/orderLog')
   Future<NetBaseEntity<OrderLogListModel>> getOrderLogList(
-    @Field("type") int type
+    @Field("type") int type,
+    @Field("current_page") int curPage
   );
 
   @POST('/User/incomeCharts')

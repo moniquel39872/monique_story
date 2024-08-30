@@ -253,11 +253,11 @@ class _AppHttpClient implements AppHttpClient {
   }
 
   @override
-  Future<NetBaseEntity<OrderListModel>> getOrderList() async {
+  Future<NetBaseEntity<OrderListModel>> getOrderList(int curPage) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {'current_page': curPage};
     final _options = _setStreamType<NetBaseEntity<OrderListModel>>(Options(
       method: 'POST',
       headers: _headers,
@@ -286,11 +286,17 @@ class _AppHttpClient implements AppHttpClient {
   }
 
   @override
-  Future<NetBaseEntity<OrderLogListModel>> getOrderLogList(int type) async {
+  Future<NetBaseEntity<OrderLogListModel>> getOrderLogList(
+    int type,
+    int curPage,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {'type': type};
+    final _data = {
+      'type': type,
+      'current_page': curPage,
+    };
     final _options = _setStreamType<NetBaseEntity<OrderLogListModel>>(Options(
       method: 'POST',
       headers: _headers,

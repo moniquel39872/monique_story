@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_service.dart';
@@ -27,6 +28,7 @@ class EarnController extends GetxController {
   List<FlSpot> flSpots = [];
   List<int> curDateIndexs = [];
   RxList<ChartDataModel> chartDataList = RxList();
+  int curPageOrders = 1;
 
   RxList<MyEarningTab> myEarningTabs = [
     MyEarningTab(
@@ -76,6 +78,23 @@ class EarnController extends GetxController {
       ),
     ];    
     super.onReady();
+  }
+
+  void init() {
+    orderList = Rxn();
+    orderLogList0 = Rxn();
+    orderLogs = RxList();
+    earningIndex = 0.obs;
+    dates = RxList();
+    selectedDateIndex = 0.obs;
+    lineChartBarData = LineChartBarData().obs;
+    flSpots = [];
+    curDateIndexs = [];
+    chartDataList = RxList();
+    getOrderList(1);
+    getOrderLogList(1);
+    getEarnDates();
+    getChartDataList(7);  
   }
 
   void getEarnDates({bool isWeekDates=true}) {        
@@ -144,24 +163,34 @@ class EarnController extends GetxController {
     return (t - b).toStringAsFixed(2);
   }
 
-  Future<void> getOrderList() async {
+  Future<void> getOrderList(int curPage) async {    
     AppToast.showLoading();
     NetBaseEntity<OrderListModel> data =
-        await appService.httpClient.getOrderList();
+        await appService.httpClient.getOrderList(curPage);
     AppToast.dismiss();
     if (data.code == 200) {
-      orderList.value = data.data;
+      if(orderList.value!=null) {
+        orderList.value?.data.addAll(data.data?.data??[]);
+        orderList.value?.lastPage = data.data?.lastPage??0;
+      } else {
+        orderList.value = data.data;
+      }
     } else {
       print(data.message);
     }
   }
 
-  Future<void> getOrderLogList() async {
+  Future<void> getOrderLogList(int curPage) async {
     AppToast.showLoading();
-    NetBaseEntity<OrderLogListModel> data = await appService.httpClient.getOrderLogList(0);
+    NetBaseEntity<OrderLogListModel> data = await appService.httpClient.getOrderLogList(0, curPage);
     AppToast.dismiss();
     if (data.code == 200) {
-      orderLogList0.value = data.data;
+      if(orderLogList0.value!=null) {
+        orderLogList0.value?.data.addAll(data.data?.data??[]);
+        orderLogList0.value?.lastPage = data.data?.lastPage??0;
+      } else {
+        orderLogList0.value = data.data;
+      }
       chooseOrderLogs();
     } else {
       print(data.message);

@@ -79,11 +79,11 @@ class OrderModel {
 }
 
 class OrderListModel {
-  final int total;
-  final int perPage;
-  final int currentPage;
-  final int lastPage;
-  final List<OrderModel> data;
+  int total;
+  int perPage;
+  int currentPage;
+  int lastPage;
+  List<OrderModel> data;
 
   OrderListModel({
     required this.total,
