@@ -26,11 +26,9 @@ class ExchangeController extends GetxController {
   }
 
   Future<bool> exchangeTrade(int eId, int gold) async {
-    isLoading.value = true;
     AppToast.showLoading();
     NetBaseEntity<String> data = await appService.httpClient.exchangeTrade(eId);
     AppToast.dismiss();
-    isLoading.value = false;
     if(data.data=='ok') {      
       appService.getMineInfo();
       return true;
@@ -39,11 +37,9 @@ class ExchangeController extends GetxController {
   }
 
   Future<void> getBackpack() async {
-    isLoading.value = true;
     AppToast.showLoading();
     NetBaseListEntity<BackpackModel> data = await appService.httpClient.getBackpack();
     AppToast.dismiss();
-    isLoading.value = false;
     if(data.code==200) {
       backpackList.value = data.data??[];
     } else {
@@ -52,11 +48,9 @@ class ExchangeController extends GetxController {
   }
 
   Future<bool> withdrawal(int eId, String address) async {
-    isLoading.value = true;
     AppToast.showLoading();
     NetBaseEntity<String> data = await appService.httpClient.withdrawal(eId, address);
     AppToast.dismiss();
-    isLoading.value = false;
     if(data.data=='ok') {      
       appService.getMineInfo();
       return true;

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
+import 'package:retrofit/retrofit.dart';
+
 class AppDateUtil {
 
   /// 例如:把两时间字符串求出他们的时间差
@@ -23,6 +25,16 @@ class AppDateUtil {
     DateFormat format = DateFormat('yyyy-MM-dd HH:mm:ss');
     return format.format(date);
   }
+
+  static String YMd(int timestamp) {
+    if(timestamp==0) {
+      return "";
+    }
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    return format.format(date);
+  }
+
 
   static String ddhhmmss(int secs) {
     int minutes = secs ~/ 60;
@@ -106,6 +118,48 @@ class AppDateUtil {
       return '0$a';
     }
     return a.toString();
+  }
+
+  static List<String> getMonthDates() {
+    List<String> result = [];
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    DateTime curDate = DateTime.now();
+    DateTime date0 = curDate.add(const Duration(days: -29));
+    for(int d=0;d<30;d++) {
+      DateTime date = date0.add(Duration(days: d));
+      result.add(format.format(date));
+    }
+    return result;
+  }
+
+  static List<String> getWeekDates() {
+    List<String> result = [];
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    DateTime curDate = DateTime.now();
+    DateTime date0 = curDate.add(const Duration(days: -6));
+    for(int d=0;d<7;d++) {
+      DateTime date = date0.add(Duration(days: d));
+      result.add(format.format(date));
+    }
+    return result;
+  }
+
+  static int getDay(String strDate) {
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    DateTime date1 = format.parse(strDate);
+    return date1.day;
+  }
+
+  static String getMonth(String strDate) {
+    List<String> months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    DateTime date1 = format.parse(strDate);
+    return months[date1.month-1];
+  }
+
+  static DateTime strToDateTime(String strDate) {
+    DateFormat format = DateFormat('yyyy-MM-dd');
+    return format.parse(strDate);
   }
 
 }

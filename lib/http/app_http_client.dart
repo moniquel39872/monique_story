@@ -3,6 +3,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:kombat_flutter/http/response_model.dart';
 import 'package:kombat_flutter/model/add_gold_model.dart';
 import 'package:kombat_flutter/model/backpack_model.dart';
+import 'package:kombat_flutter/model/chart_data_model.dart';
 import 'package:kombat_flutter/model/daily_task_model.dart';
 import 'package:kombat_flutter/model/exchange_model.dart';
 import 'package:kombat_flutter/model/friend_model.dart';
@@ -58,6 +59,12 @@ abstract class AppHttpClient {
   @POST('/User/orderLog')
   Future<NetBaseEntity<OrderLogListModel>> getOrderLogList(
     @Field("type") int type
+  );
+
+  @POST('/User/incomeCharts')
+  Future<NetBaseListEntity<ChartDataModel>> getChartData(
+    @Field("type") int type,
+    @Field("days") int days
   );
 
   @POST('/User/recharge')

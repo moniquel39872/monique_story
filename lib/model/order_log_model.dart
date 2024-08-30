@@ -2,13 +2,13 @@ class OrderLogModel {
   int type;
   String outAmount;
   int status;
-  int createdAt;
+  int? createdAt;
 
   OrderLogModel({
     required this.type,
     required this.outAmount,
     required this.status,
-    required this.createdAt,
+    this.createdAt,
   });
 
   factory OrderLogModel.fromJson(Map<String, dynamic> json) {

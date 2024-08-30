@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:kombat_flutter/app/app_constant.dart';
 import 'package:kombat_flutter/errors/mixins/api_handler.dart';
@@ -22,6 +23,7 @@ import 'package:kombat_flutter/utils/storage/index.dart';
 import 'package:kombat_flutter/widget/app_json.dart';
 import 'package:http/http.dart' as http;
 import 'package:kombat_flutter/widget/app_toast.dart';
+import 'package:vibration/vibration.dart';
 
 class AppService extends GetxService with ApiHandler {
   final String walletAddress = '9JvVRpmUPGkSqwtbwCPw2QvRX2EmNbRhjAaa5muqdakz';  
@@ -305,5 +307,14 @@ class AppService extends GetxService with ApiHandler {
       morseCode = "";
       AppToast.showToast(data.message);
     }
+  }
+
+  Future<void> vibrate() async {
+    //Vibration
+    // HapticFeedback.heavyImpact();
+    // bool hasVibrator = await Vibration.hasVibrator()??false;
+    // if (hasVibrator) {
+      Vibration.vibrate();
+    // }
   }
 }

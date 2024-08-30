@@ -1,9 +1,9 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/model/order_log_model.dart';
 import 'package:kombat_flutter/model/order_model.dart';
@@ -13,6 +13,7 @@ import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_date_util.dart';
 import 'package:kombat_flutter/utils/app_icons.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
+import 'package:scrollview_observer/scrollview_observer.dart';
 
 class EarnView extends StatefulWidget {
   const EarnView({super.key});
@@ -27,6 +28,8 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
   // bool _isFirstLoad = true;
   late List<Tab> tabs;
   late TabController _tabController;
+  late ListObserverController observerController;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -45,8 +48,12 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
         vsync: this,
         initialIndex: appService.initEarnTabIndex);
 
+    observerController = ListObserverController(controller: _scrollController);
+
     controller.getOrderList();
     controller.getOrderLogList();
+    controller.getEarnDates();
+    controller.getChartDataList(7);
     super.initState();
   }
 
@@ -78,7 +85,6 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
               indicatorColor: AppColors.buttonBackground,
               tabs: tabs,
               onTap: (value) {
-                print('onTab = ${value}');
                 if (value == 0) {
                   controller.getOrderList();
                 } else {
@@ -124,9 +130,9 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
           Obx(
             () => Row(
               children:
-                  List.generate(controller.myEarningTabs.value.length, (index) {
-                final item = controller.myEarningTabs.value[index];
-                return EarnSummaryItemWidget(
+                List.generate(controller.myEarningTabs.value.length, (index) {
+                  final item = controller.myEarningTabs.value[index];
+                  return EarnSummaryItemWidget(
                     index: index,
                     prize: item.price,
                     icon: item.icon,
@@ -134,14 +140,17 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
                     isSelected: item.id == controller.earningIndex.value,
                     onPressed: () {
                       controller.earningIndex.value = index;
-                      // filter ui
-                    });
+                      controller.chooseOrderLogs();
+                      controller.getChartDataList(controller.dates.length);
+                    }
+                  );
               }),
             ),
           ),
+          Gap(10.h),
           SizedBox(
-            height: 250.h,
-            child: SizedBox(), //DateScroller(),
+            height: 220.h,
+            child: _getChartData(),
           ),
           Obx(() {
             return Expanded(
@@ -206,7 +215,7 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              Text('${double.parse(item.orderAmount).toStringAsFixed(4)} SOL', style: TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp))
+              Text('${double.parse(item.orderAmount)} SOL', style: TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp))
             ],
           ),
           Row(
@@ -275,142 +284,152 @@ class _EarnViewState extends State<EarnView> with TickerProviderStateMixin {
           )
         ],
       )
-    );
-              
+    );              
   }
 
   Widget _getOrderLogItem(OrderLogModel item) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.w),
-            color: AppColors.cardBackground),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(children: [
-              (item.type) > 1
-                  ? AppImage.asset('earn/dividend.png', width: 50.w)
-                  : AppImage.asset('earn/burn_gains.png', width: 50.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.w),
+          color: AppColors.cardBackground),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(children: [
+            (item.type) > 1
+                ? AppImage.asset('earn/dividend.png', width: 50.w)
+                : AppImage.asset('earn/burn_gains.png', width: 50.w),
+            Gap(10.w),
+            Text(appService.getTrans((item.type) > 1 ? "Dividend" : "Burn"),
+                style:
+                    TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp))
+          ]),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text('+${double.parse(item.outAmount).toString()} USDT',
+                    style: TextStyle(
+                        color: AppColors.fontMenu3, fontSize: 18.sp)),
+                Gap(5.h),
+                Text(AppDateUtil.YMdhms(item.createdAt??0),
+                    style: TextStyle(
+                        color: AppColors.fontSecondary, fontSize: 18.sp))
+              ])
+        ],
+      )
+    );
+  }
+
+  Widget _getChartData() {    
+    return Obx(()=>Container(
+      alignment: Alignment.center,
+      width: Get.width,
+      height: 250.h,
+      child: Stack(
+        children: [   
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 50.w,
+                alignment: Alignment.topCenter,                
+                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 36.h),
+                child: GestureDetector(
+                  onTap: (){
+                    controller.getEarnDates(isWeekDates: false);
+                    controller.getChartDataList(30);
+                    Future.delayed(const Duration(milliseconds: 300), (){
+                      observerController.jumpTo(index: controller.selectedDateIndex.value);
+                    });
+                  },
+                  child: Text("All", style: TextStyle(color: Colors.white, fontSize: 15.sp)),
+                )
+              ),
               Gap(10.w),
-              Text(appService.getTrans((item.type) > 1 ? "Dividend" : "Burn"),
-                  style:
-                      TextStyle(color: AppColors.fontPrimary, fontSize: 18.sp))
-            ]),
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('+${item.outAmount} USDT',
-                      style: TextStyle(
-                          color: AppColors.fontMenu3, fontSize: 18.sp)),
-                  Gap(5.h),
-                  Text(AppDateUtil.YMdhms(item.createdAt),
-                      style: TextStyle(
-                          color: AppColors.fontSecondary, fontSize: 18.sp))
-                ])
-          ],
-        ));
+              Expanded(
+                child: controller.dates.length<8?
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: _getListDates(),
+                ):
+                ListViewObserver(
+                  controller: observerController,
+                  onObserve: (resultModel) {
+                    setState(() {
+                      controller.setCurDateIndexes(resultModel.displayingChildIndexList);
+                      controller.getChartData();
+                    });
+                  },
+                  child: ListView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    children: _getListDates(),
+                  )
+                )
+              )
+            ]
+          ),
+          Positioned(
+            top: 55.h,
+            child: Container(
+              padding: EdgeInsets.only(top: 10.h, left: 60.w, right: 50.w, bottom: 15.h),
+              width: Get.width,
+              height: 155.h,              
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [controller.lineChartBarData.value],
+                  gridData: const FlGridData(show:false),
+                  titlesData: const FlTitlesData(show: false),
+                  borderData: FlBorderData(show: false),                  
+                ),
+              ),
+            )
+          )
+        ]
+      )
+    ));
+  }
+
+  List<Widget> _getListDates() {
+    return List.generate(controller.dates.length, (index) {
+      String date = controller.dates[index];
+      return GestureDetector(
+        onTap: (){                        
+          setState(() {
+            controller.selectedDateIndex.value = index;
+          });
+        },
+        child: Container(
+          alignment: Alignment.topCenter,
+          width: 50.w,
+          margin: EdgeInsets.symmetric(horizontal: 5.w),
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(25.w)),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [controller.selectedDateIndex.value==index? const Color(0xff262557): Colors.transparent, Colors.transparent,],
+            ),
+          ),
+          child: Column(
+            children: [
+              controller.selectedDateIndex.value==index? 
+              Text(appService.getTrans(AppDateUtil.getMonth(date)), 
+                style: TextStyle(color: Colors.white, fontSize: 15.sp)
+              )
+              :Gap(23.h),
+              Gap(5.h),
+              Text('${AppDateUtil.getDay(date)}', 
+                style: TextStyle(color: Colors.white, fontSize: 15.sp)
+              )
+            ],
+          )
+        )
+      );
+    });
   }
 }
-
-// class DateScroller extends StatelessWidget {
-//   final List<String> days = ["26", "27", "28", "29", "30", "31", "1"];
-//   final int selectedIndex = 3; // Assume "29" is selected
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 250,
-//       child: Column(
-//         children: [
-//           // ListView.builder(
-//           //   scrollDirection: Axis.horizontal,
-//           //   itemCount: days.length,
-//           //   itemBuilder: (context, index) {
-//           //     return Center(
-//           //       child: Container(
-//           //         margin: EdgeInsets.symmetric(horizontal: 15),
-//           //         child: Column(
-//           //           mainAxisAlignment: MainAxisAlignment.center,
-//           //           children: [
-//           //             if (index == selectedIndex)
-//           //               Text(
-//           //                 "JAN",
-//           //                 style: TextStyle(color: Colors.white, fontSize: 12),
-//           //               ),
-//           //             SizedBox(height: 5),
-//           //             CircleAvatar(
-//           //               backgroundColor: index == selectedIndex
-//           //                   ? Colors.blueAccent
-//           //                   : Colors.transparent,
-//           //               child: Text(
-//           //                 days[index],
-//           //                 style: TextStyle(
-//           //                   color: Colors.white,
-//           //                   fontSize: 16,
-//           //                 ),
-//           //               ),
-//           //             ),
-//           //           ],
-//           //         ),
-//           //       ),
-//           //     );
-//           //   },
-//           // ),
-//           // The curved line
-//           SizedBox(
-//             height: 200,
-//             child: Stack(
-//               children: [
-//                 Positioned.fill(
-//                   child: CustomPaint(
-//                     painter: CurvePainter(selectedIndex: selectedIndex),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-
-//           // The date list
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class CurvePainter extends CustomPainter {
-//   final int selectedIndex;
-
-//   CurvePainter({required this.selectedIndex});
-
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint = Paint()
-//       ..color = Colors.blueAccent
-//       ..style = PaintingStyle.stroke
-//       ..strokeWidth = 2.0;
-
-//     final path = Path();
-//     // Start point
-//     path.moveTo(0, size.height / 2);
-//     // Control points and curve drawing
-//     path.quadraticBezierTo(size.width * 0.25, size.height * 0.8,
-//         size.width * 0.5, size.height * 0.5);
-//     path.quadraticBezierTo(
-//         size.width * 0.75, size.height * 0.2, size.width, size.height * 0.5);
-
-//     canvas.drawPath(path, paint);
-
-//     // Draw the selected point circle
-//     final circleX = (size.width / 6) * selectedIndex + size.width * 0.05;
-//     final circleY = size.height * 0.5;
-
-//     canvas.drawCircle(
-//         Offset(circleX, circleY), 8, paint..style = PaintingStyle.fill);
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) => false;
-// }

@@ -127,7 +127,7 @@ class AppToast {
       onlyOne: true,
       allowClick: false,         
       duration: const Duration(seconds: 3),
-      animationDuration: const Duration(milliseconds: 500),
+      animationDuration: const Duration(milliseconds: 800),
       wrapAnimation: (controller, cancelFunc, widget) {
         return _getTransition(controller, widget);
       },

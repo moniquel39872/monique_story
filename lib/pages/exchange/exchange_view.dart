@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kombat_flutter/app/app_service.dart';
 import 'package:kombat_flutter/model/backpack_model.dart';
 import 'package:kombat_flutter/model/exchange_model.dart';
 import 'package:kombat_flutter/pages/exchange/exchange1_controller.dart';
-import 'package:kombat_flutter/pages/exchange/model/earn_list_model.dart';
-import 'package:kombat_flutter/pages/exchange/widgets/earn_list_item_widget.dart';
-import 'package:kombat_flutter/pages/earn/widgets/earn_list_item_widget.dart';
 import 'package:kombat_flutter/theme/app_colors.dart';
 import 'package:kombat_flutter/utils/app_icons.dart';
 import 'package:kombat_flutter/utils/app_image.dart';
@@ -18,7 +14,6 @@ import 'package:kombat_flutter/widget/app_bottomsheet_widget.dart';
 import 'package:kombat_flutter/widget/app_common_dialog.dart';
 import 'package:kombat_flutter/widget/app_toast.dart';
 import 'package:kombat_flutter/widget/first_animator_widget.dart';
-import 'package:kombat_flutter/widget/wave_widget.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class ExchangeView extends StatefulWidget {
@@ -48,6 +43,7 @@ class _ExchangeViewState extends State<ExchangeView> {
     });
 
     controller.getExchanges();
+    _isSent.value = false;    
   }
 
   @override
@@ -217,13 +213,14 @@ class _ExchangeViewState extends State<ExchangeView> {
                     msg: 'You will exchange ${AppUtils.intToStrWithComma(item.price)} to your backpack.',
                     cancelLabel: 'Later',
                     onOk: () async {
+                      Navigator.pop(context);
                       bool result = await controller.exchangeTrade(item.id, item.price);
                       if(result) {
-                        _isSent.value=true;                        
+                        _isSent.value=true;     
+                        Future.delayed(const Duration(milliseconds: 3500), ()=>_isSent.value=false);
                       } else {
                         AppToast.showError(msg: appService.getTrans('Request Failed'));
-                      }
-                      Navigator.pop(context);
+                      }                      
                     },
                     onCancel: ()=>Navigator.pop(context),
                   )
@@ -242,10 +239,28 @@ class _ExchangeViewState extends State<ExchangeView> {
   }
 
   Widget _getBackpackItem(BackpackModel item) {
+    //status 状态:-0禁用，1可用，2已提现，3申请中，4处理中，5异常
     String button = 'Withdrawal';
-    if(item.status==2){
-      button = 'Completed';
-    } 
+    switch(item.status) {
+      case 0:
+      button = 'Disabled';
+      break;
+      case 1:
+      button = 'Withdrawal';
+      break;
+      case 2:
+      button = 'Withdrawn';
+      break;
+      case 3:
+      button = 'Applying';
+      break;
+      case 4:
+      button = 'Processing';
+      break;
+      case 5:
+      button = 'Abnormal';
+      break;
+    }
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.w),
@@ -282,7 +297,7 @@ class _ExchangeViewState extends State<ExchangeView> {
   }
   
   void _openBottomSheet(BackpackModel item) {
-    textEditingController1.text="";
+    textEditingController1.text = appService.walletAddress;
     textEditingController2.text="";
     Get.bottomSheet(
       AppBottomsheetWidget(
@@ -350,6 +365,7 @@ class _ExchangeViewState extends State<ExchangeView> {
                   bool result = await controller.withdrawal(item.id, address);
                   if(result) {
                     AppToast.showSuccess(msg: appService.getTrans('Successfully sent'));
+                    Future.delayed(const Duration(seconds: 1), ()=>controller.getBackpack());
                   } else {
                     AppToast.showError(msg: appService.getTrans('Operation Failed'));
                   }

@@ -136,6 +136,7 @@ class MineViewController extends GetxController {
     NetBaseEntity<String> data = await appService.httpClient.completeSigninTask();
     AppToast.dismiss();
     if(data.code==200 && data.data=='success') {
+      appService.getMineInfo();
       return true;
     } else {
       return false;

@@ -63,6 +63,9 @@ dependencies:
   flutter_styled_toast: ^2.2.1
   bot_toast: ^4.1.0
   carousel_slider: ^4.2.1
+  vibration: ^1.8.4
+  fl_chart: ^0.69.0
+  scrollview_observer: ^1.21.0
 
 dev_dependencies:
   flutter_native_splash: ^2.4.1

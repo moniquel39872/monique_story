@@ -1,6 +1,8 @@
 // ignore_for_file: type_literal_in_constant_pattern, unreachable_switch_case
 
 import 'package:kombat_flutter/model/add_gold_model.dart';
+import 'package:kombat_flutter/model/backpack_model.dart';
+import 'package:kombat_flutter/model/chart_data_model.dart';
 import 'package:kombat_flutter/model/daily_task_model.dart';
 import 'package:kombat_flutter/model/exchange_model.dart';
 import 'package:kombat_flutter/model/friend_model.dart';
@@ -155,6 +157,10 @@ class FlutterJsonBeanFactory<T> {
         return PrizeModel.fromJson(json);      
       case SigninHistoryModel:
         return SigninHistoryModel.fromJson(json);      
+      case BackpackModel:
+        return BackpackModel.fromJson(json);      
+      case ChartDataModel:
+        return ChartDataModel.fromJson(json);      
       default:
         return json;
     }

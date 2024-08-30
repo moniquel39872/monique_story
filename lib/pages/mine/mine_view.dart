@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_popup_card/flutter_popup_card.dart';
@@ -53,12 +52,14 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
   bool _isFirstLoad = true;
   List<Widget> _morseCodes = [];
 
-  void _startSingleAnim({TapDownDetails? tapDownDetails, LongPressEndDetails? longPressEndDetails}) {
-    HapticFeedback.heavyImpact();
+  void _startSingleAnim({TapDownDetails? tapDownDetails, LongPressEndDetails? longPressEndDetails, bool? isVibration=true}) {
+    if(isVibration == true){
+      appService.vibrate();
+    }
+
     bool isLongPress = false;
     _startScore = appService.getCurrentGolds();    
     _endScore = _startScore + _stepCoins;  
-    // appService.mineInfoModel.value?.gold = _endScore;
     appService.dailyGolds.value-= _stepCoins;
     _isMultiCoins.value = false;    
     if(tapDownDetails!=null){
@@ -72,11 +73,11 @@ class MineViewState extends State<MineView> with TickerProviderStateMixin  {
     setState(() {});    
   }
 
-  void _startMultiSingleAnim(List<TapDownDetails> tapDetails) {
-    HapticFeedback.heavyImpact();
+  void _startMultiSingleAnim(List<TapDownDetails> tapDetails) {    
+    appService.vibrate();
     for(int i=0;i<tapDetails.length;i++){
       TapDownDetails details=tapDetails[i];
-      _startSingleAnim(tapDownDetails: details);
+      _startSingleAnim(tapDownDetails: details, isVibration: false);
     }
   }
 

@@ -9,8 +9,8 @@ class BackpackModel {
   String amount;
   String? address;
   String? txHash;
-  String createdAt;
-  String? updatedAt;
+  int createdAt;
+  int? updatedAt;
   int status; //状态:-1禁用，1可用，2已提现，3申请中，4处理中，5异常
 
   BackpackModel({

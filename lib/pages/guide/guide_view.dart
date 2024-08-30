@@ -26,6 +26,7 @@ class GuideView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primary,
       body: Container(
         alignment: Alignment.center,
         width: Get.width, height: Get.height,
@@ -167,7 +168,7 @@ class GuideView extends StatelessWidget {
                 } else {
                   appService.showGuide.value = false;
                   appService.setHotlineData();
-                  AppNavigator.toNamed(homePath);
+                  AppNavigator.offAllNamed(homePath);
                 }
               },
               child: Container(

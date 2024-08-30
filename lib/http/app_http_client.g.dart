@@ -319,6 +319,45 @@ class _AppHttpClient implements AppHttpClient {
   }
 
   @override
+  Future<NetBaseListEntity<ChartDataModel>> getChartData(
+    int type,
+    int days,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'type': type,
+      'days': days,
+    };
+    final _options = _setStreamType<NetBaseListEntity<ChartDataModel>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/User/incomeCharts',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late NetBaseListEntity<ChartDataModel> _value;
+    try {
+      _value = NetBaseListEntity<ChartDataModel>.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<NetBaseEntity<RechargeModel>> recharge() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
